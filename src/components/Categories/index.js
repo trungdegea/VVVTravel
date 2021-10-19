@@ -140,7 +140,7 @@ const Categories = () => {
         onScroll={changeDot}
       ></FlatList>
       <SafeAreaView style={styles.dotContainer}>
-        {categorySlider &&
+        {(categorySlider && categorySlider.length > 1) &&
           categorySlider.map((_, index) => (
             <SafeAreaView style={activeDot === index ? styles.dot_active : styles.dot} key={index}></SafeAreaView>
           ))}
