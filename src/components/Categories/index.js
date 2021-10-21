@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { SafeAreaView, Text, FlatList, Dimensions } from "react-native";
 
 // styles
@@ -9,7 +9,6 @@ import Category from "./Category";
 
 // utilities
 import { splitToSubArrays } from "../../utilities";
-import { useCallback } from "react";
 
 // fake data
 const data = [
