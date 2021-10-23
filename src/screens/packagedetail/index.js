@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { SafeAreaView, ScrollView, StyleSheet, Text } from "react-native";
+import PackageInfo from "../../components/PackageInfo";
 import Slider from "../../components/Slider";
 // import { SliderBox } from "react-native-image-slider-box";
 
@@ -23,9 +24,10 @@ export default function Packagedetail() {
     },
   ]);
   return (
-    <SafeAreaView style={styles.container}>
+    <ScrollView style={styles.container}>
       <Slider images={images} />
-    </SafeAreaView>
+      <PackageInfo />
+    </ScrollView>
   );
 }
 

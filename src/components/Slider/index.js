@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import {
   Dimensions,
   Image,
+  SafeAreaView,
   ScrollView,
   StyleSheet,
   Text,
@@ -9,6 +10,9 @@ import {
 } from "react-native";
 
 const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+  },
   wrap: {
     width: Dimensions.get("window").width,
     height: Dimensions.get("window").height * 0.25,
@@ -41,7 +45,7 @@ export default function Slider({ images }) {
     }
   };
   return (
-    <>
+    <SafeAreaView style={styles.container}>
       <ScrollView
         horizontal
         showsHorizontalScrollIndicator={false}
@@ -70,6 +74,6 @@ export default function Slider({ images }) {
           </Text>
         ))}
       </View>
-    </>
+    </SafeAreaView>
   );
 }

@@ -15,6 +15,7 @@ import Deals from "../../screens/deals";
 import Wishes from "../../screens/wishes";
 import Booking from "../../screens/booking";
 import Account from "../../screens/account";
+import HomeStack from "../homestack";
 
 const Tab = createBottomTabNavigator();
 
@@ -42,7 +43,7 @@ const Root = () => {
     <Tab.Navigator screenOptions={tabBarOption}>
       <Tab.Screen
         name="Explore"
-        component={Home}
+        component={HomeStack}
         options={{
           tabBarIcon: ({ color, focused }) => {
             return createIcon("map", color, focused);
