@@ -1,5 +1,11 @@
 import React from "react";
-import { View, Text, ScrollView, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
+} from "react-native";
 
 // styles
 import { style as globalStyle } from "../../styles/index";
@@ -12,7 +18,7 @@ import Title from "../../components/Title";
 import ThingsToDo from "../../components/ThingsToDo";
 import Destinations from "../../components/Destinations";
 
-const Home = () => {
+const Home = ({ navigation }) => {
   return (
     <>
       <ScrollView
@@ -56,6 +62,13 @@ const Home = () => {
         </View>
 
         <View style={globalStyle.gap_sm}></View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("package", { msg: "From Screen Home" })
+          }
+        >
+          <Text>Click Me!</Text>
+        </TouchableOpacity>
       </ScrollView>
     </>
   );
