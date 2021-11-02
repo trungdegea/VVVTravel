@@ -3,12 +3,12 @@ import { StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     marginTop: -5,
-    paddingLeft: 5,
     paddingVertical: 20,
+    paddingHorizontal: 15,
     backgroundColor: "white",
-    borderRadius: 24,
+    borderTopRightRadius: 24,
+    borderTopLeftRadius: 24,
     flex: 1,
-    flexWrap: "wrap",
   },
   packagename: {
     fontWeight: "bold",
@@ -18,24 +18,54 @@ export const styles = StyleSheet.create({
     flex: 1,
     flexDirection: "row",
     flexWrap: "wrap",
-    marginTop: 10,
+    paddingTop: 10,
+    paddingBottom: 10,
     alignItems: "center",
   },
   overrate_child: {
     flex: 1,
     flexDirection: "row",
+    alignItems: "center",
   },
   voucher: {
     backgroundColor: "#ffe4c4",
+    marginLeft: 5,
+    marginBottom: 5,
     flex: 1,
     flexDirection: "row",
-    flexWrap: "wrap",
     alignItems: "center",
     justifyContent: "center",
     height: "auto",
   },
   voucher_info: {
-    padding: 10,
     flex: 1,
+    padding: 10,
+    flexWrap: "wrap",
+  },
+  rules: {
+    padding: 5,
+    margin: 20,
+    borderBottomColor: "gray",
+    borderBottomWidth: 1,
+    borderTopColor: "gray",
+    borderTopWidth: 1,
+  },
+  rules_info: {
+    flex: 1,
+    flexDirection: "row",
+    margin: 5,
+    alignItems: "center",
+  },
+  rules_name: {
+    paddingLeft: 10,
+  },
+  benefit: {
+    flex: 1,
+  },
+  benefit_info: {
+    flex: 1,
+    flexDirection: "row",
+    fontSize: 20,
+    paddingVertical: 5,
   },
 });
