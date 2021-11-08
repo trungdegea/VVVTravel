@@ -40,7 +40,7 @@ const Root = () => {
   };
 
   return (
-    <Tab.Navigator screenOptions={tabBarOption}>
+    <Tab.Navigator screenOptions={{ ...tabBarOption, header: () => {} }}>
       <Tab.Screen
         name="Explore"
         component={HomeStack}

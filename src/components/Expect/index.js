@@ -19,9 +19,8 @@ export default function Expect({ images }) {
           </Text>
 
           {images.map((image) => (
-            <View style={styles.decription_image}>
+            <View style={styles.decription_image} key={image.id}>
               <Image
-                key={image.id}
                 source={{
                   uri: image.url,
                 }}

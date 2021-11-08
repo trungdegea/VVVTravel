@@ -68,8 +68,8 @@ const Destinations = () => {
       <SafeAreaView style={styles.locationGroup}>
         {item &&
           item.map((loc, index) => (
-            <SafeAreaView style={styles.location}>
-              <Location image={loc.thumbnail} name={loc.name} key={index} />
+            <SafeAreaView style={styles.location} key={index}>
+              <Location image={loc.thumbnail} name={loc.name} />
             </SafeAreaView>
           ))}
       </SafeAreaView>
