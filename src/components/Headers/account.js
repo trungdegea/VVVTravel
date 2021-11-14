@@ -19,7 +19,7 @@ const HeaderAccount = () => {
         </SafeAreaView>
         <Text style={styles.username}>Phạm Anh Tú</Text>
         <SafeAreaView style={styles.infoBtn}>
-          <Text style={styles.infoLink}>Manage your info</Text>
+          <Text style={styles.infoLink}>Manage my info</Text>
           <Entypo name="chevron-small-right" size={12} color="white" />
         </SafeAreaView>
       </TouchableOpacity>

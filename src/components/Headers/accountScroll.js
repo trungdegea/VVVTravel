@@ -1,16 +1,18 @@
 import React from "react";
 import { StyleSheet, Text, SafeAreaView, Animated, TouchableOpacity } from "react-native";
 import { Feather } from "@expo/vector-icons";
+const AnimatedIcon = Animated.createAnimatedComponent(Feather);
 
 
-const HeaderAccountScroll = ({ bgColor, color }) => {
+const HeaderAccountScroll = ({ bgColor, color, opacity }) => {
   return (
-    <Animated.View
-      style={[styles.headerContainer, { backgroundColor: bgColor }]}
-    >
-      <SafeAreaView style={styles.topNav}>
-        <Feather name="mail" size={20} color={color} />
-        <Feather name="hexagon" size={20} color={color} />
+    <Animated.View style={[styles.headerContainer, {backgroundColor: bgColor}]}>
+      <SafeAreaView style={[styles.topNav]}>
+        <AnimatedIcon style={[{color: color}]} size={20} name={"mail"} />
+        <Animated.Text style={[styles.title, {opacity: opacity, color: color}]}>
+          Manage my info
+        </Animated.Text>
+        <AnimatedIcon style={[{color: color}]} size={20} name={"hexagon"} />
       </SafeAreaView>
     </Animated.View>
   );
@@ -27,11 +29,18 @@ const styles = StyleSheet.create({
     overflow: "hidden",
     height: 70,
     paddingHorizontal: 15,
-    paddingVertical: 20,
+    paddingVertical: 30,
   },
   topNav: {
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+  },
+  title: {
+    fontSize: 16,
+    fontWeight: "bold",
+  },
+  icon: {
+    
   }
 });
