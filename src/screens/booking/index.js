@@ -10,15 +10,13 @@ import {
 } from "react-native";
 import HeaderBooking from "../../components/Headers/booking";
 import HeaderBookingScroll from "../../components/Headers/bookingScroll";
-import { Ionicons } from "@expo/vector-icons";
-import { Theme, Images } from "../../constants";
 import { styles } from "./style";
 import BlankBooking from "../../components/Blank/booking";
+import CartItem from "../../components/CartItem";
 
 const HEADER_MIN_HEIGHT = 80;
 const HEADER_MAX_HEIGHT = 150;
 const HEADER_SCROLL_OFFSET = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
-const windowWidth = Dimensions.get("window").width;
 
 const Booking = () => {
   const [scrollOffsetY, setScrollOffsetY] = useState(new Animated.Value(0));
@@ -48,6 +46,8 @@ const Booking = () => {
         <HeaderBooking />
         
         <BlankBooking/>
+
+        <CartItem/>
       </ScrollView>
 
       {/* header */}
