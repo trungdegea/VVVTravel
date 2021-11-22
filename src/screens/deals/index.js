@@ -1,11 +1,16 @@
 import React from "react";
-import { View, Text } from "react-native";
+import { View, Text, ScrollView } from "react-native";
+import HotDealsToday from "../../components/HotDealsToday";
+import Offers from "../../components/Offers";
+import VoucherList from "../../components/VoucherList";
 
 const Deals = () => {
   return (
-    <View>
-      <Text>Deals page</Text>
-    </View>
+    <ScrollView>
+      <VoucherList />
+      <HotDealsToday />
+      <Offers />
+    </ScrollView>
   );
 };
 

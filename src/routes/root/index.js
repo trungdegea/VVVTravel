@@ -16,6 +16,7 @@ import Wishes from "../../screens/wishes";
 import Booking from "../../screens/booking";
 import Account from "../../screens/account";
 import HomeStack from "../homestack";
+import DealStack from "../dealstack";
 
 const Tab = createBottomTabNavigator();
 
@@ -58,7 +59,7 @@ const Root = () => {
       />
       <Tab.Screen
         name="Deals"
-        component={Deals}
+        component={DealStack}
         options={{
           tabBarIcon: ({ color, focused }) => {
             return createIcon("airplane", color, focused);
