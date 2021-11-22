@@ -3,41 +3,28 @@ import { Dimensions, StyleSheet } from "react-native";
 export const styles = StyleSheet.create({
   container: {
     flex: 1,
+    marginHorizontal: 10,
   },
-  header_name: {
-    margin: 20,
-    fontSize: 30,
+  header: {
+    marginVertical: 10,
+  },
+  title: {
+    fontSize: 20,
     fontWeight: "bold",
   },
-  option: {
-    flexDirection: "row",
+  decription: {
+    marginVertical: 5,
+  },
+  content: {
+    backgroundColor: "orange",
     paddingHorizontal: 10,
-  },
-  option_choose: {
-    paddingHorizontal: 10,
-    fontSize: 15,
-  },
-  option_choose_active: {
-    paddingHorizontal: 10,
-    fontSize: 15,
-
-    borderBottomWidth: 1,
-    borderBottomColor: "orange",
-  },
-  option_name: {
-    fontSize: 15,
-    paddingHorizontal: 5,
-    paddingVertical: 5,
-  },
-  option_active: {
-    color: "orange",
+    paddingVertical: 10,
   },
   tour: {
     backgroundColor: "#fff",
     borderRadius: 10,
     paddingVertical: 10,
-    paddingHorizontal: 5,
-    margin: 10,
+    flex: 1,
     flexDirection: "row",
     marginVertical: 5,
   },
@@ -56,8 +43,6 @@ export const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "bold",
-    overflow: "hidden",
-    width: Dimensions.get("window").width * 0.6,
   },
   price: {
     color: "gray",
@@ -68,7 +53,12 @@ export const styles = StyleSheet.create({
     textAlignVertical: "center",
     alignItems: "center",
   },
-
+  pricevoucher: {
+    color: "red",
+    fontSize: 12,
+    textDecorationLine: "underline",
+    marginRight: 5,
+  },
   btnbook: {
     backgroundColor: "orange",
     borderRadius: 10,
