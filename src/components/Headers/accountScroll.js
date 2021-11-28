@@ -27,9 +27,9 @@ const styles = StyleSheet.create({
     top: 0,
     left: 0,
     overflow: "hidden",
-    height: 70,
+    height: 60,
     paddingHorizontal: 15,
-    paddingVertical: 30,
+    justifyContent: "center",
   },
   topNav: {
     flexDirection: "row",
@@ -40,7 +40,5 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "bold",
   },
-  icon: {
-    
-  }
+  icon: {},
 });

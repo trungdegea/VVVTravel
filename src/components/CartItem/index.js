@@ -2,7 +2,7 @@ import React from "react";
 import { StyleSheet, Text, SafeAreaView, Image, TouchableOpacity } from "react-native";
 import { Theme } from "../../constants";
 
-const CartItem = () => {
+const CartItem = ({canChange}) => {
   return (
     <SafeAreaView style={styles.itemContainer}>
       <TouchableOpacity style={styles.item}>
@@ -15,13 +15,18 @@ const CartItem = () => {
           </SafeAreaView>
         </SafeAreaView>
       </TouchableOpacity>
-      <SafeAreaView style={[styles.myFlex, {justifyContent: "flex-end"}]}>
-        <TouchableOpacity style={styles.delBtn}>
-          <Text>Modify</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.delBtn}>
-          <Text>Delete</Text>
-        </TouchableOpacity>
+      <SafeAreaView style={[styles.myFlex, {justifyContent: "space-between"}]}>
+        <Text >20/11/2021</Text>
+        <SafeAreaView style={styles.myFlex}>
+          {canChange && (
+            <TouchableOpacity style={styles.delBtn}>
+            <Text>Modify</Text>
+          </TouchableOpacity>
+          )}
+          <TouchableOpacity style={styles.delBtn}>
+            <Text>Delete</Text>
+          </TouchableOpacity>
+        </SafeAreaView>
       </SafeAreaView>
     </SafeAreaView>
   );

@@ -8,17 +8,17 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import HeaderBooking from "../../components/Headers/booking";
-import HeaderBookingScroll from "../../components/Headers/bookingScroll";
+import CartHeader from "../../components/Headers/cart";
 import { styles } from "./style";
-import BlankBooking from "../../components/Blank/booking";
+import BlankCart from "../../components/Blank/cart";
 import CartItem from "../../components/CartItem";
+import CartFooter from "../../components/Footers/cart";
 
 const HEADER_MIN_HEIGHT = 80;
 const HEADER_MAX_HEIGHT = 150;
 const HEADER_SCROLL_OFFSET = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
-const Booking = ({navigation}) => {
+const Cart = ({ navigation }) => {
   const [scrollOffsetY, setScrollOffsetY] = useState(new Animated.Value(0));
 
   // get value on scrolling
@@ -34,6 +34,9 @@ const Booking = ({navigation}) => {
   });
   return (
     <SafeAreaView>
+      {/* header top */}
+      <CartHeader navigation={navigation} />
+
       {/* body */}
       <ScrollView
         showsVerticalScrollIndicator={false}
@@ -41,23 +44,17 @@ const Booking = ({navigation}) => {
           [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
           { useNativeDriver: false }
         )}
+        style={[{ paddingTop: 80 }]}
       >
-        {/* header top */}
-        <HeaderBooking navigation={navigation} />
+        <BlankCart />
 
-        <BlankBooking />
-
-        <CartItem />
+        <CartItem canChange />
       </ScrollView>
 
-      {/* header */}
-      <HeaderBookingScroll
-        top={top}
-        opacity={opacity}
-        navigation={navigation}
-      />
+      {/* footer */}
+      <CartFooter/>
     </SafeAreaView>
   );
 };
 
-export default Booking;
+export default Cart;

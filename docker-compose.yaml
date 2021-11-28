@@ -1,0 +1,16 @@
+version: "3.3"
+
+services: 
+  mobile: 
+    image: mobile-vvvtravel
+    build:
+      context: .
+    volumes: 
+      - .:/app
+    restart: always
+    ports: 
+      - 19000:19000
+      - 19001:19001
+      - 19002:19002
+    command: "yarn start:server"
+    

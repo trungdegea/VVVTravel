@@ -10,25 +10,28 @@ import {
 import { Theme, Images } from "../../constants";
 import { Ionicons } from "@expo/vector-icons";
 
-const HeaderSetting = () => {
+const HeaderBooking = ({navigation}) => {
+  const goToCart = () => {
+    navigation.navigate("Cart", { data: "this is how to pass data" });
+  };
   return (
     <SafeAreaView style={[styles.headerContainer]}>
       <Text style={[styles.heading]}>Bookings</Text>
-      <TouchableOpacity>
+      <TouchableOpacity onPress={goToCart} style={[styles.goToCart]}>
         <Ionicons name="cart-outline" color={Theme.COLORS.BLACK} size={20}></Ionicons>
       </TouchableOpacity>
     </SafeAreaView>
   );
 };
 
-export default HeaderSetting;
+export default HeaderBooking;
 
 const styles = StyleSheet.create({
   headerContainer: {
     width: "100%",
     overflow: "hidden",
-    height: 100,
-    padding: 20,
+    height: 80,
+    padding: 15,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
@@ -36,6 +39,12 @@ const styles = StyleSheet.create({
   heading: {
     fontSize: 24,
     fontWeight: "bold",
-  }
+  },
+  goToCart: {
+    width: 28,
+    height: 28,
+    alignItems: "center",
+    justifyContent: "center",
+  },
   
 });

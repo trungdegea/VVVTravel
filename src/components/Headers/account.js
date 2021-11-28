@@ -33,7 +33,7 @@ const styles = StyleSheet.create({
   headerContainer: {
     width: "100%",
     overflow: "hidden",
-    height: 200,
+    height: 180,
     backgroundColor: Theme.COLORS.PRIMARY,
     padding: 20,
     display: "flex",

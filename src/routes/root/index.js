@@ -10,13 +10,11 @@ import { tabBarOption } from "./option";
 import CustomedHeader from "../../shared/header";
 
 // screens
-import Home from "../../screens/home";
-import Deals from "../../screens/deals";
 import Wishes from "../../screens/wishes";
-import Booking from "../../screens/booking";
 import Account from "../../screens/account";
 import HomeStack from "../homestack";
 import DealStack from "../dealstack";
+import BookingStack from "../bookingStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -82,10 +80,10 @@ const Root = () => {
         }}
       />
       <Tab.Screen
-        name="Booking"
-        component={Booking}
+        name="BookingStack"
+        component={BookingStack}
         options={{
-          title: "Booking",
+          title: "BookingStack",
           tabBarIcon: ({ color, focused }) => {
             return createIcon("newspaper", color, focused);
           },
