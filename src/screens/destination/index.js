@@ -17,23 +17,13 @@ import AwesomeDeals from "../../components/AwesomeDeals";
 import Title from "../../components/Title";
 import ThingsToDo from "../../components/ThingsToDo";
 import Destinations from "../../components/Destinations";
-import HeaderHome from "../../components/Headers/home";
 
 const Home = ({ navigation }) => {
   return (
     <>
-      {/* header */}
-      <HeaderHome navigation={navigation} />
-
-      {/* body */}
       <ScrollView
         showsHorizontalScrollIndicator={false}
         showsVerticalScrollIndicator={false}
-        style={[
-          {
-            paddingTop: 70,
-          },
-        ]}
       >
         {/* Categories */}
         <View style={globalStyle.gap_sm}></View>
@@ -71,8 +61,14 @@ const Home = ({ navigation }) => {
           <Destinations />
         </View>
 
-        <View style={globalStyle.gap_lg}></View>
-        <View style={globalStyle.gap_lg}></View>
+        <View style={globalStyle.gap_sm}></View>
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate("package", { msg: "From Screen Home" })
+          }
+        >
+          <Text>Click Me!</Text>
+        </TouchableOpacity>
       </ScrollView>
     </>
   );
