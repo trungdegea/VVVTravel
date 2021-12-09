@@ -1,0 +1,10 @@
+version: "3.3"
+
+services: 
+  backend:
+    image: strapi/strapi:3.6.8-node14-alpine
+    ports: 
+      - 1338:1338
+    restart: on-failure
+    volumes: 
+      - ./backend:/srv/app
