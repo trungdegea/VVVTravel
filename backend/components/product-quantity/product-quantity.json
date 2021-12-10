@@ -1,0 +1,16 @@
+{
+  "collectionName": "components_product_quantity_product_quantities",
+  "info": {
+    "name": "ProductQuantity",
+    "icon": "dolly-flatbed"
+  },
+  "options": { "autoIndex": false },
+  "attributes": {
+    "product": {
+      "model": "product"
+    },
+    "quantity": {
+      "type": "integer"
+    }
+  }
+}

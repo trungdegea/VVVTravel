@@ -1,0 +1,36 @@
+{
+  "kind": "collectionType",
+  "collectionName": "Orders",
+  "info": {
+    "name": "order"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "booking",
+        "booked",
+        "enjoying",
+        "enjoyed",
+        "refunded",
+        "cancelled"
+      ]
+    },
+    "items": {
+      "type": "component",
+      "repeatable": true,
+      "component": "product-quantity.product-quantity",
+      "required": true
+    }
+  }
+}

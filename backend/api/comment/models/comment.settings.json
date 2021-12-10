@@ -1,0 +1,22 @@
+{
+  "kind": "collectionType",
+  "collectionName": "Comments",
+  "info": {
+    "name": "comment"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "message": {
+      "type": "string",
+      "required": true
+    },
+    "product": {
+      "model": "product"
+    }
+  }
+}
