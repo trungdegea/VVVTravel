@@ -77,7 +77,7 @@ export default function PackageInfo() {
           </View>
           <View style={styles.rules_info}>
             <FontAwesome5 name="globe-americas" size={24} color="black" />
-            <Text style={styles.rules_name}>Englishh</Text>
+            <Text style={styles.rules_name}>English</Text>
           </View>
         </View>
 
