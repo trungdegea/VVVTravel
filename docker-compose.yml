@@ -8,3 +8,4 @@ services:
     restart: on-failure
     volumes: 
       - ./backend:/srv/app
+      - ./db:/srv/db

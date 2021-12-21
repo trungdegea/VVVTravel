@@ -8,4 +8,5 @@ services:
     restart: on-failure
     volumes: 
       - ./backend:/srv/app
+      - ./db:/srv/db
     command: sh -c "yarn && yarn start"
