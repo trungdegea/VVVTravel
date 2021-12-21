@@ -45,6 +45,7 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
+    height: undefined,
     aspectRatio: 4 / 3,
   },
   rating: {
@@ -63,7 +64,7 @@ const styles = StyleSheet.create({
   },
   location: {
     paddingHorizontal: 7,
-    opacity: .5
+    opacity: 0.5,
   },
   price: {
     fontWeight: "bold",

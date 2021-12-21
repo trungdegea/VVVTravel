@@ -100,11 +100,17 @@ export default function HotDealsToday() {
       </View>
       <SafeAreaView style={styles.content}>
         <Text>Ends in 1 day 18 : 55 : 42</Text>
-        <FlatList
-          data={data}
-          renderItem={renderItem}
-          keyExtractor={(item) => item.id}
-        />
+        {data?.length &&
+          data.map((item, index) => (
+            <Tour
+              image={item.img}
+              location={item.location}
+              title={item.package}
+              price={item.price}
+              voucher={item.voucher}
+              key={item.id}
+            />
+          ))}
       </SafeAreaView>
     </SafeAreaView>
   );

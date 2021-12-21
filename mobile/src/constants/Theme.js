@@ -29,5 +29,6 @@ export default {
     BORDER: "#CAD1D7",
     WHITE: "#FFFFFF",
     BLACK: "#444",
+    BG_PRIMARY: "rgba(255, 122, 0, .1)",
   },
 };

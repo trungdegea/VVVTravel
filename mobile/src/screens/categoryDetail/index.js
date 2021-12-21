@@ -1,9 +1,5 @@
 import React, { useState } from "react";
-import {
-  View,
-  ScrollView,
-  Animated
-} from "react-native";
+import { View, ScrollView, Animated } from "react-native";
 
 // styles
 import { style as globalStyle } from "../../styles/index";
@@ -18,12 +14,13 @@ import Destinations from "../../components/Destinations";
 import HeaderLocation from "../../components/Headers/location";
 import Slider from "../../components/Slider";
 import { Theme } from "../../constants";
+import ProductsInCate from "../../components/ProductsInCate";
 
 const HEADER_SCROLL_OFFSET = 70;
 
-const LocationDetail = ({ navigation }) => {
-
+const CategoryDetail = ({ route, navigation }) => {
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
+
 
   // fake data
   const [images, setImages] = useState([
@@ -48,53 +45,6 @@ const LocationDetail = ({ navigation }) => {
       decription: "dicription bla bla bla bla 3",
     },
   ]);
-  const destinations = [
-    {
-      id: "0",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "1",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "2",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "3",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "4",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "5",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "6",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "7",
-      name: "Kuralar Lumbur",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "8",
-      name: "HCMC",
-      thumbnail: "https://picsum.photos/400",
-    },
-  ];
   const categories = [
     {
       id: "1",
@@ -167,104 +117,89 @@ const LocationDetail = ({ navigation }) => {
       backgroundIconColor: "rgba(255, 122, 0, .1)",
     },
   ];
-  const recentViews = [
+  const item = [
     {
-      id: "1",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum qua troi luon ne asd",
-      price: "200000",
+      id: 0,
+      name: "lorem ipsum qua troi luon ne asd",
+      thumb: "https://picsum.photos/400/300",
+      price: 2000000,
+      rate: 4.2,
+      numOfRates: 20000,
     },
     {
-      id: "2",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
+      id: 1,
+      name: "lorem ipsum qua troi luon ne asd",
+      thumb: "https://picsum.photos/400/300",
+      price: 2000000,
+      rate: 4.2,
+      numOfRates: 20000,
     },
     {
-      id: "3",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
+      id: 2,
+      name: "lorem ipsum qua troi luon ne asd",
+      thumb: "https://picsum.photos/400/300",
+      price: 2000000,
+      rate: 4.2,
+      numOfRates: 20000,
     },
     {
-      id: "4",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
+      id: 3,
+      name: "lorem ipsum qua troi luon ne asd",
+      thumb: "https://picsum.photos/400/300",
+      price: 2000000,
+      rate: 4.2,
+      numOfRates: 20000,
     },
     {
-      id: "5",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
+      id: 4,
+      name: "lorem ipsum qua troi luon ne asd",
+      thumb: "https://picsum.photos/400/300",
+      price: 2000000,
+      rate: 4.2,
+      numOfRates: 20000,
     },
     {
-      id: "6",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-  ];
-  const things = [
-    {
-      id: "1",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum qua troi luon ne asd",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
+      id: 5,
+      name: "lorem ipsum qua troi luon ne asd",
+      thumb: "https://picsum.photos/400/300",
+      price: 2000000,
+      rate: 4.2,
+      numOfRates: 20000,
     },
     {
-      id: "2",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
+      id: 6,
+      name: "lorem ipsum qua troi luon ne asd",
+      thumb: "https://picsum.photos/400/300",
+      price: 2000000,
+      rate: 4.2,
+      numOfRates: 20000,
     },
     {
-      id: "3",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
-    },
-    {
-      id: "4",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
-    },
-    {
-      id: "5",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
-    },
-    {
-      id: "6",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
+      id: 7,
+      name: "lorem ipsum qua troi luon ne asd",
+      thumb: "https://picsum.photos/400/300",
+      price: 2000000,
+      rate: 4.2,
+      numOfRates: 20000,
     },
   ];
-
 
   const headerBg = scrollY.interpolate({
     inputRange: [0, 0.9 * HEADER_SCROLL_OFFSET, HEADER_SCROLL_OFFSET],
-    outputRange: ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 1)"],
+    outputRange: [
+      "rgba(255, 255, 255, 0)",
+      "rgba(255, 255, 255, 0)",
+      "rgba(255, 255, 255, 1)",
+    ],
     extrapolate: "clamp",
   });
   const color = scrollY.interpolate({
     inputRange: [0, 0.9 * HEADER_SCROLL_OFFSET, HEADER_SCROLL_OFFSET],
-    outputRange: ["rgb(255, 255, 255)", "rgb(255, 255, 255)", Theme.COLORS.BLACK],
+    outputRange: [
+      "rgb(255, 255, 255)",
+      "rgb(255, 255, 255)",
+      Theme.COLORS.BLACK,
+    ],
     extrapolate: "clamp",
   });
   const searchBgColor = scrollY.interpolate({
@@ -274,7 +209,11 @@ const LocationDetail = ({ navigation }) => {
   });
   const focusSearchBgColor = scrollY.interpolate({
     inputRange: [0, 0.9 * HEADER_SCROLL_OFFSET, HEADER_SCROLL_OFFSET],
-    outputRange: [ "rgba(40, 40, 40, .5)", "rgba(40, 40, 40, .5)", Theme.COLORS.INPUT, ],
+    outputRange: [
+      "rgba(40, 40, 40, .5)",
+      "rgba(40, 40, 40, .5)",
+      Theme.COLORS.INPUT,
+    ],
     extrapolate: "clamp",
   });
 
@@ -304,35 +243,14 @@ const LocationDetail = ({ navigation }) => {
         <View style={globalStyle.gap_sm}></View>
         <Categories data={categories} />
 
-        {/* Recently viewed */}
-        <View style={globalStyle.container}>
-          <View style={globalStyle.gap_sm}></View>
-          <Title title="Awesome deals" hasMore={true}></Title>
-          <View style={globalStyle.gap_sm}></View>
-          <AwesomeDeals />
-        </View>
+        {/* Categories */}
+        <View style={globalStyle.gap_sm}></View>
+        <ProductsInCate data={item} />
 
-        {/* Top things to do */}
-        <View style={globalStyle.container}>
-          <View style={globalStyle.gap_sm}></View>
-          <Title title="Top things to do" hasMore></Title>
-          <View style={globalStyle.gap_sm}></View>
-          <ThingsToDo data={things} />
-        </View>
-
-        {/* Other destinations */}
-        <View style={globalStyle.container}>
-          <View style={globalStyle.gap_sm}></View>
-          <Title title="Other destinations"></Title>
-          <View style={globalStyle.gap_sm}></View>
-          <Destinations data={destinations} />
-        </View>
-
-        <View style={globalStyle.gap_lg}></View>
-        <View style={globalStyle.gap_lg}></View>
+        <View style={globalStyle.gap_md}></View>
       </ScrollView>
     </>
   );
 };
 
-export default LocationDetail;
+export default CategoryDetail;

@@ -99,6 +99,7 @@ export default function Offers() {
           horizontal={true}
           data={ListOffers}
           renderItem={renderList}
+          keyExtractor={((_, index) => index.toString())}
         />
       </SafeAreaView>
 

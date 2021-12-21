@@ -6,6 +6,7 @@ import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
 import Cart from "../../screens/cart";
 import LocationDetail from "../../screens/locationDetail";
 import Checkout from "../../screens/checkout";
+import CategoryDetail from "../../screens/categoryDetail";
 
 const Stack = createNativeStackNavigator();
 const tabHiddenRoutes = [
@@ -14,6 +15,7 @@ const tabHiddenRoutes = [
   "Category",
   "Cart",
   "LocationDetail",
+  "CategoryDetail",
 ];
 
 const HomeStack = ({ navigation, route }) => {
@@ -37,6 +39,7 @@ const HomeStack = ({ navigation, route }) => {
       <Stack.Screen name="Cart" component={Cart} />
       <Stack.Screen name="Checkout" component={Checkout} />
       <Stack.Screen name="LocationDetail" component={LocationDetail} />
+      <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
     </Stack.Navigator>
   );
 };

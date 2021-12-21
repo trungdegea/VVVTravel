@@ -14,7 +14,7 @@ const DealStack = () => {
         headerTintColor: "white",
       }}
     >
-      <Stack.Screen name="Deals" component={Deals} />
+      <Stack.Screen name="DealsPage" component={Deals} />
     </Stack.Navigator>
   );
 };

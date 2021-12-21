@@ -37,7 +37,8 @@ const styles = StyleSheet.create({
   },
   image: {
     width: "100%",
-    aspectRatio: 4/3,
+    height: undefined,
+    aspectRatio: 4 / 3,
   },
   title: {
     fontWeight: "bold",
