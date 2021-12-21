@@ -1,8 +1,9 @@
 {
   "kind": "collectionType",
-  "collectionName": "Orders",
+  "collectionName": "orders",
   "info": {
-    "name": "order"
+    "name": "order",
+    "description": ""
   },
   "options": {
     "increments": true,
@@ -11,26 +12,15 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "user": {
-      "plugin": "users-permissions",
-      "model": "user"
-    },
-    "status": {
-      "type": "enumeration",
-      "enum": [
-        "booking",
-        "booked",
-        "enjoying",
-        "enjoyed",
-        "refunded",
-        "cancelled"
-      ]
-    },
     "items": {
       "type": "component",
       "repeatable": true,
-      "component": "product-quantity.product-quantity",
-      "required": true
+      "component": "cart-item.order-item"
+    },
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user",
+      "via": "order"
     }
   }
 }

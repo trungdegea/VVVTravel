@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "Locations",
+  "collectionName": "locations",
   "info": {
     "name": "location"
   },
@@ -13,8 +13,7 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true,
-      "unique": true
+      "required": true
     },
     "images": {
       "collection": "file",
@@ -27,8 +26,8 @@
       "pluginOptions": {}
     },
     "products": {
-      "via": "location",
-      "collection": "product"
+      "collection": "product",
+      "via": "location"
     }
   }
 }

@@ -52,7 +52,7 @@ const Cart = ({ navigation }) => {
       </ScrollView>
 
       {/* footer */}
-      <CartFooter/>
+      <CartFooter navigation={navigation} />
     </SafeAreaView>
   );
 };

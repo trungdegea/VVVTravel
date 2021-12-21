@@ -13,7 +13,6 @@
     "username": {
       "type": "string",
       "minLength": 3,
-      "unique": true,
       "configurable": false,
       "required": true
     },
@@ -59,15 +58,9 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "avatar": {
-      "model": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
+    "order": {
+      "via": "user",
+      "model": "order"
     },
     "cart": {
       "via": "user",

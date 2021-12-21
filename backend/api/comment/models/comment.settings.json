@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "Comments",
+  "collectionName": "comments",
   "info": {
     "name": "comment"
   },
@@ -11,12 +11,22 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "message": {
-      "type": "string",
-      "required": true
+    "user": {
+      "plugin": "users-permissions",
+      "model": "user"
     },
     "product": {
-      "model": "product"
+      "model": "product",
+      "via": "comments"
+    },
+    "rate": {
+      "type": "integer",
+      "max": 5,
+      "min": 1
+    },
+    "message": {
+      "type": "text",
+      "required": true
     }
   }
 }

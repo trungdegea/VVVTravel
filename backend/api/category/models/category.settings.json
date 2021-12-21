@@ -1,8 +1,8 @@
 {
   "kind": "collectionType",
-  "collectionName": "Category",
+  "collectionName": "categories",
   "info": {
-    "name": "Category"
+    "name": "category"
   },
   "options": {
     "increments": true,
@@ -13,7 +13,18 @@
   "attributes": {
     "name": {
       "type": "string",
-      "required": true
+      "required": true,
+      "unique": true
+    },
+    "banners": {
+      "collection": "file",
+      "via": "related",
+      "allowedTypes": [
+        "images"
+      ],
+      "plugin": "upload",
+      "required": false,
+      "pluginOptions": {}
     },
     "icon": {
       "model": "file",
@@ -32,16 +43,6 @@
     "children": {
       "via": "parent",
       "collection": "category"
-    },
-    "banners": {
-      "collection": "file",
-      "via": "related",
-      "allowedTypes": [
-        "images"
-      ],
-      "plugin": "upload",
-      "required": false,
-      "pluginOptions": {}
     },
     "products": {
       "via": "category",

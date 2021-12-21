@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "Carts",
+  "collectionName": "carts",
   "info": {
     "name": "cart",
     "description": ""
@@ -20,8 +20,7 @@
     "items": {
       "type": "component",
       "repeatable": true,
-      "component": "product-quantity.product-quantity",
-      "required": true
+      "component": "cart-item.cart-item"
     }
   }
 }

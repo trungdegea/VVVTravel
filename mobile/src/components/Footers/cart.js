@@ -1,18 +1,26 @@
 import React from "react";
-import { StyleSheet, Text, SafeAreaView, Dimensions,} from "react-native";
+import { StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
 import { Theme } from "../../constants";
 import Button from "../../shared/button";
 
-const {width, height} = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
-const CartFooter = () => {
+const CartFooter = ({ navigation }) => {
+  const gotoCheckout = () => {
+    navigation.navigate("Checkout", { data: "this is how to pass data" });
+  };
   return (
     <SafeAreaView style={[styles.footerContainer, styles.myFlex]}>
       <SafeAreaView>
         <Text style={[styles.total]}>Total (1 item)</Text>
         <Text style={[styles.price]}>₫ 11,900,200</Text>
       </SafeAreaView>
-      <Button title="Book now" bgColor={Theme.COLORS.PRIMARY} textColor="#fff" />
+      <Button
+        onPress={gotoCheckout}
+        title="Book now"
+        bgColor={Theme.COLORS.PRIMARY}
+        textColor="#fff"
+      />
     </SafeAreaView>
   );
 };

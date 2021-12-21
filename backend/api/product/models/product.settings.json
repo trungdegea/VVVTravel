@@ -1,6 +1,6 @@
 {
   "kind": "collectionType",
-  "collectionName": "Products",
+  "collectionName": "products",
   "info": {
     "name": "product",
     "description": ""
@@ -14,6 +14,7 @@
   "attributes": {
     "name": {
       "type": "string",
+      "unique": true,
       "required": true
     },
     "images": {
@@ -27,19 +28,22 @@
       "pluginOptions": {}
     },
     "price": {
-      "type": "biginteger",
-      "required": true
+      "type": "float"
     },
     "description": {
       "type": "text"
     },
-    "location": {
-      "model": "location",
-      "via": "products"
-    },
     "category": {
       "model": "category",
       "via": "products"
+    },
+    "location": {
+      "via": "products",
+      "model": "location"
+    },
+    "comments": {
+      "via": "product",
+      "collection": "comment"
     }
   }
 }
