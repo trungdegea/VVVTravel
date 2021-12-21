@@ -7,4 +7,4 @@ services:
       - 1338:1338
     restart: on-failure
     volumes: 
-      - ./backend-1:/srv/app
+      - ./backend:/srv/app
