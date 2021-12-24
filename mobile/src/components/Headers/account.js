@@ -8,12 +8,15 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Theme, Images } from "../../constants";
-import { Entypo } from "@expo/vector-icons"; 
+import { Entypo } from "@expo/vector-icons";
 
-const HeaderAccount = () => {
+const HeaderAccount = ({ navigation }) => {
+  const gotoProfile = () => {
+    navigation.navigate("Profile");
+  };
   return (
     <SafeAreaView style={[styles.headerContainer]}>
-      <TouchableOpacity style={styles.header}>
+      <TouchableOpacity style={styles.header} onPress={gotoProfile}>
         <SafeAreaView style={styles.avatarBox}>
           <Image source={Images.defaultAvatar} style={styles.avatar} />
         </SafeAreaView>

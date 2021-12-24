@@ -11,10 +11,10 @@ import CustomedHeader from "../../shared/header";
 
 // screens
 import Wishes from "../../screens/wishes";
-import Account from "../../screens/account";
 import HomeStack from "../homestack";
 import DealStack from "../dealstack";
 import BookingStack from "../bookingStack";
+import accountStack from "../accountStack";
 
 const Tab = createBottomTabNavigator();
 
@@ -94,7 +94,7 @@ const Root = () => {
       />
       <Tab.Screen
         name="Account"
-        component={Account}
+        component={accountStack}
         options={{
           tabBarIcon: ({ color, focused }) => {
             return createIcon("person", color, focused);

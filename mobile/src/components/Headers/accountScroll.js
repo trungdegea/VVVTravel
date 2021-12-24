@@ -1,18 +1,32 @@
 import React from "react";
-import { StyleSheet, Text, SafeAreaView, Animated, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Animated,
+  TouchableOpacity,
+} from "react-native";
 import { Feather } from "@expo/vector-icons";
 const AnimatedIcon = Animated.createAnimatedComponent(Feather);
 
-
-const HeaderAccountScroll = ({ bgColor, color, opacity }) => {
+const HeaderAccountScroll = ({ navigation, bgColor, color, opacity }) => {
+  const gotoEditAccount = () => {
+    navigation.navigate("Edit Account");
+  };
   return (
-    <Animated.View style={[styles.headerContainer, {backgroundColor: bgColor}]}>
+    <Animated.View
+      style={[styles.headerContainer, { backgroundColor: bgColor }]}
+    >
       <SafeAreaView style={[styles.topNav]}>
-        <AnimatedIcon style={[{color: color}]} size={20} name={"mail"} />
-        <Animated.Text style={[styles.title, {opacity: opacity, color: color}]}>
+        <AnimatedIcon style={[{ color: color }]} size={20} name={"mail"} />
+        <Animated.Text
+          style={[styles.title, { opacity: opacity, color: color }]}
+        >
           Manage my info
         </Animated.Text>
-        <AnimatedIcon style={[{color: color}]} size={20} name={"hexagon"} />
+        <TouchableOpacity onPress={gotoEditAccount}>
+          <AnimatedIcon style={[{ color: color }]} size={20} name={"hexagon"} />
+        </TouchableOpacity>
       </SafeAreaView>
     </Animated.View>
   );
