@@ -8,11 +8,15 @@ const HeaderAccountScroll = ({ bgColor, color, opacity }) => {
   return (
     <Animated.View style={[styles.headerContainer, {backgroundColor: bgColor}]}>
       <SafeAreaView style={[styles.topNav]}>
-        <AnimatedIcon style={[{color: color}]} size={20} name={"mail"} />
+        <TouchableOpacity>
+          <AnimatedIcon style={[{color: color}]} size={20} name={"mail"} />
+        </TouchableOpacity>
         <Animated.Text style={[styles.title, {opacity: opacity, color: color}]}>
           Manage my info
         </Animated.Text>
-        <AnimatedIcon style={[{color: color}]} size={20} name={"hexagon"} />
+        <TouchableOpacity>
+          <AnimatedIcon style={[{color: color}]} size={20} name={"hexagon"} />
+        </TouchableOpacity>
       </SafeAreaView>
     </Animated.View>
   );

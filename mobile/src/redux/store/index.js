@@ -1,7 +1,11 @@
-import { createStore } from "redux";
+import { createStore, compose } from "redux";
+import rootReducer from "../reducers";
 
-const rootReducer = () => {};
+let composeEnhancer = compose;
+if (__DEV__) {
+  composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+}
 
-const store = createStore(rootReducer);
+const store = createStore(rootReducer, composeEnhancer());
 
 export default store;

@@ -5,6 +5,8 @@ const coffeeFix = require("../../assets/icons/coffee-fix.png");
 const couple = require("../../assets/icons/couple.png");
 const view = require("../../assets/icons/watch.png");
 const cart = require("../../assets/icons/cart.png");
+const vvvLogo = require("../../assets/logo/vvv_travel.png");
+const loading = require("../../assets/dummy/loading.svg");
 
 // internet imgs
 
@@ -16,4 +18,6 @@ export default {
   couple,
   view,
   cart,
+  vvvLogo,
+  loading,
 };

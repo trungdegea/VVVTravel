@@ -1,6 +1,6 @@
 export default {
   COLORS: {
-    DEFAULT: "#172B4D",
+    DEFAULT: "#B23AFC",
     PRIMARY: "#ff7a00",
     SECONDARY: "#F7FAFC",
     LABEL: "#FE2472",
@@ -12,6 +12,7 @@ export default {
     /*not yet changed */
     MUTED: "#ADB5BD",
     INPUT: "#DCDCDC",
+    INPUT_IDLE: "rgba(134, 142, 153, 0.1)",
     INPUT_SUCCESS: "#7BDEB2",
     INPUT_ERROR: "#FCB3A4",
     ACTIVE: "#ff7a00", //same as primary

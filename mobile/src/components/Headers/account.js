@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   StyleSheet,
   Text,
@@ -8,20 +8,35 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { Theme, Images } from "../../constants";
-import { Entypo } from "@expo/vector-icons"; 
+import { Entypo } from "@expo/vector-icons";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
 
 const HeaderAccount = () => {
+  const navigation = useNavigation();
+  const { isLogged, user } = useSelector((state) => state.auth);
+
+  const goToInfo = useCallback(() => {
+    navigation.navigate(isLogged ? "Info" : "SignIn");
+  }, [isLogged]) 
+
   return (
     <SafeAreaView style={[styles.headerContainer]}>
-      <TouchableOpacity style={styles.header}>
+      <TouchableOpacity style={styles.header} onPress={goToInfo}>
         <SafeAreaView style={styles.avatarBox}>
           <Image source={Images.defaultAvatar} style={styles.avatar} />
         </SafeAreaView>
-        <Text style={styles.username}>Phạm Anh Tú</Text>
-        <SafeAreaView style={styles.infoBtn}>
-          <Text style={styles.infoLink}>Manage my info</Text>
-          <Entypo name="chevron-small-right" size={12} color="white" />
-        </SafeAreaView>
+        {isLogged ? (
+          <>
+            <Text style={styles.username}>{user?.username}</Text>
+            <SafeAreaView style={styles.infoBtn}>
+              <Text style={styles.infoLink}>Manage my info</Text>
+              <Entypo name="chevron-small-right" size={12} color="white" />
+            </SafeAreaView>
+          </>
+        ) : (
+          <Text style={styles.username}>Log in or sign up</Text>
+        )}
       </TouchableOpacity>
     </SafeAreaView>
   );
