@@ -98,22 +98,38 @@ export const clearMessage = () => {
 }
 
 export const retrieve = async () => {
-  const exp = new Date(await AsyncStorage.getItem("exp"));
-  if (exp > new Date()){
-    return {
-      type: RETRIVE_AUTH,
-      payload: {
-        exp: exp,
-        jwt: await AsyncStorage.getItem("jwt"),
-        user: JSON.parse(await AsyncStorage.getItem("user")),
-        isLogged: true,
-        err: false,
-        message: "",
-      },
-    };
-  } else {
-    await AsyncStorage.removeItem("jwt");
-    await AsyncStorage.removeItem("user");
+  try {  
+    const exp = new Date(await AsyncStorage.getItem("exp"));
+    const jwt = await AsyncStorage.getItem("jwt");
+    const user = JSON.parse(await AsyncStorage.getItem("user"));
+    if (exp > new Date() && jwt && user){
+      return {
+        type: RETRIVE_AUTH,
+        payload: {
+          exp: exp,
+          jwt: jwt,
+          user: user,
+          isLogged: true,
+          err: false,
+          message: "",
+        },
+      };
+    } else {
+      await AsyncStorage.removeItem("jwt");
+      await AsyncStorage.removeItem("user");
+      return {
+        type: RETRIVE_AUTH,
+        payload: {
+          exp: new Date(),
+          jwt: "",
+          user: "",
+          isLogged: false,
+          err: false,
+          message: "",
+        },
+      };
+    }
+  } catch (err) {
     return {
       type: RETRIVE_AUTH,
       payload: {

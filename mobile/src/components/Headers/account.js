@@ -17,7 +17,7 @@ const HeaderAccount = () => {
   const { isLogged, user } = useSelector((state) => state.auth);
 
   const goToInfo = useCallback(() => {
-    navigation.navigate(isLogged ? "Info" : "SignIn");
+    navigation.navigate(isLogged ? "Profile" : "SignIn");
   }, [isLogged]) 
 
   return (
