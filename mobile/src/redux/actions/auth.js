@@ -97,7 +97,7 @@ export const clearMessage = () => {
   };
 }
 
-export const retrive = async () => {
+export const retrieve = async () => {
   const exp = new Date(await AsyncStorage.getItem("exp"));
   if (exp > new Date()){
     return {
@@ -112,6 +112,8 @@ export const retrive = async () => {
       },
     };
   } else {
+    await AsyncStorage.removeItem("jwt");
+    await AsyncStorage.removeItem("user");
     return {
       type: RETRIVE_AUTH,
       payload: {
