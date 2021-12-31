@@ -11,11 +11,12 @@ const ThingsToDo = ({data}) => {
     return (
       <SafeAreaView style={styles.item}>
         <Card
+          id = {item.id}
           image={item.img}
-          title={item.package}
+          title={item.name}
           price={item.price}
-          rating={item.rating}
-          location={item.location}
+          rating={item.rating ? item.rating : 0}
+          location={item.location?.name}
         />
       </SafeAreaView>
     );

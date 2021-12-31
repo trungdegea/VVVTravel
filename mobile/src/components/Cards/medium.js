@@ -3,12 +3,12 @@ import { SafeAreaView, Text, StyleSheet, Image, TouchableOpacity } from "react-n
 import { Ionicons } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/core";
 
-const Card = ({ image, title, price, rating, location }) => {
+const Card = ({id, image, title, price, rating, location }) => {
 
   const navigation = useNavigation();
 
   const pressHandler = () => {
-    navigation.navigate("package");
+    navigation.navigate("package", {id});
   }
 
   return (

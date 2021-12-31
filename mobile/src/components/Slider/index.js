@@ -34,6 +34,7 @@ const styles = StyleSheet.create({
 });
 
 export default function Slider({ images }) {
+  console.log(images)
   const [active, setActive] = useState(0);
   const handleChange = ({ nativeEvent }) => {
     const slide = parseInt(
@@ -58,7 +59,7 @@ export default function Slider({ images }) {
             key={img.id}
             resizeMode="stretch"
             source={{
-              uri: img.url,
+              uri: `http://103.101.161.57:1338${img.url}`,
             }}
             style={styles.wrap}
           />

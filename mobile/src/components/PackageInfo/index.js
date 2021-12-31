@@ -19,13 +19,13 @@ import {
 
 import { styles } from "./style";
 
-export default function PackageInfo() {
+export default function PackageInfo({name}) {
   return (
     <>
       <SafeAreaView style={styles.container}>
         <View>
           <Text style={styles.packagename}>
-            Fairmont Singapore Couple & Family Staycation
+            {name}
           </Text>
         </View>
         <View style={styles.overrate}>
