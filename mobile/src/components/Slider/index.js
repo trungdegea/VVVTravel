@@ -34,7 +34,6 @@ const styles = StyleSheet.create({
 });
 
 export default function Slider({ images }) {
-  console.log(images)
   const [active, setActive] = useState(0);
   const handleChange = ({ nativeEvent }) => {
     const slide = parseInt(

@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView, Text } from "react-native";
 import ContactInfoCheckout from "../../components/ContactInfoCheckout";
 import CheckoutHeader from "../../components/Headers/checkout";
 import PackageCheckout from "../../components/PackageCheckout";
+import { style } from "../../styles/index";
 
 const data = [
   {
@@ -28,15 +29,20 @@ const data = [
   },
 ];
 
-const Checkout = ({ navigation }) => {
+const Checkout = ({ navigation, route }) => {
+  const products = route.params.data;
   return (
     <SafeAreaView>
       {/*Header*/}
       <CheckoutHeader navigation={navigation} />
       {/*Body*/}
-      <ScrollView style={[{ paddingTop: 30 }]}>
-        <PackageCheckout data={data} />
+      <ScrollView style={[{ paddingTop: 60 }]}>
+        <PackageCheckout data={products} />
         <ContactInfoCheckout />
+
+        <SafeAreaView style={[style.gap_md]}></SafeAreaView>
+        <SafeAreaView style={[style.gap_md]}></SafeAreaView>
+        <SafeAreaView style={[style.gap_md]}></SafeAreaView>
       </ScrollView>
     </SafeAreaView>
   );

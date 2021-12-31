@@ -5,9 +5,9 @@ import Button from "../../shared/button";
 
 const { width, height } = Dimensions.get("window");
 
-const CartFooter = ({ navigation }) => {
+const CartFooter = ({ navigation, products }) => {
   const gotoCheckout = () => {
-    navigation.navigate("Checkout", { data: "this is how to pass data" });
+    navigation.navigate("Checkout", { data: products });
   };
   return (
     <SafeAreaView style={[styles.footerContainer, styles.myFlex]}>

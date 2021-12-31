@@ -5,20 +5,19 @@ const initialState = {
   destinations: [],
   categories: [],
   products: [],
-}
+};
 
 function homeReducer(state = initialState, action) {
-  switch(action.type) {
+  switch (action.type) {
     case HOME_CONTANTS.GET_DATA: {
-      console.log(action.payload)
       return action.payload;
     }
     case HOME_CONTANTS.ERROR: {
       return state;
     }
-    default: 
+    default:
       return state;
   }
 }
 
-export default homeReducer
+export default homeReducer;

@@ -44,7 +44,7 @@ module.exports = {
       user: user.id,
     });
     if (!oldEntity) {
-      return { status: 402, message: "could not update other comment!!" };
+      return ctx.throw(402, "could not update other comment!!");
     }
     if (ctx.is("multipart")) {
       const { data, files } = parseMultipartData(ctx);
@@ -76,7 +76,7 @@ module.exports = {
       user: user.id,
     });
     if (!oldEntity) {
-      return { status: 402, message: "could not delete other comment!!" };
+      return ctx.throw(402, "could not delete other comment!!");
     }
 
     const entity = await strapi.services.comment.delete({ id });

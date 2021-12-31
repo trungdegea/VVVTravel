@@ -18,9 +18,11 @@ const HomeStack = ({ navigation, route }) => {
   }, [navigation, route]);
 
   return (
-    <Stack.Navigator screenOptions={{
-      header: () => {}
-    }}>
+    <Stack.Navigator
+      screenOptions={{
+        header: () => {},
+      }}
+    >
       <Stack.Screen name="Booking" component={Booking} />
       <Stack.Screen name="Cart" component={Cart} />
     </Stack.Navigator>

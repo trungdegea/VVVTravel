@@ -5,17 +5,18 @@ import { Provider } from "react-redux";
 import store from "./src/redux/store";
 import Routes from "./src/routes";
 
+
 export default function App() {
   return (
     <Provider store={store}>
-      <StatusBar hidden/>
+      <StatusBar hidden />
       <Routes></Routes>
     </Provider>
   );
 }
 
 const styles = StyleSheet.create({
-  bg:{
+  bg: {
     backgroundColor: "#f7f7f7",
-  }
+  },
 });

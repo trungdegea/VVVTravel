@@ -23,7 +23,6 @@ export default function Packagedetail({navigation, route}) {
       const packageData = await getPackageData(id);
       setProduct(packageData);
       setImages(packageData?.images);
-      console.log(packageData);
 
     }
     getdataProduct();

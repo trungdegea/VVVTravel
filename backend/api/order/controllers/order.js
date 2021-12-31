@@ -1,5 +1,6 @@
-'use strict';
+"use strict";
 const { sanitizeEntity, parseMultipartData } = require("strapi-utils");
+const stripe = require("stripe")(process.env.STRIPE_SK || "sk_your_test_key");
 
 /**
  * Read the documentation (https://strapi.io/documentation/developer-docs/latest/development/backend-customization.html#core-controllers)
@@ -70,18 +71,63 @@ module.exports = {
    */
 
   async create(ctx) {
-    let entity;
     const { user } = ctx.state;
-    if (ctx.is("multipart")) {
-      const { data, files } = parseMultipartData(ctx);
-      entity = await strapi.services.order.create(data, { files });
-    } else {
-      entity = await strapi.services.order.create({
-        ...ctx.request.body,
-        user: user.id,
-      });
+    const { items } = ctx.request.body;
+
+    // validate products
+    if (!items?.length) {
+      return ctx.throw(400, "please choose at least one product");
     }
-    return sanitizeEntity(entity, { model: strapi.models.order });
+    const ids = items.map((item) => item.product);
+    const query = { id_in: ids };
+    const realProducts = await strapi.services.product.find(query);
+    if (realProducts.length !== items.length) {
+      return ctx.throw(404, "Some products in your order do not exist ");
+    }
+
+    // go for checking out process
+    const requestedURL = ctx.request.headers.origin || "http://localhost:3000";
+
+    const line_items = items.map((item, index) => {
+      return {
+        price_data: {
+          currency: "vnd",
+          product_data: {
+            name: realProducts[index].name,
+          },
+          unit_amount: realProducts[index].price,
+        },
+        quantity: item.quantity,
+      };
+    });
+
+    // create session
+    try {
+      const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        customer_email: user.email,
+        mode: "payment",
+        // success_url: `${requestedURL}/success?session_id={CHECKOUT_SESSION_ID}`,
+        // cancel_url: requestedURL,
+        line_items,
+      });
+
+      const updatedItems = items.map((item) => ({
+        ...item,
+        status: "booking",
+      }));
+
+      const entity = await strapi.services.order.create({
+        ...ctx.request.body,
+        items: updatedItems,
+        user: user.id,
+        transaction: session.id,
+      });
+
+      return sanitizeEntity(entity, { model: strapi.models.order });
+    } catch (err) {
+      ctx.throw(500, "Unable to create session of checking out process");
+    }
   },
 
   /**
@@ -95,9 +141,12 @@ module.exports = {
     const { user } = ctx.state;
 
     let entity;
-    const oldEntity = await strapi.services.order.findOne({ id, user: user.id });
+    const oldEntity = await strapi.services.order.findOne({
+      id,
+      user: user.id,
+    });
     if (!oldEntity) {
-      return { status: 402, message: "could not update other order!!" };
+      return ctx.throw(402, "could not update other order!!");
     }
     if (ctx.is("multipart")) {
       const { data, files } = parseMultipartData(ctx);
@@ -124,9 +173,12 @@ module.exports = {
     const { id } = ctx.params;
     const { user } = ctx.state;
 
-    const oldEntity = await strapi.services.order.findOne({ id, user: user.id });
+    const oldEntity = await strapi.services.order.findOne({
+      id,
+      user: user.id,
+    });
     if (!oldEntity) {
-      return { status: 402, message: "could not delete other order!!" };
+      return ctx.throw(402, "could not delete other order!!");
     }
 
     const entity = await strapi.services.order.delete({ id });

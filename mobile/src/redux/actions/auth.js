@@ -1,13 +1,20 @@
 import axios from "axios";
-import config from "../../configs/staging.config.json";
-import { FAILED, LOGIN, CLEAR_MESSAGE, RETRIVE_AUTH, SIGN_UP } from "../constants/auth";
+import config from "../../configs/dev.config.json";
+import {
+  FAILED,
+  LOGIN,
+  CLEAR_MESSAGE,
+  RETRIVE_AUTH,
+  SIGN_UP,
+} from "../constants/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { API_URL } from "@env";
 
-const authURL = config.API_BASE + "/auth/local";
+const authURL = API_URL + "/auth/local";
 
 export const login = async (email = "", password = "") => {
   try {
-    const {data} = await axios.post(authURL, {
+    const { data } = await axios.post(authURL, {
       identifier: email,
       password,
     });
@@ -18,7 +25,7 @@ export const login = async (email = "", password = "") => {
     await AsyncStorage.setItem("jwt", data.jwt);
     await AsyncStorage.setItem("user", JSON.stringify(data.user));
     await AsyncStorage.setItem("exp", exp.toISOString());
-    
+
     return {
       type: LOGIN,
       payload: {
@@ -38,19 +45,15 @@ export const login = async (email = "", password = "") => {
         user: {},
         jwt: "",
         err: true,
-        message: "Email or password was incorrect !!!",
+        message:
+          err.response.data.data[0].messages[0].message || "an error occurred",
         exp: new Date(),
       },
     };
   }
-}
+};
 
-export const register = async (email = "", username="", password = "") => {
-  console.log({
-    email,
-    username,
-    password,
-  });
+export const register = async (email = "", username = "", password = "") => {
   try {
     const { data } = await axios.post(authURL + "/register", {
       email,
@@ -61,16 +64,15 @@ export const register = async (email = "", username="", password = "") => {
     const exp = new Date();
     exp.setDate(exp.getDate() + 15);
 
-    await AsyncStorage.setItem("jwt", data.jwt);
     await AsyncStorage.setItem("user", JSON.stringify(data.user));
     await AsyncStorage.setItem("exp", exp.toISOString());
 
     return {
       type: SIGN_UP,
       payload: {
-        isLogged: true,
+        isLogged: false,
         user: data.user,
-        jwt: data.jwt,
+        jwt: "",
         err: false,
         message: "",
         exp: exp,
@@ -95,14 +97,14 @@ export const clearMessage = () => {
   return {
     type: CLEAR_MESSAGE,
   };
-}
+};
 
 export const retrieve = async () => {
-  try {  
+  try {
     const exp = new Date(await AsyncStorage.getItem("exp"));
     const jwt = await AsyncStorage.getItem("jwt");
     const user = JSON.parse(await AsyncStorage.getItem("user"));
-    if (exp > new Date() && jwt && user){
+    if (exp > new Date() && jwt && user) {
       return {
         type: RETRIVE_AUTH,
         payload: {
@@ -142,4 +144,4 @@ export const retrieve = async () => {
       },
     };
   }
-}
+};

@@ -1,18 +1,16 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import queryString from "query-string";
+import { API_URL } from "@env";
 
 const instance = axios.create({
-  baseURL: "http://103.101.161.57:1338",
-  // headers: {
-  //   Authorization: AsyncStorage.getItem("jwt")
-  //     ? `Bearer ${AsyncStorage.getItem("jwt")}`
-  //     : undefined,
-  //   "content-type": "application/json",
-  // },
+  baseURL: API_URL,
+  headers: {
+    // "Authorization": localStorage.getItem("token") ? `Bearer ${localStorage.getItem("token")}` : undefined,
+    "content-type": "application/json",
+  },
   paramsSerializer: (params) => queryString.stringify(params),
 });
-
 instance.interceptors.request.use(
   async (config) => {
     const jwt = await AsyncStorage.getItem("jwt");

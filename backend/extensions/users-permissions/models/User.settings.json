@@ -58,13 +58,13 @@
       "plugin": "users-permissions",
       "configurable": false
     },
-    "order": {
-      "via": "user",
-      "model": "order"
-    },
     "cart": {
       "via": "user",
       "model": "cart"
+    },
+    "orders": {
+      "via": "user",
+      "collection": "order"
     }
   }
 }

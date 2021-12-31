@@ -1,27 +1,40 @@
 import React from "react";
-import { StyleSheet, Text, SafeAreaView, Image, TouchableOpacity } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 import { Theme } from "../../constants";
+import { API_URL } from "@env";
 
-const CartItem = ({canChange}) => {
+const CartItem = ({ canChange, product }) => {
+  console.log(1);
+  const image = product?.product.images.length
+    ? API_URL + product?.product.images[0].url
+    : "https://placekitten.com/512/512";
   return (
     <SafeAreaView style={styles.itemContainer}>
       <TouchableOpacity style={styles.item}>
-        <Image source={{ uri: "https://placekitten.com/512/512" }} style={[styles.thumb]} />
+        <Image source={{ uri: image }} style={[styles.thumb]} />
         <SafeAreaView style={styles.info}>
-          <Text style={styles.name}>Lorem ipsum dolor sit amet consectetur adipisicing elit. Moles reiciendis ex !</Text>
+          <Text style={styles.name}>{product?.product?.name}</Text>
           <SafeAreaView style={styles.myFlex}>
             <Text>x2 </Text>
-            <Text>₫ 4,000,000</Text>
+            <Text>{product?.product?.price}</Text>
           </SafeAreaView>
         </SafeAreaView>
       </TouchableOpacity>
-      <SafeAreaView style={[styles.myFlex, {justifyContent: "space-between"}]}>
-        <Text >20/11/2021</Text>
+      <SafeAreaView
+        style={[styles.myFlex, { justifyContent: "space-between" }]}
+      >
+        <Text>{product?.date}</Text>
         <SafeAreaView style={styles.myFlex}>
           {canChange && (
             <TouchableOpacity style={styles.delBtn}>
-            <Text>Modify</Text>
-          </TouchableOpacity>
+              <Text>Modify</Text>
+            </TouchableOpacity>
           )}
           <TouchableOpacity style={styles.delBtn}>
             <Text>Delete</Text>
@@ -44,17 +57,17 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     marginBottom: 10,
   },
-  thumb:{
+  thumb: {
     width: 80,
     height: undefined,
     aspectRatio: 1,
-    borderRadius: 6
+    borderRadius: 6,
   },
   info: {
     paddingLeft: 15,
     flex: 1,
   },
-  name:{
+  name: {
     fontWeight: "bold",
     marginBottom: 5,
     textAlign: "justify",
@@ -71,5 +84,5 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderRadius: 8,
     marginLeft: 10,
-  }
+  },
 });

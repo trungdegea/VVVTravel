@@ -1,9 +1,11 @@
 import { StyleSheet } from "react-native";
+import { Theme } from "../../constants";
 
 export const styles = StyleSheet.create({
   container: {
     backgroundColor: "#ffffff",
-    marginBottom: 50,
+    marginBottom: 10,
+    paddingBottom: 20,
   },
   header: {
     padding: 10,
@@ -49,7 +51,22 @@ export const styles = StyleSheet.create({
     margin: 12,
     borderBottomWidth: 1,
     borderColor: "#949191",
-    padding: 10,
+    paddingVertical: 10,
     color: "#949191",
   },
+  totalContainer: {
+    padding: 10,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
+  },
+  totalText: {
+    fontWeight: "bold",
+    fontSize: 20,
+  },
+  totalPrice: {
+    color: Theme.COLORS.PRIMARY,
+    fontWeight: "bold",
+    fontSize: 20,
+  }
 });

@@ -11,28 +11,16 @@ import {
 } from "react-native";
 import { Images, Theme } from "../../constants";
 import Button from "../../shared/button";
-import {useSelector, useDispatch} from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { clearMessage, login } from "../../redux/actions/auth";
-import {useNavigation} from "@react-navigation/core";
+import { useNavigation } from "@react-navigation/core";
+import SmallLoading from "../Loading/small";
 
 const LoginForm = () => {
-  const inputBlurHandler = () => {
-    Keyboard.dismiss();
-  };
-
-  const auth = useSelector(state => state.auth);
+  const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
-  useEffect(() => {
-    if (auth.isLogged){
-      navigation.goBack();
-    }
-    return () => {
-      dispatch(clearMessage());
-    }
-  })
-
+  const [isLoading, setIsLoading] = useState(false);
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
 
@@ -41,6 +29,13 @@ const LoginForm = () => {
     password: "",
   });
 
+  useEffect(() => {
+    dispatch(clearMessage());
+  }, []);
+
+  const inputBlurHandler = () => {
+    // Keyboard.dismiss();
+  };
   const onEmailChange = useCallback((text) => {
     inputRef.current.identifier = text;
   }, []);
@@ -49,7 +44,9 @@ const LoginForm = () => {
   }, []);
   const onSubmit = useCallback(async () => {
     let hasErr = false;
-    if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(inputRef?.current?.identifier)){
+    if (
+      !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(inputRef?.current?.identifier)
+    ) {
       setEmailErr("Email layout is not correct!!!!");
       hasErr = true;
     } else {
@@ -62,13 +59,21 @@ const LoginForm = () => {
       setPasswordErr("");
     }
 
-    if(!hasErr){
-      dispatch(await login(inputRef.current.identifier, inputRef.current.password))
+    if (!hasErr) {
+      setIsLoading(true);
+      const result = dispatch(
+        await login(inputRef.current.identifier, inputRef.current.password)
+      );
+      if (result.payload.err) {
+        setIsLoading(false);
+      } else {
+        navigation.goBack();
+      }
     }
   });
   const goToSignup = () => {
-    navigation.navigate("SignUp")
-  }
+    navigation.navigate("SignUp");
+  };
 
   return (
     <SafeAreaView style={[styles.box]}>
@@ -113,22 +118,28 @@ const LoginForm = () => {
           />
         </KeyboardAvoidingView>
       </SafeAreaView>
-      <SafeAreaView style={[styles.formGroup]}>
-        <Button
-          title={"SIGN IN"}
-          bgColor={Theme.COLORS.PRIMARY}
-          textColor={Theme.COLORS.WHITE}
-          onPress={onSubmit}
-        />
-      </SafeAreaView>
-      <SafeAreaView style={[styles.formGroup]}>
-        <Button
-          title={"SIGN UP"}
-          bgColor={Theme.COLORS.INFO}
-          textColor={Theme.COLORS.WHITE}
-          onPress={goToSignup}
-        />
-      </SafeAreaView>
+      {isLoading ? (
+        <SmallLoading size={50} padding={0} />
+      ) : (
+        <>
+          <SafeAreaView style={[styles.formGroup]}>
+            <Button
+              title={"SIGN IN"}
+              bgColor={Theme.COLORS.PRIMARY}
+              textColor={Theme.COLORS.WHITE}
+              onPress={onSubmit}
+            />
+          </SafeAreaView>
+          <SafeAreaView style={[styles.formGroup]}>
+            <Button
+              title={"SIGN UP"}
+              bgColor={Theme.COLORS.INFO}
+              textColor={Theme.COLORS.WHITE}
+              onPress={goToSignup}
+            />
+          </SafeAreaView>
+        </>
+      )}
     </SafeAreaView>
   );
 };

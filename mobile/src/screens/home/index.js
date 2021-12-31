@@ -117,13 +117,6 @@ const Home = ({ navigation }) => {
   const dataHome = useSelector(state => state.home);
   
   useEffect(() => {
-    const getData = async () => {
-      dispatch(await getDataHome());
-    }
-    getData();
-  }, []);
-
-  useLayoutEffect(() => {
     setCategories(dataHome.categories);
     setDestinations(dataHome.destinations);
     const thingArr = [];
@@ -132,9 +125,16 @@ const Home = ({ navigation }) => {
         thingArr.push(product);
       }
     })
-    console.log(thingArr);
     setThings(thingArr);
-  }, [dataHome])
+  }, [dataHome]);
+
+  useLayoutEffect(() => {
+    const getData = async () => {
+      dispatch(await getDataHome());
+    }
+    getData();
+    
+  }, [])
   return (
     <>
       {/* header */}
