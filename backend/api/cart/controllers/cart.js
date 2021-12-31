@@ -97,7 +97,7 @@ module.exports = {
     let entity;
     const oldEntity = await strapi.services.cart.findOne({ id, user: user.id });
     if (!oldEntity) {
-      return { status: 402, message: "could not update other cart!!" };
+      return ctx.throw(402, "could not update other cart!!");
     }
     if (ctx.is("multipart")) {
       const { data, files } = parseMultipartData(ctx);
@@ -126,7 +126,7 @@ module.exports = {
 
     const oldEntity = await strapi.services.cart.findOne({ id, user: user.id });
     if (!oldEntity) {
-      return { status: 402, message: "could not delete other cart!!" };
+      return ctx.throw(402, "could not delete other cart!!");
     }
 
     const entity = await strapi.services.cart.delete({ id });

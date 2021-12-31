@@ -20,7 +20,10 @@
     "user": {
       "plugin": "users-permissions",
       "model": "user",
-      "via": "order"
+      "via": "orders"
+    },
+    "transaction": {
+      "type": "string"
     }
   }
 }

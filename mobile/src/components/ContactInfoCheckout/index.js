@@ -9,8 +9,17 @@ import {
 } from "react-native";
 import { styles } from "./style";
 import DropDownPicker from "react-native-dropdown-picker";
+import {useDispatch, useSelector} from "react-redux";
+import Button from "../../shared/button";
+import { Theme } from "../../constants";
+import { useNavigation } from "@react-navigation/core";
 
 export default function ContactInfoCheckout() {
+
+  const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const auth = useSelector(state => state.auth);
+
   const [textfirst, setTextfirst] = useState(
     "Please use English characters only"
   );
@@ -39,15 +48,14 @@ export default function ContactInfoCheckout() {
         We'll only contact you about updates to your booking
       </Text>
       <View style={styles.namecontact}>
-        <Text>First name</Text>
-        <TextInput value={textfirst} style={styles.input} />
-      </View>
-      <View style={styles.namecontact}>
-        <Text>Last name</Text>
-        <TextInput value={textsecond} style={styles.input} />
+        <Text>Full name</Text>
+        <TextInput
+          defaultValue={auth.user.username || ""}
+          style={styles.input}
+        />
       </View>
       <View style={styles.phonenumber}>
-        <Text style={StyleSheet.country}>Country/region</Text>
+        <Text style={styles.country}>Country/region</Text>
         <DropDownPicker
           style={styles.picker}
           open={open}
@@ -59,11 +67,30 @@ export default function ContactInfoCheckout() {
           autoScroll={true}
           disableBorderRadius={true}
         />
-        <TextInput value={phonenumber} style={styles.inputPhonenumber} />
+        <TextInput
+          value={phonenumber}
+          style={[styles.inputPhonenumber, { marginHorizontal: 0 }]}
+        />
       </View>
-      <View>
-        <Text>Email(for updates on your booking)</Text>
-        <TextInput value={email} style={styles.inputPhonenumber} />
+      <View style={styles.namecontact}>
+        <Text style={styles.country}>Email(for updates on your booking)</Text>
+        <TextInput
+          defaultValue={auth.user.email}
+          style={[styles.inputPhonenumber, { marginHorizontal: 0 }]}
+        />
+      </View>
+
+      <View style={styles.totalContainer}>
+        <Text style={styles.totalText}>Total:</Text>
+        <Text style={styles.totalPrice}>2500000 đ</Text>
+      </View>
+      <View style={[{paddingHorizontal: 10}]}>
+        <Button
+          title={"Checkout"}
+          bgColor={Theme.COLORS.PRIMARY}
+          textColor={Theme.COLORS.WHITE}
+          onPress={() => {navigation.navigate("MyStripeCheckout");}}
+        />
       </View>
     </SafeAreaView>
   );

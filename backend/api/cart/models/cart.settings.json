@@ -17,10 +17,16 @@
       "model": "user",
       "via": "cart"
     },
-    "items": {
-      "type": "component",
-      "repeatable": true,
-      "component": "cart-item.cart-item"
+    "product": {
+      "model": "product"
+    },
+    "quantity": {
+      "type": "integer",
+      "min": 1,
+      "required": true
+    },
+    "date": {
+      "type": "date"
     }
   }
 }

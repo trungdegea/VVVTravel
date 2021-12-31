@@ -1,13 +1,13 @@
 import axios from "axios";
-import config from "../../configs/staging.config.json";
+import config from "../../configs/dev.config.json";
 import { FAILED, LOGIN, CLEAR_MESSAGE, RETRIVE_AUTH, SIGN_UP } from "../constants/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-const authURL = config.API_BASE + "/auth/local";
+const authURL = "http://192.168.1.12:1338" + "/auth/local";
 
 export const login = async (email = "", password = "") => {
   try {
-    const {data} = await axios.post(authURL, {
+    const { data } = await axios.post(authURL, {
       identifier: email,
       password,
     });
@@ -38,7 +38,7 @@ export const login = async (email = "", password = "") => {
         user: {},
         jwt: "",
         err: true,
-        message: "Email or password was incorrect !!!",
+        message: err.response.data.data[0].messages[0].message || "an error occurred",
         exp: new Date(),
       },
     };
@@ -61,16 +61,16 @@ export const register = async (email = "", username="", password = "") => {
     const exp = new Date();
     exp.setDate(exp.getDate() + 15);
 
-    await AsyncStorage.setItem("jwt", data.jwt);
+  
     await AsyncStorage.setItem("user", JSON.stringify(data.user));
     await AsyncStorage.setItem("exp", exp.toISOString());
 
     return {
       type: SIGN_UP,
       payload: {
-        isLogged: true,
+        isLogged: false,
         user: data.user,
-        jwt: data.jwt,
+        jwt: "",
         err: false,
         message: "",
         exp: exp,

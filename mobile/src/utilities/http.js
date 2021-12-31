@@ -1,8 +1,9 @@
 import axios from "axios";
 import queryString from "query-string";
+import { API_URL } from "@env";
 
 const instance = axios.create({
-  baseURL: process.env.REACT_APP_API_URL,
+  baseURL: process.env.API_URL,
   headers: {
     // "Authorization": localStorage.getItem("token") ? `Bearer ${localStorage.getItem("token")}` : undefined,
     "content-type": "application/json",

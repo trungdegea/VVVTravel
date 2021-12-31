@@ -14,33 +14,30 @@ import Button from "../../shared/button";
 import {useSelector, useDispatch} from "react-redux";
 import { clearMessage, login } from "../../redux/actions/auth";
 import {useNavigation} from "@react-navigation/core";
+import SmallLoading from "../Loading/small";
 
 const LoginForm = () => {
-  const inputBlurHandler = () => {
-    Keyboard.dismiss();
-  };
-
+  
   const auth = useSelector(state => state.auth);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-
-  useEffect(() => {
-    if (auth.isLogged){
-      navigation.goBack();
-    }
-    return () => {
-      dispatch(clearMessage());
-    }
-  })
-
+  const [isLoading, setIsLoading] = useState(false);
   const [emailErr, setEmailErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
-
+  
   const inputRef = useRef({
     identifier: "",
     password: "",
   });
-
+  
+  useEffect(() => {
+    dispatch(clearMessage());
+  }, []);
+  
+  
+  const inputBlurHandler = () => {
+    // Keyboard.dismiss();
+  };
   const onEmailChange = useCallback((text) => {
     inputRef.current.identifier = text;
   }, []);
@@ -63,7 +60,13 @@ const LoginForm = () => {
     }
 
     if(!hasErr){
-      dispatch(await login(inputRef.current.identifier, inputRef.current.password))
+      // setIsLoading(true);
+      const result = dispatch(await login(inputRef.current.identifier, inputRef.current.password))
+      if (result.payload.err){
+        setIsLoading(false);
+      } else {
+        navigation.goBack();
+      }
     }
   });
   const goToSignup = () => {
@@ -113,22 +116,28 @@ const LoginForm = () => {
           />
         </KeyboardAvoidingView>
       </SafeAreaView>
-      <SafeAreaView style={[styles.formGroup]}>
-        <Button
-          title={"SIGN IN"}
-          bgColor={Theme.COLORS.PRIMARY}
-          textColor={Theme.COLORS.WHITE}
-          onPress={onSubmit}
-        />
-      </SafeAreaView>
-      <SafeAreaView style={[styles.formGroup]}>
-        <Button
-          title={"SIGN UP"}
-          bgColor={Theme.COLORS.INFO}
-          textColor={Theme.COLORS.WHITE}
-          onPress={goToSignup}
-        />
-      </SafeAreaView>
+      {isLoading ? (
+        <SmallLoading size={50} padding={0} />
+      ) : (
+        <>
+          <SafeAreaView style={[styles.formGroup]}>
+            <Button
+              title={"SIGN IN"}
+              bgColor={Theme.COLORS.PRIMARY}
+              textColor={Theme.COLORS.WHITE}
+              onPress={onSubmit}
+            />
+          </SafeAreaView>
+          <SafeAreaView style={[styles.formGroup]}>
+            <Button
+              title={"SIGN UP"}
+              bgColor={Theme.COLORS.INFO}
+              textColor={Theme.COLORS.WHITE}
+              onPress={goToSignup}
+            />
+          </SafeAreaView>
+        </>
+      )}
     </SafeAreaView>
   );
 };
