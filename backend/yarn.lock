@@ -9835,7 +9835,7 @@ strapi-provider-email-nodemailer@^3.6.8:
     lodash "4.17.21"
     nodemailer "6.6.1"
 
-strapi-provider-email-sendmail@3.6.8, strapi-provider-email-sendmail@^3.6.8:
+strapi-provider-email-sendmail@3.6.8:
   version "3.6.8"
   resolved "https://registry.yarnpkg.com/strapi-provider-email-sendmail/-/strapi-provider-email-sendmail-3.6.8.tgz#6b9f6db31dee6656e4f09fa20479bcb9b6abf87d"
   integrity sha512-cdlucUiBJpltSJd0/q67SsShTlCUJC8SqU3sMFiJgqsPptbTMxKIG98kUOqRwPbripnBn1ZGIaGjOL0Jlf4fPA==
