@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useLayoutEffect, useState } from "react";
 import { Button, Dimensions, View } from "react-native";
 import {
   SafeAreaView,
@@ -23,23 +23,23 @@ const HEADER_SCROLL_OFFSET = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
 const Cart = () => {
   const [products, setProducts] = useState([]);
-  const [isLogged, setIsLogged] = useState(false);
   const dispatch = useDispatch();
   const auth = useSelector((state) => state.auth);
+  const data = useSelector((state) => state.carts);
   const navigation = useNavigation();
 
-  useEffect(() => {
-    setIsLogged(auth.isLogged);
-  }, [auth]);
-
-  useEffect(() => {
+  useLayoutEffect(() => {
     const getData = async () => {
-      const data = await getCartData();
-      // console.log(data);
-      setProducts(data);
+      dispatch(await getCartData());
     };
     getData();
   }, []);
+
+  useEffect(() => {
+    setProducts(data?.datacart || []);
+  }, [data]);
+
+  useEffect(() => {}, []);
   const [scrollOffsetY, setScrollOffsetY] = useState(new Animated.Value(0));
 
   // get value on scrolling
@@ -53,44 +53,44 @@ const Cart = () => {
     outputRange: [-70, -70, 0],
     extrapolate: "clamp",
   });
+
+  const gotoSignIn = () => {
+    navigation.navigate("SignIn");
+  };
+
   return (
     <SafeAreaView>
       {/* header top */}
       <CartHeader navigation={navigation} />
 
       {/* body */}
-      {isLogged ? (
-        <ScrollView
-          showsVerticalScrollIndicator={false}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
-            { useNativeDriver: false }
+      {auth.isLogged ? (
+        <SafeAreaView style={[{ paddingTop: 200 }]}>
+          {products ? (
+            <ScrollView
+              showsVerticalScrollIndicator={false}
+              onScroll={Animated.event(
+                [{ nativeEvent: { contentOffset: { y: scrollOffsetY } } }],
+                { useNativeDriver: false }
+              )}
+              style={[{ paddingTop: 80 }]}
+            >
+              {products.map((product) => (
+                <CartItem key={product.id} canChange product={product} />
+              ))}
+            </ScrollView>
+          ) : (
+            <BlankCart />
           )}
-          style={[{ paddingTop: 80 }]}
-        >
-          <BlankCart />
-          {products.map((product) => (
-            <CartItem key={product.id} canChange product={product} />
-          ))}
-        </ScrollView>
-      ) : (
-        <SafeAreaView style={[{ paddingTop: 80 }]}>
-          <Text>Please Login to see your carts</Text>
-          <Button
-            onPress={() => {
-              navigation.navigate("SignIn");
-            }}
-            title="go to Login"
-            color="#841584"
-          />
+          <CartFooter products={products} navigation={navigation} />
         </SafeAreaView>
-      )}
-      {isLogged ? (
-        <CartFooter products={products} navigation={navigation} />
       ) : (
-        <View>
-          <Text></Text>
-        </View>
+        <SafeAreaView>
+          <Text
+            style={[{ paddingTop: 200, flex: 1, alignItems: "center" }]}
+          ></Text>
+          <Button onPress={gotoSignIn} title="go to Login" color="#841584" />
+        </SafeAreaView>
       )}
     </SafeAreaView>
   );

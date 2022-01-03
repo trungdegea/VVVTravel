@@ -1,0 +1,5 @@
+export const CARTS_CONTANTS = {
+  GET_DATA: "GET_DATA_CART",
+  ERROR: "ERROR",
+  UPDATE: "UPDATE",
+};

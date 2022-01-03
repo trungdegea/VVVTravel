@@ -1,4 +1,3 @@
-import { getDataHome } from "../actions/home";
 import { HOME_CONTANTS } from "../constants/home";
 
 const initialState = {
@@ -8,6 +7,7 @@ const initialState = {
 };
 
 function homeReducer(state = initialState, action) {
+  console.log("home", action.type);
   switch (action.type) {
     case HOME_CONTANTS.GET_DATA: {
       return action.payload;

@@ -7,9 +7,9 @@ import { splitToSubArrays } from "../../utilities";
 // components
 import Location from "../Cards/location";
 
-const Destinations = ({data}) => {
+const Destinations = ({ data }) => {
   const [locations, setLocations] = useState([]);
-
+  console.log(data);
   useEffect(() => {
     setLocations(splitToSubArrays(data, 2));
     return () => {};
@@ -21,7 +21,7 @@ const Destinations = ({data}) => {
         {item &&
           item.map((loc, index) => (
             <SafeAreaView style={styles.location} key={index}>
-              <Location image={loc.thumbnail} name={loc.name} />
+              <Location image={loc.images} name={loc.name} />
             </SafeAreaView>
           ))}
       </SafeAreaView>
@@ -53,7 +53,7 @@ const styles = StyleSheet.create({
   },
   location: {
     paddingVertical: 5,
-  }
+  },
 });
 
 export default Destinations;

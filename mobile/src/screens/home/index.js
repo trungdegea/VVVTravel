@@ -1,8 +1,5 @@
-import React, { useLayoutEffect, useEffect, useState} from "react";
-import {
-  View,
-  ScrollView,
-} from "react-native";
+import React, { useLayoutEffect, useEffect, useState } from "react";
+import { View, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
 // styles
@@ -18,123 +15,38 @@ import Destinations from "../../components/Destinations";
 import HeaderHome from "../../components/Headers/home";
 import { getDataHome } from "../../redux/actions/home";
 
-
 const Home = ({ navigation }) => {
-  const [destinations, setDestinations] = useState([]);
-  const [categories, setCategories] = useState([]);
-  const [things, setThings] = useState([]);
-  const recentViews = [
-    {
-      id: "1",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum qua troi luon ne asd",
-      price: "200000",
-    },
-    {
-      id: "2",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-    {
-      id: "3",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-    {
-      id: "4",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-    {
-      id: "5",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-    {
-      id: "6",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-  ];
-  // const things = [
-  //   {
-  //     id: "1",
-  //     img: "https://picsum.photos/400/300",
-  //     package: "lorem ipsum qua troi luon ne asd",
-  //     rating: 4.3,
-  //     price: "200000",
-  //     location: "Ha Noi",
-  //   },
-  //   {
-  //     id: "2",
-  //     img: "https://picsum.photos/400/300",
-  //     package: "lorem ipsum",
-  //     rating: 4.3,
-  //     price: "200000",
-  //     location: "Ha Noi",
-  //   },
-  //   {
-  //     id: "3",
-  //     img: "https://picsum.photos/400/300",
-  //     package: "lorem ipsum",
-  //     rating: 4.3,
-  //     price: "200000",
-  //     location: "Ha Noi",
-  //   },
-  //   {
-  //     id: "4",
-  //     img: "https://picsum.photos/400/300",
-  //     package: "lorem ipsum",
-  //     rating: 4.3,
-  //     price: "200000",
-  //     location: "Ha Noi",
-  //   },
-  //   {
-  //     id: "5",
-  //     img: "https://picsum.photos/400/300",
-  //     package: "lorem ipsum",
-  //     rating: 4.3,
-  //     price: "200000",
-  //     location: "Ha Noi",
-  //   },
-  //   {
-  //     id: "6",
-  //     img: "https://picsum.photos/400/300",
-  //     package: "lorem ipsum",
-  //     rating: 4.3,
-  //     price: "200000",
-  //     location: "Ha Noi",
-  //   },
-  // ];
-
-  
+  const [data, setData] = useState({
+    destinations: [],
+    categories: [],
+    things: [],
+    recentViews: [],
+  });
   const dispatch = useDispatch();
-  const dataHome = useSelector(state => state.home);
-  
-  useEffect(() => {
-    setCategories(dataHome.categories);
-    setDestinations(dataHome.destinations);
-    const thingArr = [];
-    dataHome.products.map((product) => {
-      if(product.id <= 6) {
-        thingArr.push(product);
-      }
-    })
-    setThings(thingArr);
-  }, [dataHome]);
+  const dataHome = useSelector((state) => state.home);
+
+  // useEffect(() => {
+  //   const thingArr = [];
+  //   const products = dataHome?.products || [];
+  //   products.map((product) => {
+  //     if (product.id <= 6) {
+  //       thingArr.push(product);
+  //     }
+  //   });
+  //   setData({
+  //     destinations: dataHome.destinations,
+  //     categories: dataHome.categories,
+  //     things: thingArr,
+  //     recentViews: dataHome.recentViews,
+  //   });
+  // }, [dataHome]);
 
   useLayoutEffect(() => {
     const getData = async () => {
       dispatch(await getDataHome());
-    }
+    };
     getData();
-    
-  }, [])
+  }, []);
   return (
     <>
       {/* header */}
@@ -152,14 +64,14 @@ const Home = ({ navigation }) => {
       >
         {/* Categories */}
         <View style={globalStyle.gap_sm}></View>
-        <Categories data={categories} />
+        <Categories data={dataHome.categories} />
 
         {/* Recently viewed */}
         <View style={globalStyle.container}>
           <View style={globalStyle.gap_sm}></View>
           <Title title="Recently Viewed" hasMore={true}></Title>
           <View style={globalStyle.gap_sm}></View>
-          <RecentlyViewed data={recentViews} />
+          <RecentlyViewed data={dataHome.recentViews} />
         </View>
 
         {/* Recently viewed */}
@@ -175,7 +87,7 @@ const Home = ({ navigation }) => {
           <View style={globalStyle.gap_sm}></View>
           <Title title="Top things to do" hasMore></Title>
           <View style={globalStyle.gap_sm}></View>
-          <ThingsToDo data={things} />
+          <ThingsToDo data={dataHome.products} />
         </View>
 
         {/* Incredible destinations */}
@@ -183,7 +95,7 @@ const Home = ({ navigation }) => {
           <View style={globalStyle.gap_sm}></View>
           <Title title="Incredible destinations"></Title>
           <View style={globalStyle.gap_sm}></View>
-          <Destinations data={destinations} />
+          <Destinations data={dataHome.destinations} />
         </View>
 
         <View style={globalStyle.gap_lg}></View>

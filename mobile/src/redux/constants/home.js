@@ -1,4 +1,5 @@
 export const HOME_CONTANTS = {
-  GET_DATA: 'GET_DATA',
-  ERROR: 'ERROR',
+  GET_DATA: "GET_DATA",
+  ERROR: "ERROR",
+  NUMBER_RECENT: 6,
 };

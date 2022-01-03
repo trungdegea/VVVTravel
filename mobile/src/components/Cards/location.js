@@ -1,19 +1,29 @@
 import { useNavigation } from "@react-navigation/core";
 import React from "react";
-import { StyleSheet, Text, SafeAreaView, Image, Touchable, TouchableOpacity } from "react-native";
-
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Image,
+  TouchableOpacity,
+} from "react-native";
+import { API_URL } from "@env";
 
 const Location = ({ image, name }) => {
+  // console.log("image2", name);
+  const imageUrl = image?.length
+    ? API_URL + image[0].url
+    : "https://via.placeholder.com/400x300.png";
   const navigation = useNavigation();
 
   const pressHandler = () => {
-    navigation.navigate("LocationDetail", { name });    
-  }
+    navigation.navigate("LocationDetail", { name });
+  };
 
   return (
     <TouchableOpacity onPress={pressHandler}>
       <SafeAreaView style={styles.cardContainer}>
-        <Image source={{ uri: image }} style={styles.img} />
+        <Image source={{ uri: imageUrl }} style={styles.img} />
         <Text style={styles.name}>{name}</Text>
       </SafeAreaView>
     </TouchableOpacity>
