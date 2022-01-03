@@ -2,6 +2,7 @@ import React, { useLayoutEffect, useEffect, useState} from "react";
 import {
   View,
   ScrollView,
+  Text
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -17,9 +18,11 @@ import ThingsToDo from "../../components/ThingsToDo";
 import Destinations from "../../components/Destinations";
 import HeaderHome from "../../components/Headers/home";
 import { getDataHome } from "../../redux/actions/home";
+import { useNavigation } from "@react-navigation/core";
 
 
-const Home = ({ navigation }) => {
+const Home = () => {
+  const navigation  = useNavigation();
   const [destinations, setDestinations] = useState([]);
   const [categories, setCategories] = useState([]);
   const [things, setThings] = useState([]);
@@ -138,7 +141,7 @@ const Home = ({ navigation }) => {
   return (
     <>
       {/* header */}
-      <HeaderHome navigation={navigation} />
+      <HeaderHome />
 
       {/* body */}
       <ScrollView
@@ -186,6 +189,8 @@ const Home = ({ navigation }) => {
           <Destinations data={destinations} />
         </View>
 
+        <Text onPress={() => {navigation.navigate("Success")}}>success</Text>
+        <Text onPress={() => {navigation.navigate("Failed")}}>failed</Text>
         <View style={globalStyle.gap_lg}></View>
         <View style={globalStyle.gap_lg}></View>
       </ScrollView>

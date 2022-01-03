@@ -1,11 +1,15 @@
-import React from "react";
+import React, { useMemo } from "react";
 import { StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
 import { Theme } from "../../constants";
 import Button from "../../shared/button";
 
 const { width, height } = Dimensions.get("window");
 
+const getTotal = (products = []) => products.reduce((prev, curr) => prev + curr.product.price, 0);
+
 const CartFooter = ({ navigation, products }) => {
+  const total = useMemo(() => (getTotal(products)), [products]);
+
   const gotoCheckout = () => {
     navigation.navigate("Checkout", { data: products });
   };
@@ -13,7 +17,7 @@ const CartFooter = ({ navigation, products }) => {
     <SafeAreaView style={[styles.footerContainer, styles.myFlex]}>
       <SafeAreaView>
         <Text style={[styles.total]}>Total (1 item)</Text>
-        <Text style={[styles.price]}>₫ 11,900,200</Text>
+        <Text style={[styles.price]}>{total} ₫</Text>
       </SafeAreaView>
       <Button
         onPress={gotoCheckout}

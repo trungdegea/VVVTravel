@@ -30,7 +30,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     fontSize: 18,
     borderColor: "#949191",
-    color: "#949191",
+    color: Theme.COLORS.BLACK,
     marginBottom: 10,
   },
   namecontact: {
@@ -52,7 +52,7 @@ export const styles = StyleSheet.create({
     borderBottomWidth: 1,
     borderColor: "#949191",
     paddingVertical: 10,
-    color: "#949191",
+    color: Theme.COLORS.BLACK,
   },
   totalContainer: {
     padding: 10,
@@ -68,5 +68,5 @@ export const styles = StyleSheet.create({
     color: Theme.COLORS.PRIMARY,
     fontWeight: "bold",
     fontSize: 20,
-  }
+  },
 });

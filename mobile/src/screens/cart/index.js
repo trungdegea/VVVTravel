@@ -16,6 +16,7 @@ import CartFooter from "../../components/Footers/cart";
 import { useDispatch, useSelector } from "react-redux";
 import { getCartData } from "../../redux/actions/carts";
 import { useNavigation } from "@react-navigation/core";
+import { style } from "../../styles/index";
 
 const HEADER_MIN_HEIGHT = 80;
 const HEADER_MAX_HEIGHT = 150;
@@ -34,9 +35,13 @@ const Cart = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const data = await getCartData();
-      // console.log(data);
-      setProducts(data);
+      try {
+        const data = await getCartData();
+        setProducts(data);
+        
+      } catch (error) {
+        
+      }
     };
     getData();
   }, []);
@@ -68,10 +73,17 @@ const Cart = () => {
           )}
           style={[{ paddingTop: 80 }]}
         >
-          <BlankCart />
-          {products.map((product) => (
-            <CartItem key={product.id} canChange product={product} />
-          ))}
+          {products.length ? (
+            products.map((product) => (
+              <CartItem key={product.id} canChange product={product} />
+            ))
+          ) : (
+            <BlankCart />
+          )}
+          <SafeAreaView style={[style.gap_xl]}></SafeAreaView>
+          <SafeAreaView style={[style.gap_xl]}></SafeAreaView>
+          <SafeAreaView style={[style.gap_xl]}></SafeAreaView>
+          <SafeAreaView style={[style.gap_sm]}></SafeAreaView>
         </ScrollView>
       ) : (
         <SafeAreaView style={[{ paddingTop: 80 }]}>
@@ -85,12 +97,11 @@ const Cart = () => {
           />
         </SafeAreaView>
       )}
-      {isLogged ? (
+
+      {products.length && isLogged ? (
         <CartFooter products={products} navigation={navigation} />
       ) : (
-        <View>
-          <Text></Text>
-        </View>
+        <></>
       )}
     </SafeAreaView>
   );

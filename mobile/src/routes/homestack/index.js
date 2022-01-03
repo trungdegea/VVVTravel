@@ -8,6 +8,8 @@ import LocationDetail from "../../screens/locationDetail";
 import Checkout from "../../screens/checkout";
 import CategoryDetail from "../../screens/categoryDetail";
 import MyStripeCheckout from "../../screens/StripeCheckout";
+import Success from "../../screens/Payment/success";
+import Failed from "../../screens/Payment/fail";
 
 const Stack = createNativeStackNavigator();
 const tabHiddenRoutes = [
@@ -19,6 +21,8 @@ const tabHiddenRoutes = [
   "CategoryDetail",
   "Checkout",
   "MyStripeCheckout",
+  "Success",
+  "Failed",
 ];
 
 const HomeStack = ({ navigation, route }) => {
@@ -44,6 +48,8 @@ const HomeStack = ({ navigation, route }) => {
       <Stack.Screen name="LocationDetail" component={LocationDetail} />
       <Stack.Screen name="CategoryDetail" component={CategoryDetail} />
       <Stack.Screen name="MyStripeCheckout" component={MyStripeCheckout} />
+      <Stack.Screen name="Success" component={Success} />
+      <Stack.Screen name="Failed" component={Failed} />
     </Stack.Navigator>
   );
 };

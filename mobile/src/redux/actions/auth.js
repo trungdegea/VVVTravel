@@ -13,6 +13,7 @@ import { API_URL } from "@env";
 const authURL = API_URL + "/auth/local";
 
 export const login = async (email = "", password = "") => {
+  console.log(authURL);
   try {
     const { data } = await axios.post(authURL, {
       identifier: email,

@@ -10,7 +10,6 @@ import { Theme } from "../../constants";
 import { API_URL } from "@env";
 
 const CartItem = ({ canChange, product }) => {
-  console.log(1);
   const image = product?.product.images.length
     ? API_URL + product?.product.images[0].url
     : "https://placekitten.com/512/512";
@@ -21,7 +20,7 @@ const CartItem = ({ canChange, product }) => {
         <SafeAreaView style={styles.info}>
           <Text style={styles.name}>{product?.product?.name}</Text>
           <SafeAreaView style={styles.myFlex}>
-            <Text>x2 </Text>
+            <Text> x{product?.quantity} </Text>
             <Text>{product?.product?.price}</Text>
           </SafeAreaView>
         </SafeAreaView>
@@ -52,6 +51,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingVertical: 15,
     paddingHorizontal: 15,
+    marginBottom: 10,
   },
   item: {
     flexDirection: "row",
