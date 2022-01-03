@@ -7,10 +7,12 @@ const initialState = {
   jwt: "",
   err: false,
   message: "",
-  exp: new Date()
-}
+  exp: new Date(),
+};
 
 export default function authReducer(state = initialState, action) {
+  console.log("auth", action.type);
+
   switch (action.type) {
     case LOGIN: {
       return action.payload;

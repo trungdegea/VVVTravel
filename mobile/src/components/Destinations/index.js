@@ -9,11 +9,11 @@ import Location from "../Cards/location";
 
 const Destinations = ({ data }) => {
   const [locations, setLocations] = useState([]);
-  console.log(data);
+
   useEffect(() => {
     setLocations(splitToSubArrays(data, 2));
     return () => {};
-  }, []);
+  }, [data]);
 
   const renderItem = ({ item }) => {
     return (

@@ -3,10 +3,12 @@ import { StyleSheet, SafeAreaView, TouchableOpacity, Dimensions, } from "react-n
 import { Theme } from "../../constants";
 import { Ionicons } from "@expo/vector-icons";
 import SearchBar from "../../shared/SearchBar";
+import { useNavigation } from "@react-navigation/core";
 
 const {width, height} = Dimensions.get("window");
 
-const HeaderDestination = ({ navigation }) => {
+const HeaderDestination = () => {
+  const navigation = useNavigation();
   const goToCart = () => {
     navigation.navigate("Cart", { data: "this is how to pass data" });
   };

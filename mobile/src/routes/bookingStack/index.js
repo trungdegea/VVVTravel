@@ -3,6 +3,10 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Booking from "../../screens/booking";
 import Cart from "../../screens/cart";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
+import SignIn from "../../screens/signIn";
+import SignUp from "../../screens/signUp";
+import Checkout from "../../screens/checkout";
+import MyStripeCheckout from "../../screens/StripeCheckout";
 
 const Stack = createNativeStackNavigator();
 const tabHiddenRoutes = ["Cart", "Package"];
@@ -25,6 +29,10 @@ const HomeStack = ({ navigation, route }) => {
     >
       <Stack.Screen name="Booking" component={Booking} />
       <Stack.Screen name="Cart" component={Cart} />
+      {/* <Stack.Screen name="SignIn" component={SignIn} />
+      <Stack.Screen name="SignUp" component={SignUp} />
+      <Stack.Screen name="Checkout" component={Checkout} />
+      <Stack.Screen name="MyStripeCheckout" component={MyStripeCheckout} /> */}
     </Stack.Navigator>
   );
 };

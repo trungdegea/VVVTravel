@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -14,12 +14,8 @@ import { formatPrice } from "../../utilities";
 import { Ionicons } from "@expo/vector-icons";
 
 const CartItem = ({ canChange, product }) => {
-  console.log("a", product);
-  const [checked, onChange] = useState(false);
-  function onCheckmarkPress(id) {
-    console.log(id);
-    onChange(!checked);
-  }
+  const [checked, setCheck] = useState(false);
+
   const image = product?.product.images.length
     ? API_URL + product?.product.images[0].url
     : "https://placekitten.com/512/512";
@@ -40,7 +36,7 @@ const CartItem = ({ canChange, product }) => {
       >
         <Pressable
           style={[styles.checkboxBase, checked && styles.checkboxChecked]}
-          onPress={onCheckmarkPress(product.id)}
+          onPress={() => setCheck(!checked)}
         >
           {checked && <Ionicons name="checkmark" size={24} color="white" />}
         </Pressable>
@@ -67,6 +63,7 @@ const styles = StyleSheet.create({
     backgroundColor: "#fff",
     paddingVertical: 15,
     paddingHorizontal: 15,
+    marginBottom: 10,
   },
   item: {
     flexDirection: "row",

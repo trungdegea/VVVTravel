@@ -18,9 +18,10 @@
       "component": "cart-item.order-item"
     },
     "user": {
+      "via": "orders",
       "plugin": "users-permissions",
-      "model": "user",
-      "via": "orders"
+      "autoPopulate": false,
+      "model": "user"
     },
     "transaction": {
       "type": "string"

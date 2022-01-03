@@ -23,11 +23,9 @@ const windowWidth = Dimensions.get("window").width;
 const Account = ({ navigation }) => {
   const [scrollOffsetY, setScrollOffsetY] = useState(new Animated.Value(0));
   const retrieve = useRetrieve();
-  useLayoutEffect(() => {
-    retrieve()
-  }, []);
-
-
+  // useLayoutEffect(() => {
+  //   retrieve()
+  // }, []);
 
   // get value on scrolling
   const opacity = scrollOffsetY.interpolate({
@@ -49,7 +47,6 @@ const Account = ({ navigation }) => {
     ],
     extrapolate: "clamp",
   });
-
 
   return (
     <SafeAreaView>

@@ -1,35 +1,35 @@
-import React, { useState } from "react";
-import {
-  SafeAreaView,
-  Text,
-  TextInput,
-  View,
-  Picker,
-  StyleSheet,
-} from "react-native";
+import React, { useMemo, useRef, useState } from "react";
+import { Alert, SafeAreaView, Text, TextInput, View } from "react-native";
 import { styles } from "./style";
 import DropDownPicker from "react-native-dropdown-picker";
-import {useDispatch, useSelector} from "react-redux";
+import { useSelector } from "react-redux";
 import Button from "../../shared/button";
 import { Theme } from "../../constants";
 import { useNavigation } from "@react-navigation/core";
+import SmallLoading from "../Loading/small";
+import axios from "../../utilities/http";
 
-export default function ContactInfoCheckout() {
+const castToOrderItems = (products = []) =>
+  products.map(({ product, quantity }) => ({ product: product.id, quantity }));
+const getTotal = (products = []) =>
+  products.reduce((prev, { product }) => prev + product.price, 0);
+const castToArrayCartIds = (products = []) => products.map(({ id }) => id);
 
+export default function ContactInfoCheckout({ products }) {
   const navigation = useNavigation();
-  const dispatch = useDispatch();
-  const auth = useSelector(state => state.auth);
+  const auth = useSelector((state) => state.auth);
 
-  const [textfirst, setTextfirst] = useState(
-    "Please use English characters only"
-  );
-  const [textsecond, setTextsecond] = useState(
-    "Please use English characters only"
-  );
-  const [phonenumber, setPhonenumber] = useState(
-    "Please enter your phone number"
-  );
-  const [email, setEmail] = useState("Please enter your email");
+  const orderItems = useMemo(() => castToOrderItems(products), [products]);
+  const total = useMemo(() => getTotal(products), [products]);
+  const cartIds = useMemo(() => castToArrayCartIds(products), [products]);
+  console.log(cartIds);
+
+  const [isLoading, setIsLoading] = useState(false);
+  const inputRef = useRef({
+    email: auth.user.email,
+    username: auth.user.username,
+  });
+
   const [open, setOpen] = useState(false);
   const [value, setValue] = useState("+84");
   const [items, setItems] = useState([
@@ -39,6 +39,46 @@ export default function ContactInfoCheckout() {
     { label: "+85", value: "+85" },
     { label: "+86", value: "+86" },
   ]);
+
+  const createOrder = async () => {
+    setIsLoading(true);
+    try {
+      const checkoutPromise = axios.post("/orders", {
+        items: orderItems,
+        username: inputRef.current.username,
+        email: inputRef.current.email,
+      });
+      const removeCartsPromise = axios.post("/carts/deletes", {
+        ids: cartIds,
+      });
+
+      const [{ transaction, id }, removeCartsCount] = await Promise.all([
+        checkoutPromise,
+        removeCartsPromise,
+      ]);
+      navigation.navigate("MyStripeCheckout", {
+        transaction,
+        orderId: id,
+      });
+    } catch (err) {
+      Alert.alert(
+        "Error",
+        "An error occurred when server created checking out session!!",
+        [
+          {
+            text: "Cancel",
+            onPress: () => setIsLoading(false),
+          },
+        ],
+        {
+          cancelable: true,
+          onDismiss: () => setIsLoading(true),
+        }
+      );
+      setIsLoading(false);
+    }
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -52,6 +92,7 @@ export default function ContactInfoCheckout() {
         <TextInput
           defaultValue={auth.user.username || ""}
           style={styles.input}
+          placeholder={"Please enter your fullname !!!"}
         />
       </View>
       <View style={styles.phonenumber}>
@@ -68,8 +109,8 @@ export default function ContactInfoCheckout() {
           disableBorderRadius={true}
         />
         <TextInput
-          value={phonenumber}
           style={[styles.inputPhonenumber, { marginHorizontal: 0 }]}
+          placeholder={"Please enter your phone number !!!"}
         />
       </View>
       <View style={styles.namecontact}>
@@ -77,20 +118,27 @@ export default function ContactInfoCheckout() {
         <TextInput
           defaultValue={auth.user.email}
           style={[styles.inputPhonenumber, { marginHorizontal: 0 }]}
+          placeholder={"Please enter your email !!!"}
         />
       </View>
 
       <View style={styles.totalContainer}>
         <Text style={styles.totalText}>Total:</Text>
-        <Text style={styles.totalPrice}>2500000 đ</Text>
+        <Text style={styles.totalPrice}>{total} đ</Text>
       </View>
-      <View style={[{paddingHorizontal: 10}]}>
-        <Button
-          title={"Checkout"}
-          bgColor={Theme.COLORS.PRIMARY}
-          textColor={Theme.COLORS.WHITE}
-          onPress={() => {navigation.navigate("MyStripeCheckout");}}
-        />
+      <View style={[{ paddingHorizontal: 10 }]}>
+        {isLoading ? (
+          <SmallLoading size={50} />
+        ) : (
+          <Button
+            title={"Checkout"}
+            bgColor={Theme.COLORS.PRIMARY}
+            textColor={Theme.COLORS.WHITE}
+            onPress={() => {
+              createOrder();
+            }}
+          />
+        )}
       </View>
     </SafeAreaView>
   );

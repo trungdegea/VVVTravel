@@ -72,6 +72,12 @@ module.exports = {
   async create(ctx) {
     let entity;
     const { user } = ctx.state;
+    const {product} = ctx.request.body;
+
+    const existedProduct = await strapi.services.product.findOne({id: product});
+    if (existedProduct.id == product){
+      return ctx.throw(402, "This product already on cart, please update its quantity or date");
+    }
     if (ctx.is("multipart")) {
       const { data, files } = parseMultipartData(ctx);
       entity = await strapi.services.cart.create(data, { files });
@@ -131,5 +137,26 @@ module.exports = {
 
     const entity = await strapi.services.cart.delete({ id });
     return sanitizeEntity(entity, { model: strapi.models.cart });
+  },
+
+  /**
+   * Delete records.
+   * only delete the very first logged user's carts
+   * @return {Object}
+   */
+
+  async deletes(ctx) {
+    const { ids } = ctx.request.body;
+    const { user } = ctx.state;
+
+    const realCarts = await strapi.services.cart.find({ id_in: ids, user: user.id });
+    if (realCarts.length !== ids.length) {
+      return ctx.throw(404, "Some carts do not belong to you!");
+    }
+
+    const knex = strapi.connections.default;
+    const results = await knex("carts").whereIn("id", ids).del();
+
+    return results;
   },
 };

@@ -23,10 +23,10 @@ const PackageCheckout = ({ data }) => {
             <Text style={styles.voucher}>{item.quantity} x People</Text>
             <Text style={styles.date}>{item?.date}</Text>
             <Text style={styles.price}>{item?.product.price} đ</Text>
-            <TouchableOpacity style={styles.btn} onPress={booking}>
+            {/* <TouchableOpacity style={styles.btn} onPress={booking}>
               <AntDesign name="pluscircleo" size={20} color="orange" />
               <Text style={styles.btn_name}>Enter booking info</Text>
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </SafeAreaView>
         ))}
     </SafeAreaView>

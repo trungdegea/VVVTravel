@@ -12,11 +12,6 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "user": {
-      "plugin": "users-permissions",
-      "model": "user",
-      "via": "cart"
-    },
     "product": {
       "model": "product"
     },
@@ -27,6 +22,11 @@
     },
     "date": {
       "type": "date"
+    },
+    "user": {
+      "via": "carts",
+      "plugin": "users-permissions",
+      "model": "user"
     }
   }
 }

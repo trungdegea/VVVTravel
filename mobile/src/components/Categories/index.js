@@ -20,7 +20,7 @@ const Categories = ({ data }) => {
   useEffect(() => {
     setCategorySlider(splitToSubArrays(data));
     return () => {};
-  }, []);
+  }, [data]);
 
   const { width, height } = Dimensions.get("window");
 

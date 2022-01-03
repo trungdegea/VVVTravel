@@ -1,17 +1,12 @@
 import React from "react";
-import {
-  StyleSheet,
-  Text,
-  SafeAreaView,
-  TouchableOpacity,
-} from "react-native";
+import { StyleSheet, Text, SafeAreaView, TouchableOpacity } from "react-native";
 import { Theme, Images } from "../../constants";
 import { Ionicons } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/core";
 
-const HeaderCart = ({ navigation }) => {
-  const selectAll = () => {
-    
-  };
+const HeaderCart = () => {
+  const navigation = useNavigation();
+  const selectAll = () => {};
   const deselectAll = () => {};
   return (
     <SafeAreaView style={[styles.headerContainer]}>
@@ -54,11 +49,11 @@ const styles = StyleSheet.create({
     fontSize: 24,
     fontWeight: "bold",
   },
-  myFlex:{
+  myFlex: {
     flexDirection: "row",
-    alignItems: "center"
+    alignItems: "center",
   },
   back: {
-    marginRight: 15
-  }
+    marginRight: 15,
+  },
 });

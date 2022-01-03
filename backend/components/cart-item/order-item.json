@@ -2,7 +2,8 @@
   "collectionName": "components_cart_item_order_items",
   "info": {
     "name": "orderItem",
-    "icon": "money-check"
+    "icon": "money-check",
+    "description": ""
   },
   "options": {},
   "attributes": {
@@ -25,6 +26,9 @@
       ],
       "required": true,
       "default": "booking"
+    },
+    "travelDate": {
+      "type": "date"
     }
   }
 }

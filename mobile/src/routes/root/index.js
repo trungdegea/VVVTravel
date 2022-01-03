@@ -38,6 +38,10 @@ const Root = () => {
     );
   };
 
+  const StackListener = ({ navigation, route }) => ({
+    tabPress: () => navigation.navigate(route.name),
+  });
+
   return (
     <Tab.Navigator screenOptions={{ ...tabBarOption, header: () => {} }}>
       <Tab.Screen
@@ -103,6 +107,7 @@ const Root = () => {
             return labelOnActive("Account", color, focused);
           },
         }}
+        // listeners={StackListener}
       />
     </Tab.Navigator>
   );

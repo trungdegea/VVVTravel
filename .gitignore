@@ -1,4 +1,4 @@
 .vscode/
 .expo/
 node_modules/
-
+db/*

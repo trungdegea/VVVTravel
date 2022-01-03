@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, useEffect, useState } from "react";
+import React, { useLayoutEffect } from "react";
 import { View, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,13 +15,7 @@ import Destinations from "../../components/Destinations";
 import HeaderHome from "../../components/Headers/home";
 import { getDataHome } from "../../redux/actions/home";
 
-const Home = ({ navigation }) => {
-  const [data, setData] = useState({
-    destinations: [],
-    categories: [],
-    things: [],
-    recentViews: [],
-  });
+const Home = () => {
   const dispatch = useDispatch();
   const dataHome = useSelector((state) => state.home);
 
@@ -50,7 +44,7 @@ const Home = ({ navigation }) => {
   return (
     <>
       {/* header */}
-      <HeaderHome navigation={navigation} />
+      <HeaderHome />
 
       {/* body */}
       <ScrollView

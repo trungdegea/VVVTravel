@@ -41,12 +41,20 @@
       }
     },
     {
+      "method": "POST",
+      "path": "/carts/deletes/",
+      "handler": "cart.deletes",
+      "config": {
+        "policies": []
+      }
+    },
+    {
       "method": "DELETE",
       "path": "/carts/:id",
       "handler": "cart.delete",
       "config": {
         "policies": []
       }
-    }
+    }    
   ]
 }

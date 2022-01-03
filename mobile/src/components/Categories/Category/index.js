@@ -18,13 +18,17 @@ const Category = ({ iconColor, backgroundIconColor, iconName, children }) => {
       <View
         style={{
           ...styles.categoryIconBox,
-          backgroundColor: backgroundIconColor,
+          // backgroundColor: backgroundIconColor,
         }}
       >
-        <MaterialIcons
+        {/* <MaterialIcons
           name={iconName}
           style={styles.categoryIcon}
           color={iconColor}
+        /> */}
+        <Image
+          source={require("../../../../assets/icons/truck.svg")}
+          style={{ width: 36, height: 36 }}
         />
       </View>
       <Text style={styles.categoryName}>{children}</Text>

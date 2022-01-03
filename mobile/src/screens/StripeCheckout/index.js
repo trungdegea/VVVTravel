@@ -1,21 +1,31 @@
 import React from "react";
 import StripeCheckout from "react-native-stripe-checkout-webview";
 import { STRIPE_PK } from "@env";
-import { useNavigation } from "@react-navigation/native";
+import http from "../../utilities/http";
 
-const MyStripeCheckout = ({ CHECKOUT_SESSION_ID }) => {
+import { useNavigation, useRoute } from "@react-navigation/native";
+
+const MyStripeCheckout = () => {
   const navigation = useNavigation();
+  const route = useRoute();
   return (
     <StripeCheckout
       stripePublicKey={STRIPE_PK}
       checkoutSessionInput={{
-        sessionId: "",
+        sessionId: route.params.transaction,
       }}
-      onSuccess={({ checkoutSessionId }) => {
-        navigation.goBack();
+      onSuccess={async ({ checkoutSessionId }) => {
+        await http.put("/orders/" + route.params.orderId, {
+          transaction: checkoutSessionId,
+        });
+        navigation.navigate("HomeStack", {
+          screen: "Success",
+        });
       }}
       onCancel={() => {
-        navigation.goBack();
+        navigation.navigate("HomeStack", {
+          screen: "Failed",
+        });
       }}
     />
   );
