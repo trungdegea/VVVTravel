@@ -1,5 +1,11 @@
 import React, { useLayoutEffect, useCallback } from "react";
-import { StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Dimensions,
+  BackHandler,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { Theme } from "../../constants";
 import Button from "../../shared/button";
@@ -9,7 +15,6 @@ const { width, height } = Dimensions.get("window");
 
 const Failed = () => {
   const navigation = useNavigation();
-
 
   const goHome = useCallback(() => {
     navigation.reset({

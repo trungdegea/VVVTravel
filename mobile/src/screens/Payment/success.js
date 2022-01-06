@@ -1,14 +1,19 @@
 import React, { useCallback, useLayoutEffect } from "react";
-import { StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  SafeAreaView,
+  Dimensions,
+  BackHandler,
+} from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { Theme } from "../../constants";
 import Button from "../../shared/button";
 import { useNavigation } from "@react-navigation/core";
 
-const {width, height} = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
 const Success = () => {
-
   const navigation = useNavigation();
 
   const goHome = useCallback(() => {
@@ -31,7 +36,7 @@ const Success = () => {
     return () => backHandler.remove();
   });
 
-  useLayoutEffect
+  useLayoutEffect;
 
   return (
     <SafeAreaView style={styles.statusContainer}>
@@ -76,10 +81,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
   },
-  body:{
-    padding: 20
+  body: {
+    padding: 20,
   },
-  quote:{
+  quote: {
     textAlign: "center",
     fontSize: 16,
   },
@@ -87,5 +92,5 @@ const styles = StyleSheet.create({
     width: 120,
     alignSelf: "center",
     marginTop: 30,
-  }
+  },
 });
