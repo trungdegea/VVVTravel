@@ -19,22 +19,6 @@ const Home = () => {
   const dispatch = useDispatch();
   const dataHome = useSelector((state) => state.home);
 
-  // useEffect(() => {
-  //   const thingArr = [];
-  //   const products = dataHome?.products || [];
-  //   products.map((product) => {
-  //     if (product.id <= 6) {
-  //       thingArr.push(product);
-  //     }
-  //   });
-  //   setData({
-  //     destinations: dataHome.destinations,
-  //     categories: dataHome.categories,
-  //     things: thingArr,
-  //     recentViews: dataHome.recentViews,
-  //   });
-  // }, [dataHome]);
-
   useLayoutEffect(() => {
     const getData = async () => {
       dispatch(await getDataHome());
@@ -65,7 +49,7 @@ const Home = () => {
           <View style={globalStyle.gap_sm}></View>
           <Title title="Recently Viewed" hasMore={true}></Title>
           <View style={globalStyle.gap_sm}></View>
-          <RecentlyViewed data={dataHome.recentViews} />
+          <RecentlyViewed data={dataHome.dataRecently} />
         </View>
 
         {/* Recently viewed */}

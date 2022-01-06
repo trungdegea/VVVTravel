@@ -7,12 +7,17 @@ import SmallCard from "../Cards/small";
 
 const RecentlyViewed = ({ data }) => {
   const renderItem = ({ item }) => {
-    const image = item.images.length
+    const image = item?.images?.length
       ? API_URL + item.images[0].url
       : "https://via.placeholder.com/400x300.png";
     return (
       <SafeAreaView style={styles.item}>
-        <SmallCard image={image} title={item.name} price={item.price} />
+        <SmallCard
+          id={item?.id}
+          image={image}
+          title={item?.name}
+          price={item?.price}
+        />
       </SafeAreaView>
     );
   };

@@ -1,13 +1,19 @@
-import { useNavigation } from '@react-navigation/core';
-import React from 'react';
-import { SafeAreaView, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { useNavigation } from "@react-navigation/core";
+import React from "react";
+import {
+  SafeAreaView,
+  Text,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+} from "react-native";
 
-const SmallCard = ({image, title, price}) => {
+const SmallCard = ({ id, image, title, price }) => {
   const navigation = useNavigation();
 
   const pressHandler = () => {
-    navigation.navigate("package", {});
-  }
+    navigation.navigate("package", { id });
+  };
   return (
     <TouchableOpacity onPress={pressHandler}>
       <SafeAreaView style={styles.cardContainer}>
@@ -19,7 +25,7 @@ const SmallCard = ({image, title, price}) => {
       </SafeAreaView>
     </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
   cardContainer: {

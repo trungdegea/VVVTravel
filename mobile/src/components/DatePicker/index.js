@@ -18,7 +18,8 @@ export default function DatePicker({ date, setDate }) {
   };
 
   const handleConfirm = (date) => {
-    setDate(date.toDateString());
+    const day = new Date(date);
+    setDate(day.toISOString().substring(0, 10));
     setIsChoose(true);
     hideDatePicker();
   };

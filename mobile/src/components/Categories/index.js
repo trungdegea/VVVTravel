@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useCallback } from "react";
 import { SafeAreaView, Text, FlatList, Dimensions } from "react-native";
+import { API_URL } from "@env";
 
 // styles
 import { styles } from "./style";
@@ -31,9 +32,12 @@ const Categories = ({ data }) => {
           {item &&
             item.map((cate) => (
               <Category
-                iconColor={"black"}
                 backgroundIconColor={"orange"}
-                iconName={"local-dining"}
+                url={
+                  cate?.banners
+                    ? API_URL + cate?.banners[0].url
+                    : "https://placekitten.com/512/512"
+                }
                 key={cate.id}
               >
                 {cate.name}

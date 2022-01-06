@@ -20,12 +20,12 @@ export const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingTop: 5,
   },
-  decription_heading: {
+  description_heading: {
     fontSize: 16,
     paddingVertical: 10,
     marginBottom: 10,
   },
-  decription_image: {
+  description_image: {
     alignItems: "center",
     paddingVertical: 10,
   },
@@ -33,7 +33,7 @@ export const styles = StyleSheet.create({
     width: Dimensions.get("window").width * 0.9,
     height: Dimensions.get("window").height * 0.4,
   },
-  decription_image_content: {
+  description_image_content: {
     paddingVertical: 2,
     color: "gray",
   },

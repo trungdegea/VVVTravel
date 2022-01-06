@@ -64,11 +64,10 @@ const LoginForm = () => {
       const result = dispatch(
         await login(inputRef.current.identifier, inputRef.current.password)
       );
-      if (result.payload.err) {
-        setIsLoading(false);
-      } else {
+      if (!result.payload.err) {
         navigation.goBack();
       }
+      setIsLoading(false);
     }
   });
   const goToSignup = () => {

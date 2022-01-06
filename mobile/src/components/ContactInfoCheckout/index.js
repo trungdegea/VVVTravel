@@ -22,7 +22,7 @@ export default function ContactInfoCheckout({ products }) {
   const orderItems = useMemo(() => castToOrderItems(products), [products]);
   const total = useMemo(() => getTotal(products), [products]);
   const cartIds = useMemo(() => castToArrayCartIds(products), [products]);
-  console.log(cartIds);
+  // console.log(cartIds);
 
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef({

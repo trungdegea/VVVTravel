@@ -10,20 +10,22 @@ import { Ionicons } from "@expo/vector-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getDataHome } from "../../redux/actions/home";
 
 const Card = ({ id, image, title, price, rating, location }) => {
   const navigation = useNavigation();
   const auth = useSelector((state) => state.auth);
-
+  const dispatch = useDispatch();
   const pressHandler = async () => {
     navigation.navigate("package", { id });
     // console.log(auth.isLogged);
     if (auth.isLogged) {
       const item = await AsyncStorage.getItem("recently");
-      // console.log("item", item);
+      console.log("item", item);
       const newArr = [item];
       newArr.unshift(id);
       await AsyncStorage.setItem("recently", newArr.toString());
+      dispatch(await getDataHome());
     }
   };
 

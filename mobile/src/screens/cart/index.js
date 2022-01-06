@@ -71,7 +71,9 @@ const Cart = () => {
           style={[{ paddingTop: 80 }]}
         >
           {products.length ? (
-            products.map((product) => <CartItem canChange product={product} />)
+            products.map((product) => (
+              <CartItem key={product.id} canChange product={product} />
+            ))
           ) : (
             <BlankCart />
           )}
