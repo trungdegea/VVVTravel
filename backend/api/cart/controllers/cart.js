@@ -75,7 +75,7 @@ module.exports = {
     const {product, quantity, date} = ctx.request.body;
 
     const existedCart = await strapi.services.cart.findOne({product: product, user: user.id});
-    if (existedCart && existedCart.product.id === product){
+    if (existedCart.product.id == product){
       existedCart.quantity += quantity;
       existedCart.date = date;
       return sanitizeEntity(existedCart, { model: strapi.models.cart });
