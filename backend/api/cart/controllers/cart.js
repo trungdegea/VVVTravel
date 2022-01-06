@@ -72,11 +72,13 @@ module.exports = {
   async create(ctx) {
     let entity;
     const { user } = ctx.state;
-    const {product} = ctx.request.body;
+    const {product, quantity, date} = ctx.request.body;
 
-    const existedProduct = await strapi.services.product.findOne({id: product});
-    if (existedProduct.id == product){
-      return ctx.throw(402, "This product already on cart, please update its quantity or date");
+    const existedCart = await strapi.services.cart.findOne({product: product, user: user.id});
+    if (existedCart.product.id == product){
+      existedCart.quantity += quantity;
+      existedCart.date = date;
+      return sanitizeEntity(existedCart, { model: strapi.models.cart });
     }
     if (ctx.is("multipart")) {
       const { data, files } = parseMultipartData(ctx);
