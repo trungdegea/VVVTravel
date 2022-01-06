@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback, useLayoutEffect } from "react";
 import { StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { Theme } from "../../constants";
@@ -11,16 +11,27 @@ const Success = () => {
 
   const navigation = useNavigation();
 
-  const goHome = () => {
+  const goHome = useCallback(() => {
     navigation.reset({
       index: 0,
       routes: [
         {
           name: "Home",
-        }
-      ]
-    })
-  }
+        },
+      ],
+    });
+  }, []);
+
+  useLayoutEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      goHome
+    );
+
+    return () => backHandler.remove();
+  });
+
+  useLayoutEffect
 
   return (
     <SafeAreaView style={styles.statusContainer}>

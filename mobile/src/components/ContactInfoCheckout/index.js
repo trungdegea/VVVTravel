@@ -12,7 +12,10 @@ import axios from "../../utilities/http";
 const castToOrderItems = (products = []) =>
   products.map(({ product, quantity }) => ({ product: product.id, quantity }));
 const getTotal = (products = []) =>
-  products.reduce((prev, { product }) => prev + product.price, 0);
+  products.reduce(
+    (prev, { product, quantity }) => prev + product.price * quantity,
+    0
+  );
 const castToArrayCartIds = (products = []) => products.map(({ id }) => id);
 
 export default function ContactInfoCheckout({ products }) {
@@ -22,7 +25,6 @@ export default function ContactInfoCheckout({ products }) {
   const orderItems = useMemo(() => castToOrderItems(products), [products]);
   const total = useMemo(() => getTotal(products), [products]);
   const cartIds = useMemo(() => castToArrayCartIds(products), [products]);
-  // console.log(cartIds);
 
   const [isLoading, setIsLoading] = useState(false);
   const inputRef = useRef({
@@ -60,6 +62,7 @@ export default function ContactInfoCheckout({ products }) {
         transaction,
         orderId: id,
       });
+      setIsLoading(false);
     } catch (err) {
       Alert.alert(
         "Error",

@@ -94,6 +94,7 @@ const Root = () => {
           tabBarLabel: ({ color, focused }) => {
             return labelOnActive("Booking", color, focused);
           },
+          unmountOnBlur: true,
         }}
       />
       <Tab.Screen

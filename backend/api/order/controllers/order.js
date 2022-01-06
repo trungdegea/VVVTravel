@@ -147,7 +147,7 @@ module.exports = {
       });
 
       await strapi.plugins["email"].services.email.send({
-        from: process.env.ADMIN_EMAIL,
+        from: `"VVVShop 👻" <${process.env.ADMIN_EMAIL}>`,
         to: email ? email : user.email,
         subject: "Checkout confirmation",
         text: " Thank You For Your Order!",
@@ -261,11 +261,17 @@ module.exports = {
                                         <table cellspacing="0" cellpadding="0" border="0" width="100%">
                                             <tr>
                                                 <td width="75%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> Order Confirmation # </td>
-                                                <td width="25%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> ${entity.id} </td>
+                                                <td width="25%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> ${
+                                                  entity.id
+                                                } </td>
                                             </tr>
                                             <tr>
                                                 <td width="75%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> Customer </td>
-                                                <td width="25%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> ${username ? username : user.username} </td>
+                                                <td width="25%" align="left" bgcolor="#eeeeee" style="font-family: Open Sans, Helvetica, Arial, sans-serif; font-size: 16px; font-weight: 800; line-height: 24px; padding: 10px;"> ${
+                                                  username
+                                                    ? username
+                                                    : user.username
+                                                } </td>
                                             </tr>
                                             ${htmlItems}
                                         </table>
@@ -309,6 +315,7 @@ module.exports = {
     const { id } = ctx.params;
     const { user } = ctx.state;
     const { transaction } = ctx.request.body;
+    console.log(transaction);
 
     const oldEntity = await strapi.services.order.findOne({
       id,
@@ -317,7 +324,7 @@ module.exports = {
     if (!oldEntity) {
       return ctx.throw(402, "could not update other order!!");
     }
-    const session = stripe.checkout.sessions.retrieve(transaction);
+    const session = await stripe.checkout.sessions.retrieve(transaction);
     if (session.payment_status === "paid"){
       const bookedItems = oldEntity.items.map((item) => ({
         ...item,
