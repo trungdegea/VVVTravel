@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useLayoutEffect, useCallback } from "react";
 import { StyleSheet, Text, SafeAreaView, Dimensions } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 import { Theme } from "../../constants";
@@ -8,8 +8,10 @@ import { useNavigation } from "@react-navigation/core";
 const { width, height } = Dimensions.get("window");
 
 const Failed = () => {
-  const navigation = useNavigation()
-  const goHome = () => {
+  const navigation = useNavigation();
+
+
+  const goHome = useCallback(() => {
     navigation.reset({
       index: 0,
       routes: [
@@ -18,7 +20,17 @@ const Failed = () => {
         },
       ],
     });
-  };
+  }, []);
+
+  useLayoutEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      goHome
+    );
+
+    return () => backHandler.remove();
+  });
+
   return (
     <SafeAreaView style={styles.statusContainer}>
       <SafeAreaView style={styles.header}>
@@ -26,7 +38,8 @@ const Failed = () => {
       </SafeAreaView>
       <SafeAreaView style={styles.body}>
         <Text style={[styles.quote]}>
-          We're very sorry about this inconvenience. Hope you enjoy our sites. Stay safe, stay merry.
+          We're very sorry about this inconvenience. Hope you enjoy our sites.
+          Stay safe, stay merry.
         </Text>
         <SafeAreaView style={styles.btnContainer}>
           <Button
