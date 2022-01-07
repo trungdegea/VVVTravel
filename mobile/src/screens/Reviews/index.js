@@ -16,16 +16,17 @@ import { useNavigation } from "@react-navigation/core";
 
 const clamp = (x, a, b) => Math.max(a, Math.min(x, b));
 
-export default function Reviews({ comments, productName }) {
-  const [text, setText] = useState("input your comment");
-  const [rate, setRate] = useState("0");
+export default function Reviews({ route }) {
+  const { comments, name } = route.params;
+  const [text, setText] = useState(null);
+  const [rate, setRate] = useState(null);
   const auth = useSelector((state) => state.auth);
   const navigation = useNavigation();
 
   const sendComment = async () => {
     if (auth.isLogged) {
       console.log("object", text, rate);
-      await http.post("/comments", { id, text, rate });
+      await http.post("/comments", { product: id, text, rate });
     } else {
       navigation.navigate("AccountStack", {
         screen: "SignIn",
@@ -35,11 +36,11 @@ export default function Reviews({ comments, productName }) {
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
-      <HeaderReviews productName={productName} />
+      <HeaderReviews productName={name} />
       <ScrollView style={styles.container}>
         {comments &&
           comments?.map((cmt) => (
-            <SafeAreaView style={styles.item}>
+            <SafeAreaView style={styles.item} key={cmt.id}>
               <View style={styles.listcomment}>
                 <Text style={styles.name}>{cmt.name}</Text>
                 <Text style={styles.rate}>Rate: {cmt.rate}</Text>
@@ -52,13 +53,16 @@ export default function Reviews({ comments, productName }) {
           <Text style={styles.topic}>comment</Text>
           <TextInput
             style={styles.input}
-            placeholder={text}
-            onChangeText={(val) => setText(val)}
+            value={text}
+            placeholder="input your comment"
+            onChangeText={setText}
           />
+
           <Text style={styles.topic}>Rate</Text>
           <TextInput
             style={styles.input}
-            placeholder={rate}
+            value={rate}
+            placeholder="0"
             keyboardType="number-pad"
             onChangeText={(val) => setRate(clamp(parseInt(val), 1, 5))}
           />

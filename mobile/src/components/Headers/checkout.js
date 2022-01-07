@@ -5,10 +5,15 @@ import { Theme } from "../../constants";
 import { FontAwesome } from "@expo/vector-icons";
 
 export default function CheckoutHeader({ navigation }) {
+  const gotoHome = () => {
+    navigation.navigate("HomeStack", {
+      screen: "Home",
+    });
+  };
   return (
     <SafeAreaView style={[styles.headerContainer]}>
       <SafeAreaView style={[styles.myFlex]}>
-        <TouchableOpacity onPress={navigation.goBack} style={[styles.back]}>
+        <TouchableOpacity onPress={gotoHome} style={[styles.back]}>
           <Ionicons
             name="arrow-back"
             color={Theme.COLORS.BLACK}

@@ -25,6 +25,7 @@ export const styles = StyleSheet.create({
     borderBottomColor: "orange",
   },
   option_name: {
+    color: "#000",
     fontSize: 15,
     paddingHorizontal: 5,
     paddingVertical: 5,

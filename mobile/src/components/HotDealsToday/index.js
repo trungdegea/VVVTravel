@@ -1,7 +1,5 @@
 import React from "react";
 import {
-  Button,
-  FlatList,
   Image,
   SafeAreaView,
   Text,
@@ -9,69 +7,37 @@ import {
   View,
 } from "react-native";
 import { styles } from "./style";
+import { formatPrice } from "../../utilities";
 
-const data = [
-  {
-    id: "1",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum qua troi luon ne asd",
-    voucher: 0.75,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "2",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    voucher: 0.75,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "3",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    voucher: 0.75,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "4",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    voucher: 0.75,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "5",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    voucher: 0.75,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "6",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    voucher: 0.75,
-    price: "200000",
-    location: "Ha Noi",
-  },
-];
+import { API_URL } from "@env";
+import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/core";
 
-const Tour = ({ image, location, title, price, voucher }) => {
+const Tour = ({ image, location, title, price, id }) => {
+  const navigation = useNavigation();
+  const img = image?.length
+    ? API_URL + image[0].url
+    : "https://via.placeholder.com/400x300.png";
+
+  const gotoDetail = () => {
+    console.log(id);
+    navigation.navigate("HomeStack", {
+      screen: "package",
+      params: { id },
+    });
+  };
   return (
     <View style={styles.tour}>
-      <Image source={{ uri: image }} style={styles.image} />
+      <Image source={{ uri: img }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.location}>{location}</Text>
         <Text style={styles.name}>{title}</Text>
-        <Text style={styles.price}>{price}</Text>
+        <Text style={styles.price}>{formatPrice(price)}</Text>
         <View style={styles.booking}>
-          <Text style={styles.pricevoucher}>From đ {price * voucher}</Text>
-          <TouchableOpacity style={styles.btnbook}>
+          <Text style={styles.pricevoucher}>
+            From {formatPrice(price * 0.5)}
+          </Text>
+          <TouchableOpacity style={styles.btnbook} onPress={gotoDetail}>
             <Text style={styles.namebtn}>Book now</Text>
           </TouchableOpacity>
         </View>
@@ -81,15 +47,9 @@ const Tour = ({ image, location, title, price, voucher }) => {
 };
 
 export default function HotDealsToday() {
-  const renderItem = ({ item }) => (
-    <Tour
-      image={item.img}
-      location={item.location}
-      title={item.package}
-      price={item.price}
-      voucher={item.voucher}
-    />
-  );
+  const dataHome = useSelector((state) => state.home);
+  const { products } = dataHome;
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.header}>
@@ -100,15 +60,15 @@ export default function HotDealsToday() {
       </View>
       <SafeAreaView style={styles.content}>
         <Text>Ends in 1 day 18 : 55 : 42</Text>
-        {data?.length &&
-          data.map((item, index) => (
+        {products?.length &&
+          products.map((item, index) => (
             <Tour
-              image={item.img}
-              location={item.location}
-              title={item.package}
-              price={item.price}
-              voucher={item.voucher}
               key={item.id}
+              image={item?.images}
+              location={item?.location?.name}
+              title={item?.name}
+              price={item?.price}
+              id={item?.id}
             />
           ))}
       </SafeAreaView>

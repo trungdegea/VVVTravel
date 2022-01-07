@@ -1,98 +1,43 @@
 import React, { useRef, useState } from "react";
 import {
-  Animated,
   Text,
   View,
-  StyleSheet,
-  Button,
   SafeAreaView,
   TouchableOpacity,
   FlatList,
   Image,
 } from "react-native";
-import Card from "../../components/Cards/medium";
+import { useNavigation } from "@react-navigation/core";
+import { formatPrice } from "../../utilities";
+import { API_URL } from "@env";
 
 import { styles } from "./style";
 
-const data = [
-  {
-    id: "1",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum qua troi luon ne asd",
-    rating: 4.3,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "2",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    rating: 4.3,
-    price: "200000",
-    location: "Ha Noi",
-  },
-];
-const data2 = [
-  {
-    id: "1",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum qua troi luon ne asd",
-    rating: 4.3,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "2",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    rating: 4.3,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "3",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    rating: 4.3,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "4",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    rating: 4.3,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "5",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    rating: 4.3,
-    price: "200000",
-    location: "Ha Noi",
-  },
-  {
-    id: "6",
-    img: "https://picsum.photos/400/300",
-    package: "lorem ipsum",
-    rating: 4.3,
-    price: "200000",
-    location: "Ha Noi",
-  },
-];
+const data = [];
+import { useSelector } from "react-redux";
 
-const Tour = ({ image, location, title, price, voucher }) => {
+const Tour = ({ image, location, title, price, id }) => {
+  const navigation = useNavigation();
+  const img = image?.length
+    ? API_URL + image[0].url
+    : "https://via.placeholder.com/400x300.png";
+
+  const gotoDetail = () => {
+    console.log(id);
+    navigation.navigate("HomeStack", {
+      screen: "package",
+      params: { id },
+    });
+  };
   return (
     <View style={styles.tour}>
-      <Image source={{ uri: image }} style={styles.image} />
+      <Image source={{ uri: img }} style={styles.image} />
       <View style={styles.info}>
         <Text style={styles.location}>{location}</Text>
         <Text style={styles.name}>{title}</Text>
-        <Text style={styles.price}>{price}</Text>
+        <Text style={styles.price}>{formatPrice(price)}</Text>
         <View style={styles.booking}>
-          <TouchableOpacity style={styles.btnbook}>
+          <TouchableOpacity style={styles.btnbook} onPress={gotoDetail}>
             <Text style={styles.namebtn}>Book now</Text>
           </TouchableOpacity>
         </View>
@@ -102,15 +47,18 @@ const Tour = ({ image, location, title, price, voucher }) => {
 };
 
 const Wishes = () => {
+  const dataHome = useSelector((state) => state.home);
+  const { dataRecently } = dataHome;
   const [click, setClick] = useState("saved");
   let content;
   const renderItem = ({ item }) => {
     return (
       <Tour
-        image={item.img}
-        location={item.location}
-        title={item.package}
-        price={item.price}
+        image={item?.images}
+        location={item?.location?.name}
+        title={item?.name}
+        price={item?.price}
+        id={item?.id}
       />
     );
   };
@@ -122,10 +70,22 @@ const Wishes = () => {
   };
   switch (click) {
     case "saved":
-      content = <FlatList data={data} renderItem={renderItem} />;
+      content = (
+        <FlatList
+          data={data}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      );
       break;
     case "recently":
-      content = <FlatList data={data2} renderItem={renderItem} />;
+      content = (
+        <FlatList
+          data={dataRecently}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+        />
+      );
       break;
     default:
       break;

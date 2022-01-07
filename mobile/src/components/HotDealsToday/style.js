@@ -43,6 +43,7 @@ export const styles = StyleSheet.create({
   name: {
     fontSize: 18,
     fontWeight: "bold",
+    width: "75%",
   },
   price: {
     color: "gray",

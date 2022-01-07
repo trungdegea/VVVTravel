@@ -5,11 +5,11 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { styles } from "./style";
 import { useNavigation } from "@react-navigation/core";
 
-const Category = ({ backgroundIconColor, url, children }) => {
+const Category = ({ info, backgroundIconColor, url, children }) => {
   const navigation = useNavigation();
 
   const moveToCate = useCallback(() => {
-    navigation.navigate("CategoryDetail", { message: "1" });
+    navigation.navigate("CategoryDetail", { info });
   }, []);
 
   return (

@@ -18,7 +18,6 @@ import { getDataHome } from "../../redux/actions/home";
 const Home = () => {
   const dispatch = useDispatch();
   const dataHome = useSelector((state) => state.home);
-
   useLayoutEffect(() => {
     const getData = async () => {
       dispatch(await getDataHome());

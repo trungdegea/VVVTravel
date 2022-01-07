@@ -32,6 +32,7 @@ const Categories = ({ data }) => {
           {item &&
             item.map((cate) => (
               <Category
+                info={cate}
                 backgroundIconColor={"orange"}
                 url={
                   cate?.banners
