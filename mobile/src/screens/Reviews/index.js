@@ -24,7 +24,6 @@ export default function Reviews({ comments, productName }) {
 
   const sendComment = async () => {
     if (auth.isLogged) {
-      console.log("object", text, rate);
       await http.post("/comments", { id, text, rate });
     } else {
       navigation.navigate("AccountStack", {

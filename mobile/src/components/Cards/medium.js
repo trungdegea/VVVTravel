@@ -21,7 +21,6 @@ const Card = ({ id, image, title, price, rating, location }) => {
     // console.log(auth.isLogged);
     if (auth.isLogged) {
       const item = await AsyncStorage.getItem("recently");
-      console.log("item", item);
       const newArr = [item];
       newArr.unshift(id);
       await AsyncStorage.setItem("recently", newArr.toString());

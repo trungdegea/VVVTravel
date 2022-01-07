@@ -315,7 +315,6 @@ module.exports = {
     const { id } = ctx.params;
     const { user } = ctx.state;
     const { transaction } = ctx.request.body;
-    console.log(transaction);
 
     const oldEntity = await strapi.services.order.findOne({
       id,

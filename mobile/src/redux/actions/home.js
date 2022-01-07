@@ -24,7 +24,6 @@ export const getDataHome = async () => {
 
     return { type: HOME_CONTANTS.GET_DATA, payload: dataHome };
   } catch (error) {
-    console.log(error);
     return {
       type: HOME_CONTANTS.ERROR,
       payload: "",

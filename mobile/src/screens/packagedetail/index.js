@@ -42,13 +42,11 @@ export default function Packagedetail({ route }) {
   };
   const addtoCarts = async () => {
     if (auth.isLogged && date && quantity) {
-      console.log("date", date, "id", id);
       const result = await http.post("/carts", {
         product: id,
         quantity: quantity,
         date: date,
       });
-      console.log(result);
       navigation.goBack();
     } else {
       navigation.navigate("AccountStack", {

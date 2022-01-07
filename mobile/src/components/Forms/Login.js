@@ -31,6 +31,9 @@ const LoginForm = () => {
 
   useEffect(() => {
     dispatch(clearMessage());
+    return () => {
+      setIsLoading(false);
+    }
   }, []);
 
   const inputBlurHandler = () => {
@@ -66,8 +69,9 @@ const LoginForm = () => {
       );
       if (!result.payload.err) {
         navigation.goBack();
+      } else {
+        setIsLoading(false);
       }
-      setIsLoading(false);
     }
   });
   const goToSignup = () => {

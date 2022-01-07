@@ -6,6 +6,7 @@ import {
   CLEAR_MESSAGE,
   RETRIVE_AUTH,
   SIGN_UP,
+  LOGOUT,
 } from "../constants/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { API_URL } from "@env";
@@ -13,7 +14,6 @@ import { API_URL } from "@env";
 const authURL = API_URL + "/auth/local";
 
 export const login = async (email = "", password = "") => {
-  console.log(authURL);
   try {
     const { data } = await axios.post(authURL, {
       identifier: email,
@@ -97,6 +97,24 @@ export const register = async (email = "", username = "", password = "") => {
 export const clearMessage = () => {
   return {
     type: CLEAR_MESSAGE,
+  };
+};
+
+export const logOut = async () => {
+  const exp = new Date();
+  await AsyncStorage.setItem("exp", exp.toISOString());
+  await AsyncStorage.removeItem("jwt");
+  await AsyncStorage.removeItem("user");
+  return {
+    type: LOGOUT,
+    payload: {
+      exp,
+      jwt: "",
+      user: "",
+      isLogged: false,
+      err: false,
+      message: "",
+    },
   };
 };
 
