@@ -5,5 +5,3 @@ export const CLEAR_MESSAGE = "CLEAR_MESSAGE";
 export const FAILED = "FAILED";
 export const RESET_CART = "RESET_CART";
 export const RETRIVE_AUTH = "RETRIVE_AUTH";
-export const FORGOT = "FORGOT";
-export const RESET = "RESET";

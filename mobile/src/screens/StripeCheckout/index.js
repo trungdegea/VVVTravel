@@ -37,11 +37,11 @@ const MyStripeCheckout = () => {
       }}
       onSuccess={async ({ checkoutSessionId }) => {
         const transaction = checkoutSessionId.substring(69); // there is no way around in getting transaction id except from it 
+        await http.put("/orders/" + route.params.orderId, {
+          transaction
+        });
         navigation.navigate("HomeStack", {
           screen: "Success",
-        });
-        await http.put("/orders/" + route.params.orderId, {
-          transaction,
         });
       }}
       onCancel={() => {

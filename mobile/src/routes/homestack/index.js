@@ -24,7 +24,6 @@ const tabHiddenRoutes = [
   "MyStripeCheckout",
   "Success",
   "Failed",
-  "Reviews",
 ];
 
 const HomeStack = ({ navigation, route }) => {

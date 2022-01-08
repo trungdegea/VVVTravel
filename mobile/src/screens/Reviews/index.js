@@ -17,7 +17,7 @@ import { useNavigation } from "@react-navigation/core";
 const clamp = (x, a, b) => Math.max(a, Math.min(x, b));
 
 export default function Reviews({ route }) {
-  const { comments, name, id } = route.params;
+  const { comments, name } = route.params;
   const [text, setText] = useState(null);
   const [rate, setRate] = useState(null);
   const auth = useSelector((state) => state.auth);
@@ -25,8 +25,8 @@ export default function Reviews({ route }) {
 
   const sendComment = async () => {
     if (auth.isLogged) {
-      // console.log("object", text, rate);
-      await http.post("/comments", { product: id, message: text, rate });
+      console.log("object", text, rate);
+      await http.post("/comments", { product: id, text, rate });
     } else {
       navigation.navigate("AccountStack", {
         screen: "SignIn",
@@ -53,6 +53,7 @@ export default function Reviews({ route }) {
           <Text style={styles.topic}>comment</Text>
           <TextInput
             style={styles.input}
+            value={text}
             placeholder="input your comment"
             onChangeText={setText}
           />
@@ -60,6 +61,7 @@ export default function Reviews({ route }) {
           <Text style={styles.topic}>Rate</Text>
           <TextInput
             style={styles.input}
+            value={rate}
             placeholder="0"
             keyboardType="number-pad"
             onChangeText={(val) => setRate(clamp(parseInt(val), 1, 5))}

@@ -35,7 +35,7 @@ const Categories = ({ data }) => {
                 info={cate}
                 backgroundIconColor={"orange"}
                 url={
-                  cate?.banners.length > 0
+                  cate?.banners
                     ? API_URL + cate?.banners[0].url
                     : "https://placekitten.com/512/512"
                 }

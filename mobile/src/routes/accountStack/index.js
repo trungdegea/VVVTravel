@@ -6,11 +6,9 @@ import SignIn from "../../screens/signIn";
 import SignUp from "../../screens/signUp";
 import EditAccount from "../../screens/editAccount";
 import Profile from "../../screens/profile";
-import Forgot from "../../screens/forgot";
-import Reset from "../../screens/reset";
 
 const Stack = createNativeStackNavigator();
-const tabHiddenRoutes = ["SignIn", "SignUp", "Profile", "Edit Account", "Forgot", "Reset"];
+const tabHiddenRoutes = ["SignIn", "SignUp"];
 
 const AccountStack = ({ navigation, route }) => {
   useLayoutEffect(() => {
@@ -33,8 +31,6 @@ const AccountStack = ({ navigation, route }) => {
       <Stack.Screen name="SignUp" component={SignUp} />
       <Stack.Screen name="Profile" component={Profile} />
       <Stack.Screen name="Edit Account" component={EditAccount} />
-      <Stack.Screen name="Forgot" component={Forgot} />
-      <Stack.Screen name="Reset" component={Reset} />
     </Stack.Navigator>
   );
 };

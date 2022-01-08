@@ -28,9 +28,6 @@ const SignUpForm = () => {
 
   useEffect(() => {
     dispatch(clearMessage());
-    return () => {
-      setIsLoading(false);
-    }
   }, []);
 
   const [isLoading, setIsLoading] = useState(false);
@@ -100,7 +97,9 @@ const SignUpForm = () => {
       const result = dispatch(
         await register(inputRef.current.email, inputRef.current.username, inputRef.current.password)
       );
-      if (!result.payload.err) {
+      if (result.payload.err) {
+        setIsLoading(false);
+      } else {
         Alert.alert(
           "Successful registration",
           "Please check your email to verify your account",
@@ -111,8 +110,7 @@ const SignUpForm = () => {
             },
           ]
         );
-      } else {
-        setIsLoading(false);
+        
       }
     }
   });

@@ -12,8 +12,8 @@ export const styles = StyleSheet.create({
   },
   categoryIconBox: {
     width: 56,
-    // padding: 10,
-    borderRadius: 999,
+    padding: 10,
+    borderRadius: 8,
     aspectRatio: 1,
   },
   categoryIcon: {

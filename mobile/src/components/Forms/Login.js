@@ -31,13 +31,10 @@ const LoginForm = () => {
 
   useEffect(() => {
     dispatch(clearMessage());
-    return () => {
-      setIsLoading(false);
-    }
   }, []);
 
   const inputBlurHandler = () => {
-    Keyboard.dismiss();
+    // Keyboard.dismiss();
   };
   const onEmailChange = useCallback((text) => {
     inputRef.current.identifier = text;
@@ -69,16 +66,12 @@ const LoginForm = () => {
       );
       if (!result.payload.err) {
         navigation.goBack();
-      } else {
-        setIsLoading(false);
       }
+      setIsLoading(false);
     }
   });
   const goToSignup = () => {
     navigation.navigate("SignUp");
-  };
-  const goToForgot = () => {
-    navigation.navigate("Forgot");
   };
 
   return (
@@ -128,11 +121,6 @@ const LoginForm = () => {
         <SmallLoading size={50} padding={0} />
       ) : (
         <>
-          <SafeAreaView style={[styles.formGroup]}>
-            <Text onPress={goToForgot} style={{textAlign: "center", color: Theme.COLORS.INFO, fontStyle: "italic"}} >
-              Forgot password? Click here
-            </Text>
-          </SafeAreaView>
           <SafeAreaView style={[styles.formGroup]}>
             <Button
               title={"SIGN IN"}

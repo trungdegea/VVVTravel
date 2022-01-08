@@ -14,8 +14,7 @@
       "type": "string",
       "minLength": 3,
       "configurable": false,
-      "required": true,
-      "unique": false
+      "required": true
     },
     "email": {
       "type": "email",
