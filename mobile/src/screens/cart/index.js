@@ -87,7 +87,9 @@ const Cart = () => {
           <Text>Please Login to see your carts</Text>
           <Button
             onPress={() => {
-              navigation.navigate("SignIn");
+              navigation.navigate("AccountStack", {
+                screen: "SignIn",
+              });
             }}
             title="go to Login"
             color="#841584"

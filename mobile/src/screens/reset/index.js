@@ -1,36 +1,22 @@
 import React from "react";
 import { Text, SafeAreaView, ScrollView } from "react-native";
-import SignUpForm from "../../components/Forms/SignUp";
+import ResetForm from "../../components/Forms/ResetForm";
 import BasicHeader from "../../components/Headers/basic";
 import { style } from "../../styles";
-import { useNavigation } from "@react-navigation/core";
-import { useSelector } from "react-redux";
+
 
 import {styles} from "./style"
 
-const SignUp = () => {
-
-  const { isLogged } = useSelector((state) => state.auth);
-  const navigation = useNavigation();
-  
-  useLayoutEffect(() => {
-    if (isLogged) {
-      navigation.reset({
-        index: 0,
-        routes: [{ name: "Account" }],
-      });
-    }
-  }, []);
-
+const Reset = () => {
   return (
     <SafeAreaView>
       {/* header */}
-      <BasicHeader title="Sign Up" />
+      <BasicHeader title="Reset password"/>
 
       {/* body */}
       <ScrollView style={[{ paddingTop: 70 }]}>
         <SafeAreaView style={[styles.container]}>
-          <SignUpForm />
+          <ResetForm />
         </SafeAreaView>
 
         {/* ending gap */}
@@ -42,6 +28,6 @@ const SignUp = () => {
   );
 };
 
-export default SignUp;
+export default Reset;
 
 

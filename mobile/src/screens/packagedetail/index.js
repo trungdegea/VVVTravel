@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useLayoutEffect, useState } from "react";
 import {
   Animated,
   Button,
@@ -23,7 +23,7 @@ import Slider from "../../components/Slider";
 import { getPackageData } from "../../redux/actions/package";
 import { formatPrice } from "../../utilities/index";
 import { useNavigation } from "@react-navigation/core";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 // import { SliderBox } from "react-native-image-slider-box";
 
 export default function Packagedetail({ route }) {
@@ -33,6 +33,7 @@ export default function Packagedetail({ route }) {
   const [name, setName] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [showPopup, setShowPopup] = useState(false);
+  const [comments, setComments] = useState([]);
   const [date, setDate] = useState(new Date().toDateString());
   const navigation = useNavigation();
   const auth = useSelector((state) => state.auth);
@@ -61,6 +62,7 @@ export default function Packagedetail({ route }) {
       setProduct(packageData);
       setName(packageData.name);
       setImages(packageData?.images);
+      setComments(packageData.comments);
     };
     getdataProduct();
   }, []);
@@ -83,7 +85,7 @@ export default function Packagedetail({ route }) {
             keyboardAppearance="dark"
             defaultValue="1"
           />
-          <Review comments={product.comments} productName={name} />
+          <Review comments={comments} name={product.name} id={id} />
           <BookedTogether />
           <GoogleMap />
           <Expect decription={product?.description} images={images} />

@@ -32,9 +32,10 @@ const Categories = ({ data }) => {
           {item &&
             item.map((cate) => (
               <Category
+                info={cate}
                 backgroundIconColor={"orange"}
                 url={
-                  cate?.banners
+                  cate?.banners.length > 0
                     ? API_URL + cate?.banners[0].url
                     : "https://placekitten.com/512/512"
                 }

@@ -147,7 +147,7 @@ module.exports = {
       });
 
       await strapi.plugins["email"].services.email.send({
-        from: `"VVVShop 👻" <${process.env.ADMIN_EMAIL}>`,
+        from: `"VVV Travel 👻" <${process.env.ADMIN_EMAIL}>`,
         to: email ? email : user.email,
         subject: "Checkout confirmation",
         text: " Thank You For Your Order!",

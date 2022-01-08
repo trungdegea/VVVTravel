@@ -8,26 +8,23 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Alert,
 } from "react-native";
 import { Images, Theme } from "../../constants";
 import Button from "../../shared/button";
 import { useSelector, useDispatch } from "react-redux";
-import { clearMessage, login } from "../../redux/actions/auth";
+import { clearMessage, reset } from "../../redux/actions/auth";
 import { useNavigation } from "@react-navigation/core";
 import SmallLoading from "../Loading/small";
 
-const LoginForm = () => {
+const ResetForm = () => {
+  const inputBlurHandler = () => {
+    Keyboard.dismiss();
+  };
+
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const [isLoading, setIsLoading] = useState(false);
-  const [emailErr, setEmailErr] = useState("");
-  const [passwordErr, setPasswordErr] = useState("");
-
-  const inputRef = useRef({
-    identifier: "",
-    password: "",
-  });
 
   useEffect(() => {
     dispatch(clearMessage());
@@ -36,50 +33,77 @@ const LoginForm = () => {
     }
   }, []);
 
-  const inputBlurHandler = () => {
-    Keyboard.dismiss();
-  };
-  const onEmailChange = useCallback((text) => {
-    inputRef.current.identifier = text;
+  const [isLoading, setIsLoading] = useState(false);
+  const [tokenErr, setTokenErr] = useState("");
+  const [passwordErr, setPasswordErr] = useState("");
+  const [refillPasswordErr, setRefillPasswordErr] = useState("");
+
+  const inputRef = useRef({
+    token: "",
+    username: "",
+    password: "",
+    refillPassword: "",
+  });
+
+  const onTokenChange = useCallback((text) => {
+    inputRef.current.token = text;
   }, []);
   const onPasswordChange = useCallback((text) => {
     inputRef.current.password = text;
+    if (text === inputRef.current.refillPassword) {
+      setRefillPasswordErr("");
+    }
+  }, []);
+  const onRefillPasswordChange = useCallback((text) => {
+    inputRef.current.refillPassword = text;
+    if (text !== inputRef.current.password){
+      setRefillPasswordErr("Refilled password does not match password");
+    } else {
+      setRefillPasswordErr("");
+    }
   }, []);
   const onSubmit = useCallback(async () => {
     let hasErr = false;
-    if (
-      !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(inputRef?.current?.identifier)
-    ) {
-      setEmailErr("Email layout is not correct!!!!");
-      hasErr = true;
-    } else {
-      setEmailErr("");
-    }
-    if (!inputRef.current.password) {
-      setPasswordErr("Password is required!!!!");
+    if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g.test(inputRef.current.password)){
+      setPasswordErr("Password requires: At least eight characters, one uppercase letter, one lowercase letter and one number!!!!");
       hasErr = true;
     } else {
       setPasswordErr("");
+    }
+    if (inputRef.current.password !== inputRef.current.refillPassword) {
+      setRefillPasswordErr("Refilled password does not match password");
+      hasErr = true;
+    } else {
+      setRefillPasswordErr("");
     }
 
     if (!hasErr) {
       setIsLoading(true);
       const result = dispatch(
-        await login(inputRef.current.identifier, inputRef.current.password)
+        await reset(inputRef.current.token, inputRef.current.password, inputRef.current.refillPassword)
       );
       if (!result.payload.err) {
-        navigation.goBack();
+        Alert.alert(
+          "Successful reset password",
+          "Enjoy our site",
+          [
+            {
+              text: "OK",
+              onPress: () => navigation.reset({
+                index: 0,
+                routes: [
+                  {name: "Account"},
+                ]
+              }),
+            },
+          ]
+        );
       } else {
         setIsLoading(false);
       }
     }
   });
-  const goToSignup = () => {
-    navigation.navigate("SignUp");
-  };
-  const goToForgot = () => {
-    navigation.navigate("Forgot");
-  };
+
 
   return (
     <SafeAreaView style={[styles.box]}>
@@ -93,18 +117,17 @@ const LoginForm = () => {
         {auth?.message}
       </Text>
       <SafeAreaView style={[styles.formGroup]}>
-        <Text style={[styles.label]}>Email</Text>
-        <Text style={[styles.errors]}>{emailErr}</Text>
+        <Text style={[styles.label]}>Reset token</Text>
+        <Text style={[styles.errors]}>{tokenErr}</Text>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <TextInput
-            keyboardType={"email-address"}
+            keyboardType={"default"}
             style={[styles.textInput]}
             onBlur={inputBlurHandler}
-            onChangeText={onEmailChange}
-            autoComplete={"email"}
-            placeholder={"bob@email.com"}
+            onChangeText={onTokenChange}
+            placeholder={"Your reset token"}
           />
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -124,29 +147,33 @@ const LoginForm = () => {
           />
         </KeyboardAvoidingView>
       </SafeAreaView>
+      <SafeAreaView style={[styles.formGroup]}>
+        <Text style={[styles.label]}>Refill password</Text>
+        <Text style={[styles.errors]}>{refillPasswordErr}</Text>
+        <KeyboardAvoidingView
+          behavior={Platform.OS === "ios" ? "padding" : "height"}
+        >
+          <TextInput
+            secureTextEntry={true}
+            keyboardType={"default"}
+            style={[styles.textInput]}
+            onBlur={inputBlurHandler}
+            onChangeText={onRefillPasswordChange}
+            placeholder={"********"}
+          />
+        </KeyboardAvoidingView>
+      </SafeAreaView>
+
       {isLoading ? (
         <SmallLoading size={50} padding={0} />
       ) : (
         <>
           <SafeAreaView style={[styles.formGroup]}>
-            <Text onPress={goToForgot} style={{textAlign: "center", color: Theme.COLORS.INFO, fontStyle: "italic"}} >
-              Forgot password? Click here
-            </Text>
-          </SafeAreaView>
-          <SafeAreaView style={[styles.formGroup]}>
             <Button
-              title={"SIGN IN"}
+              title={"RESET"}
               bgColor={Theme.COLORS.PRIMARY}
               textColor={Theme.COLORS.WHITE}
               onPress={onSubmit}
-            />
-          </SafeAreaView>
-          <SafeAreaView style={[styles.formGroup]}>
-            <Button
-              title={"SIGN UP"}
-              bgColor={Theme.COLORS.INFO}
-              textColor={Theme.COLORS.WHITE}
-              onPress={goToSignup}
             />
           </SafeAreaView>
         </>
@@ -155,7 +182,7 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ResetForm;
 
 const styles = StyleSheet.create({
   box: {

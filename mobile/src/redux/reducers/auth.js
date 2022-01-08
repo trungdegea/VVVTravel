@@ -1,4 +1,4 @@
-import { CLEAR_MESSAGE, LOGIN, LOGOUT, RETRIVE_AUTH, SIGN_UP } from "../constants/auth";
+import { CLEAR_MESSAGE, FAILED, FORGOT, LOGIN, LOGOUT, RESET, RETRIVE_AUTH, SIGN_UP } from "../constants/auth";
 
 const initialState = {
   isLogged: false,
@@ -21,6 +21,15 @@ export default function authReducer(state = initialState, action) {
       return action.payload;
     }
     case RETRIVE_AUTH: {
+      return action.payload;
+    }
+    case FORGOT: {
+      return action.payload;
+    }
+    case RESET: {
+      return action.payload;
+    }
+    case FAILED: {
       return action.payload;
     }
     case CLEAR_MESSAGE: {

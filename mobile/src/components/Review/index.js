@@ -10,7 +10,7 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { styles } from "./style";
 import { useNavigation } from "@react-navigation/core";
 
-export default function Review({ comments }) {
+export default function Review({ comments, name, id }) {
   const navigation = useNavigation();
   const url = "https://image.vtc.vn/upload/2021/02/09/meo-16401545.PNG";
   return (
@@ -63,7 +63,7 @@ export default function Review({ comments }) {
         <TouchableOpacity
           style={styles.btn}
           onPress={() => {
-            navigation.navigate("Reviews", { comments });
+            navigation.navigate("Reviews", { comments, name, id });
           }}
         >
           <MaterialIcons name="keyboard-arrow-right" size={24} color="black" />

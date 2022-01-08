@@ -1,10 +1,9 @@
-import { StyleSheet } from "react-native";
+import { StyleSheet, Dimensions } from "react-native";
+const {width, height} = Dimensions.get("window");
 
 export const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    flexDirection: "column",
-    paddingTop: 20,
+    paddingTop: 80,
   },
   element: {
     flexDirection: "row",
@@ -18,5 +17,15 @@ export const styles = StyleSheet.create({
   name_element: {
     fontSize: 20,
     marginRight: "auto",
+  },
+  loadingLayer: {
+    zIndex: 1001,
+    width,
+    height,
+    position: "absolute",
+    backgroundColor: "rgba(0, 0, 0, .3)",
+    elevation: 8,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
