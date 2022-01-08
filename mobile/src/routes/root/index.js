@@ -107,6 +107,7 @@ const Root = () => {
           tabBarLabel: ({ color, focused }) => {
             return labelOnActive("Account", color, focused);
           },
+          unmountOnBlur: true,
         }}
         // listeners={StackListener}
       />

@@ -43,13 +43,11 @@ export default function Packagedetail({ route }) {
   };
   const addtoCarts = async () => {
     if (auth.isLogged && date && quantity) {
-      console.log("date", date, "id", id);
       const result = await http.post("/carts", {
         product: id,
         quantity: quantity,
         date: date,
       });
-      console.log(result);
       navigation.goBack();
     } else {
       navigation.navigate("AccountStack", {
@@ -87,7 +85,7 @@ export default function Packagedetail({ route }) {
             keyboardAppearance="dark"
             defaultValue="1"
           />
-          <Review comments={comments} name={product.name} />
+          <Review comments={comments} name={product.name} id={id} />
           <BookedTogether />
           <GoogleMap />
           <Expect decription={product?.description} images={images} />

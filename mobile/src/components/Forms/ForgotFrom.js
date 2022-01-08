@@ -8,21 +8,21 @@ import {
   Keyboard,
   KeyboardAvoidingView,
   Platform,
+  Alert
 } from "react-native";
 import { Images, Theme } from "../../constants";
 import Button from "../../shared/button";
 import { useSelector, useDispatch } from "react-redux";
-import { clearMessage, login } from "../../redux/actions/auth";
+import { clearMessage, forgot } from "../../redux/actions/auth";
 import { useNavigation } from "@react-navigation/core";
 import SmallLoading from "../Loading/small";
 
-const LoginForm = () => {
+const ForgotForm = () => {
   const auth = useSelector((state) => state.auth);
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const [isLoading, setIsLoading] = useState(false);
   const [emailErr, setEmailErr] = useState("");
-  const [passwordErr, setPasswordErr] = useState("");
 
   const inputRef = useRef({
     identifier: "",
@@ -33,7 +33,7 @@ const LoginForm = () => {
     dispatch(clearMessage());
     return () => {
       setIsLoading(false);
-    }
+    };
   }, []);
 
   const inputBlurHandler = () => {
@@ -41,9 +41,6 @@ const LoginForm = () => {
   };
   const onEmailChange = useCallback((text) => {
     inputRef.current.identifier = text;
-  }, []);
-  const onPasswordChange = useCallback((text) => {
-    inputRef.current.password = text;
   }, []);
   const onSubmit = useCallback(async () => {
     let hasErr = false;
@@ -55,30 +52,37 @@ const LoginForm = () => {
     } else {
       setEmailErr("");
     }
-    if (!inputRef.current.password) {
-      setPasswordErr("Password is required!!!!");
-      hasErr = true;
-    } else {
-      setPasswordErr("");
-    }
 
     if (!hasErr) {
       setIsLoading(true);
       const result = dispatch(
-        await login(inputRef.current.identifier, inputRef.current.password)
+        await forgot(inputRef.current.identifier)
       );
       if (!result.payload.err) {
-        navigation.goBack();
+        Alert.alert(
+          "Send reset request successfully",
+          "Please check your email to get reset token",
+          [
+            {
+              text: "OK",
+              onPress: () => navigation.reset({
+                index: 0,
+                routes: [
+                  {name: "Account"},
+                  {name: "Reset"}
+                ]
+              }),
+            },
+          ]
+        );
+        
       } else {
         setIsLoading(false);
       }
     }
   });
-  const goToSignup = () => {
-    navigation.navigate("SignUp");
-  };
-  const goToForgot = () => {
-    navigation.navigate("Forgot");
+  const backToSignIn = () => {
+    navigation.goBack();
   };
 
   return (
@@ -108,46 +112,29 @@ const LoginForm = () => {
           />
         </KeyboardAvoidingView>
       </SafeAreaView>
-      <SafeAreaView style={[styles.formGroup]}>
-        <Text style={[styles.label]}>Password</Text>
-        <Text style={[styles.errors]}>{passwordErr}</Text>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-        >
-          <TextInput
-            secureTextEntry={true}
-            keyboardType={"default"}
-            style={[styles.textInput]}
-            onBlur={inputBlurHandler}
-            onChangeText={onPasswordChange}
-            placeholder={"********"}
-          />
-        </KeyboardAvoidingView>
-      </SafeAreaView>
       {isLoading ? (
         <SmallLoading size={50} padding={0} />
       ) : (
         <>
           <SafeAreaView style={[styles.formGroup]}>
-            <Text onPress={goToForgot} style={{textAlign: "center", color: Theme.COLORS.INFO, fontStyle: "italic"}} >
-              Forgot password? Click here
-            </Text>
-          </SafeAreaView>
-          <SafeAreaView style={[styles.formGroup]}>
             <Button
-              title={"SIGN IN"}
+              title={"RESET PASSWORD"}
               bgColor={Theme.COLORS.PRIMARY}
               textColor={Theme.COLORS.WHITE}
               onPress={onSubmit}
             />
           </SafeAreaView>
           <SafeAreaView style={[styles.formGroup]}>
-            <Button
-              title={"SIGN UP"}
-              bgColor={Theme.COLORS.INFO}
-              textColor={Theme.COLORS.WHITE}
-              onPress={goToSignup}
-            />
+            <Text
+              onPress={backToSignIn}
+              style={{
+                textAlign: "center",
+                color: Theme.COLORS.INFO,
+                fontStyle: "italic",
+              }}
+            >
+              Remember your password? Back to sign in
+            </Text>
           </SafeAreaView>
         </>
       )}
@@ -155,7 +142,7 @@ const LoginForm = () => {
   );
 };
 
-export default LoginForm;
+export default ForgotForm;
 
 const styles = StyleSheet.create({
   box: {

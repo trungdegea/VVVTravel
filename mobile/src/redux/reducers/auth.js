@@ -1,5 +1,4 @@
-import { CLEAR_MESSAGE, LOGIN, SIGN_UP } from "../constants/auth";
-import AsyncStorage from "@react-native-async-storage/async-storage";
+import { CLEAR_MESSAGE, FAILED, FORGOT, LOGIN, LOGOUT, RESET, RETRIVE_AUTH, SIGN_UP } from "../constants/auth";
 
 const initialState = {
   isLogged: false,
@@ -16,6 +15,21 @@ export default function authReducer(state = initialState, action) {
       return action.payload;
     }
     case SIGN_UP: {
+      return action.payload;
+    }
+    case LOGOUT: {
+      return action.payload;
+    }
+    case RETRIVE_AUTH: {
+      return action.payload;
+    }
+    case FORGOT: {
+      return action.payload;
+    }
+    case RESET: {
+      return action.payload;
+    }
+    case FAILED: {
       return action.payload;
     }
     case CLEAR_MESSAGE: {

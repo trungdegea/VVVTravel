@@ -14,15 +14,19 @@ import ThingsToDo from "../../components/ThingsToDo";
 import Destinations from "../../components/Destinations";
 import HeaderHome from "../../components/Headers/home";
 import { getDataHome } from "../../redux/actions/home";
+import useRetrieve from "../../hooks/useRetrive";
 
 const Home = () => {
   const dispatch = useDispatch();
   const dataHome = useSelector((state) => state.home);
+  const retrieve = useRetrieve();
+
   useLayoutEffect(() => {
     const getData = async () => {
       dispatch(await getDataHome());
     };
     getData();
+    retrieve();
   }, []);
   return (
     <>

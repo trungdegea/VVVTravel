@@ -13,11 +13,11 @@ import {
 import { Images, Theme } from "../../constants";
 import Button from "../../shared/button";
 import { useSelector, useDispatch } from "react-redux";
-import { clearMessage, register } from "../../redux/actions/auth";
+import { clearMessage, reset } from "../../redux/actions/auth";
 import { useNavigation } from "@react-navigation/core";
 import SmallLoading from "../Loading/small";
 
-const SignUpForm = () => {
+const ResetForm = () => {
   const inputBlurHandler = () => {
     Keyboard.dismiss();
   };
@@ -34,23 +34,19 @@ const SignUpForm = () => {
   }, []);
 
   const [isLoading, setIsLoading] = useState(false);
-  const [emailErr, setEmailErr] = useState("");
-  const [usernameErr, setUsernameErr] = useState("");
+  const [tokenErr, setTokenErr] = useState("");
   const [passwordErr, setPasswordErr] = useState("");
   const [refillPasswordErr, setRefillPasswordErr] = useState("");
 
   const inputRef = useRef({
-    email: "",
+    token: "",
     username: "",
     password: "",
     refillPassword: "",
   });
 
-  const onEmailChange = useCallback((text) => {
-    inputRef.current.email = text;
-  }, []);
-  const onUsernameChange = useCallback((text) => {
-    inputRef.current.username = text;
+  const onTokenChange = useCallback((text) => {
+    inputRef.current.token = text;
   }, []);
   const onPasswordChange = useCallback((text) => {
     inputRef.current.password = text;
@@ -68,20 +64,6 @@ const SignUpForm = () => {
   }, []);
   const onSubmit = useCallback(async () => {
     let hasErr = false;
-    if (
-      !/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/g.test(inputRef?.current?.email)
-    ) {
-      setEmailErr("Email layout is not correct!!!!");
-      hasErr = true;
-    } else {
-      setEmailErr("");
-    }
-    if (/^$/g.test(inputRef.current.username)) {
-      setUsernameErr("Fullname is required!!!!");
-      hasErr = true;
-    } else {
-      setUsernameErr("");
-    }
     if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/g.test(inputRef.current.password)){
       setPasswordErr("Password requires: At least eight characters, one uppercase letter, one lowercase letter and one number!!!!");
       hasErr = true;
@@ -98,16 +80,21 @@ const SignUpForm = () => {
     if (!hasErr) {
       setIsLoading(true);
       const result = dispatch(
-        await register(inputRef.current.email, inputRef.current.username, inputRef.current.password)
+        await reset(inputRef.current.token, inputRef.current.password, inputRef.current.refillPassword)
       );
       if (!result.payload.err) {
         Alert.alert(
-          "Successful registration",
-          "Please check your email to verify your account",
+          "Successful reset password",
+          "Enjoy our site",
           [
             {
               text: "OK",
-              onPress: () => navigation.goBack(),
+              onPress: () => navigation.reset({
+                index: 0,
+                routes: [
+                  {name: "Account"},
+                ]
+              }),
             },
           ]
         );
@@ -130,24 +117,8 @@ const SignUpForm = () => {
         {auth?.message}
       </Text>
       <SafeAreaView style={[styles.formGroup]}>
-        <Text style={[styles.label]}>Email</Text>
-        <Text style={[styles.errors]}>{emailErr}</Text>
-        <KeyboardAvoidingView
-          behavior={Platform.OS === "ios" ? "padding" : "height"}
-        >
-          <TextInput
-            keyboardType={"email-address"}
-            style={[styles.textInput]}
-            onBlur={inputBlurHandler}
-            onChangeText={onEmailChange}
-            autoComplete={"email"}
-            placeholder={"bob@email.com"}
-          />
-        </KeyboardAvoidingView>
-      </SafeAreaView>
-      <SafeAreaView style={[styles.formGroup]}>
-        <Text style={[styles.label]}>Fullname</Text>
-        <Text style={[styles.errors]}>{usernameErr}</Text>
+        <Text style={[styles.label]}>Reset token</Text>
+        <Text style={[styles.errors]}>{tokenErr}</Text>
         <KeyboardAvoidingView
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
@@ -155,9 +126,8 @@ const SignUpForm = () => {
             keyboardType={"default"}
             style={[styles.textInput]}
             onBlur={inputBlurHandler}
-            onChangeText={onUsernameChange}
-            autoComplete={"email"}
-            placeholder={"John doe"}
+            onChangeText={onTokenChange}
+            placeholder={"Your reset token"}
           />
         </KeyboardAvoidingView>
       </SafeAreaView>
@@ -200,18 +170,10 @@ const SignUpForm = () => {
         <>
           <SafeAreaView style={[styles.formGroup]}>
             <Button
-              title={"SIGN UP"}
+              title={"RESET"}
               bgColor={Theme.COLORS.PRIMARY}
               textColor={Theme.COLORS.WHITE}
               onPress={onSubmit}
-            />
-          </SafeAreaView>
-          <SafeAreaView style={[styles.formGroup]}>
-            <Button
-              title={"SIGN IN"}
-              bgColor={Theme.COLORS.INFO}
-              textColor={Theme.COLORS.WHITE}
-              onPress={navigation.goBack}
             />
           </SafeAreaView>
         </>
@@ -220,7 +182,7 @@ const SignUpForm = () => {
   );
 };
 
-export default SignUpForm;
+export default ResetForm;
 
 const styles = StyleSheet.create({
   box: {

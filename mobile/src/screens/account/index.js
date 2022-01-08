@@ -1,5 +1,4 @@
 import React, { useLayoutEffect, useState } from "react";
-import { Dimensions } from "react-native";
 import {
   SafeAreaView,
   Text,
@@ -13,19 +12,14 @@ import HeaderAccountScroll from "../../components/Headers/accountScroll";
 import { Ionicons } from "@expo/vector-icons";
 import { Theme, Images } from "../../constants";
 import { styles } from "./style";
-import useRetrieve from "../../hooks/useRetrive";
 
 const HEADER_MIN_HEIGHT = 80;
 const HEADER_MAX_HEIGHT = 200;
 const HEADER_SCROLL_OFFSET = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
-const windowWidth = Dimensions.get("window").width;
 
 const Account = ({ navigation }) => {
   const [scrollOffsetY, setScrollOffsetY] = useState(new Animated.Value(0));
-  const retrieve = useRetrieve();
-  // useLayoutEffect(() => {
-  //   retrieve()
-  // }, []);
+
 
   // get value on scrolling
   const opacity = scrollOffsetY.interpolate({
