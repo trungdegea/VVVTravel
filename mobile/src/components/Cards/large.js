@@ -6,18 +6,18 @@ import {
   StyleSheet,
   Image,
   TouchableOpacity,
-  Dimensions
+  Dimensions,
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Theme } from "../../constants";
 
-const {width, height} = Dimensions.get("window");
+const { width, height } = Dimensions.get("window");
 
-const LargeCard = ({ image, title, price, rate, numOfReviews }) => {
+const LargeCard = ({ image, title, price, rate, numOfReviews, id }) => {
   const navigation = useNavigation();
 
   const pressHandler = () => {
-    navigation.navigate("package", {});
+    navigation.navigate("package", { id });
   };
   return (
     <TouchableOpacity onPress={pressHandler}>
@@ -101,7 +101,7 @@ const styles = StyleSheet.create({
     paddingHorizontal: 10,
     paddingVertical: 3,
     borderRadius: 12,
-    marginBottom: 10
+    marginBottom: 10,
   },
 });
 

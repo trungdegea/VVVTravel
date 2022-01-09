@@ -18,7 +18,6 @@ const Card = ({ id, image, title, price, rating, location }) => {
   const dispatch = useDispatch();
   const pressHandler = async () => {
     navigation.navigate("package", { id });
-    // console.log(auth.isLogged);
     if (auth.isLogged) {
       const item = await AsyncStorage.getItem("recently");
       const newArr = [item];

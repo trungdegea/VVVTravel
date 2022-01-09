@@ -1,21 +1,26 @@
 import React from "react";
-import { StyleSheet, TouchableOpacity, Dimensions, Animated } from "react-native";
-import { Theme } from "../../constants";
+import {
+  StyleSheet,
+  TouchableOpacity,
+  Dimensions,
+  Animated,
+} from "react-native";
 import { Ionicons } from "@expo/vector-icons";
 import SearchBar from "../../shared/SearchBar";
 import { useNavigation } from "@react-navigation/core";
 
 const AnimatedIcon = Animated.createAnimatedComponent(Ionicons);
-const {width, height} = Dimensions.get("window");
-
-const HeaderLocation = ({ bgColor, color, searchBgColor, focusSearchBgColor }) => {
-
+const { width, height } = Dimensions.get("window");
+const HeaderLocation = ({
+  bgColor,
+  color,
+  searchBgColor,
+  focusSearchBgColor,
+}) => {
   const navigation = useNavigation();
   const goToCart = () => {
     navigation.navigate("Cart", { data: "this is how to pass data" });
   };
-
-
 
   return (
     <Animated.View

@@ -12,7 +12,6 @@ import Category from "./Category";
 import { splitToSubArrays } from "../../utilities";
 
 const Categories = ({ data }) => {
-  // console.log(data);
   // use states
   const [categorySlider, setCategorySlider] = useState([]);
   const [activeDot, setActiveDot] = useState(0);

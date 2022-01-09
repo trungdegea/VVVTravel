@@ -1,6 +1,7 @@
 import { HOME_CONTANTS } from "../constants/home";
 
 const initialState = {
+  dataRecently: [],
   destinations: [],
   categories: [],
   products: [],

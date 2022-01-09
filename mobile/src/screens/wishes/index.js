@@ -23,7 +23,6 @@ const Tour = ({ image, location, title, price, id }) => {
     : "https://via.placeholder.com/400x300.png";
 
   const gotoDetail = () => {
-    console.log(id);
     navigation.navigate("HomeStack", {
       screen: "package",
       params: { id },

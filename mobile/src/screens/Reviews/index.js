@@ -22,11 +22,13 @@ export default function Reviews({ route }) {
   const [rate, setRate] = useState(null);
   const auth = useSelector((state) => state.auth);
   const navigation = useNavigation();
-
+  const [actualComments, setActualComments] = useState(comments);
   const sendComment = async () => {
     if (auth.isLogged) {
-      // console.log("object", text, rate);
       await http.post("/comments", { product: id, message: text, rate });
+      const newcmts = [...actualComments];
+      newcmts.push({ product: id, message: text, rate });
+      setActualComments(newcmts);
     } else {
       navigation.navigate("AccountStack", {
         screen: "SignIn",
@@ -38,11 +40,13 @@ export default function Reviews({ route }) {
     <SafeAreaView style={{ flex: 1 }}>
       <HeaderReviews productName={name} />
       <ScrollView style={styles.container}>
-        {comments &&
-          comments?.map((cmt) => (
-            <SafeAreaView style={styles.item} key={cmt.id}>
+        {actualComments &&
+          actualComments?.map((cmt, _index) => (
+            <SafeAreaView style={styles.item} key={_index}>
               <View style={styles.listcomment}>
-                <Text style={styles.name}>{cmt.name}</Text>
+                <Text style={styles.name}>
+                  {cmt?.user?.username ? cmt.user.username : "Anonymus user"}
+                </Text>
                 <Text style={styles.rate}>Rate: {cmt.rate}</Text>
                 <Text style={styles.mess}>Message: {cmt.message}</Text>
               </View>

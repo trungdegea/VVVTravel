@@ -53,7 +53,7 @@ export default function Slider({ images }) {
         pagingEnabled
         onScroll={handleChange}
       >
-        {images.map((img) => (
+        {images?.map((img) => (
           <Image
             key={img.id}
             resizeMode="stretch"
@@ -65,7 +65,7 @@ export default function Slider({ images }) {
         ))}
       </ScrollView>
       <View style={styles.wrapDot}>
-        {images.map((img) => (
+        {images?.map((img) => (
           <Text
             key={img.id}
             style={active === img.id ? styles.dotActive : styles.dot}

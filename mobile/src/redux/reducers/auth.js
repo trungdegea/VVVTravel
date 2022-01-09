@@ -1,4 +1,13 @@
-import { CLEAR_MESSAGE, FAILED, FORGOT, LOGIN, LOGOUT, RESET, RETRIVE_AUTH, SIGN_UP } from "../constants/auth";
+import {
+  CLEAR_MESSAGE,
+  FAILED,
+  FORGOT,
+  LOGIN,
+  LOGOUT,
+  RESET,
+  RETRIVE_AUTH,
+  SIGN_UP,
+} from "../constants/auth";
 
 const initialState = {
   isLogged: false,

@@ -9,15 +9,14 @@ import {
 } from "react-native";
 import { API_URL } from "@env";
 
-const Location = ({ image, name }) => {
-  // console.log("image2", name);
+const Location = ({ image, name, id }) => {
   const imageUrl = image?.length
     ? API_URL + image[0].url
     : "https://via.placeholder.com/400x300.png";
   const navigation = useNavigation();
 
   const pressHandler = () => {
-    navigation.navigate("LocationDetail", { name });
+    navigation.navigate("LocationDetail", { name, image, id });
   };
 
   return (

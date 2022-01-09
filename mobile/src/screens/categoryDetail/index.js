@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { View, ScrollView, Animated } from "react-native";
+import { View, ScrollView, Animated, Text } from "react-native";
 
 // styles
 import { style as globalStyle } from "../../styles/index";
@@ -18,7 +18,7 @@ const CategoryDetail = ({ route }) => {
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
   const { info } = route.params;
   const dataHome = useSelector((state) => state.home);
-  useEffect(() => {}, [info]);
+
   const headerBg = scrollY.interpolate({
     inputRange: [0, 0.9 * HEADER_SCROLL_OFFSET, HEADER_SCROLL_OFFSET],
     outputRange: [
@@ -73,10 +73,22 @@ const CategoryDetail = ({ route }) => {
       >
         {/* slider */}
         <Slider images={info.banners} />
-
+        <Text
+          style={{
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            fontSize: 20,
+            textAlign: "center",
+            fontWeight: "bold",
+          }}
+        >
+          {info?.name}
+        </Text>
         {/* Categories */}
         <View style={globalStyle.gap_sm}></View>
-        <Categories data={dataHome.categories} />
+        <Categories
+          data={dataHome.categories.filter((cate) => cate.id != info.id)}
+        />
 
         {/* Categories */}
         <View style={globalStyle.gap_sm}></View>

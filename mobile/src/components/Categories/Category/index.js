@@ -18,10 +18,13 @@ const Category = ({ info, backgroundIconColor, url, children }) => {
         style={{
           ...styles.categoryIconBox,
           // backgroundColor: backgroundIconColor,
-          elevation: 4
+          elevation: 4,
         }}
       >
-        <Image source={{ uri: url }} style={{ width: 56, height: 56, borderRadius: 999,}} />
+        <Image
+          source={{ uri: url }}
+          style={{ width: 56, height: 56, borderRadius: 999 }}
+        />
       </View>
       <Text style={styles.categoryName}>{children}</Text>
     </TouchableOpacity>

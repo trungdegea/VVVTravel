@@ -11,7 +11,7 @@ const Destinations = ({ data }) => {
   const [locations, setLocations] = useState([]);
 
   useEffect(() => {
-    setLocations(splitToSubArrays(data, 2));
+    setLocations(splitToSubArrays([...data], 2));
     return () => {};
   }, [data]);
 
@@ -21,7 +21,7 @@ const Destinations = ({ data }) => {
         {item &&
           item.map((loc, index) => (
             <SafeAreaView style={styles.location} key={index}>
-              <Location image={loc.images} name={loc.name} />
+              <Location image={loc.images} name={loc.name} id={loc.id} />
             </SafeAreaView>
           ))}
       </SafeAreaView>

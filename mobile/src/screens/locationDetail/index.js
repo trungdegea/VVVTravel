@@ -1,9 +1,6 @@
-import React, { useState } from "react";
-import {
-  View,
-  ScrollView,
-  Animated
-} from "react-native";
+import React, { useEffect, useLayoutEffect, useState } from "react";
+import { View, ScrollView, Animated, Text } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 // styles
 import { style as globalStyle } from "../../styles/index";
@@ -18,253 +15,34 @@ import Destinations from "../../components/Destinations";
 import HeaderLocation from "../../components/Headers/location";
 import Slider from "../../components/Slider";
 import { Theme } from "../../constants";
+import useRetrieve from "../../hooks/useRetrive";
+import { getDataHome } from "../../redux/actions/home";
+import { styles } from "../../components/Categories/style";
 
 const HEADER_SCROLL_OFFSET = 70;
 
-const LocationDetail = ({ navigation }) => {
-
+const LocationDetail = ({ route }) => {
+  const dispatch = useDispatch();
+  const dataHome = useSelector((state) => state.home);
+  const { image, name, id } = route.params;
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
-
-  // fake data
-  const [images, setImages] = useState([
-    {
-      id: 0,
-      url: "https://cdnimgen.vietnamplus.vn/uploaded/wbxx/2021_09_20/world_tourism_day_2021_to_focus_on_tourism_for_inclusive_growth.jpg",
-      decription: "dicription bla bla bla bla 0",
-    },
-    {
-      id: 1,
-      url: "https://unctad.org/sites/default/files/2021-08/2021-08-03_commentary_tourism_1200x675.jpg",
-      decription: "dicription bla bla bla bla 1",
-    },
-    {
-      id: 2,
-      url: "https://vir.com.vn/stores/news_dataimages/hung/052021/04/08/vietnams-mice-tourism-expected-to-explode-after-covid-19.jpg",
-      decription: "dicription bla bla bla bla 2",
-    },
-    {
-      id: 3,
-      url: "https://vir.com.vn/stores/news_dataimages/hung/052021/04/08/vietnams-mice-tourism-expected-to-explode-after-covid-19.jpg",
-      decription: "dicription bla bla bla bla 3",
-    },
-  ]);
-  const destinations = [
-    {
-      id: "0",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "1",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "2",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "3",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "4",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "5",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "6",
-      name: "Ha Noi",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "7",
-      name: "Kuralar Lumbur",
-      thumbnail: "https://picsum.photos/400",
-    },
-    {
-      id: "8",
-      name: "HCMC",
-      thumbnail: "https://picsum.photos/400",
-    },
-  ];
-  const categories = [
-    {
-      id: "1",
-      name: "Food & Dinning",
-      iconName: "fastfood",
-      iconColor: "#ff7a00",
-      backgroundIconColor: "rgba(255, 122, 0, .1)",
-    },
-    {
-      id: "2",
-      name: "Food & Dinning",
-      iconName: "fastfood",
-      iconColor: "#ff7a00",
-      backgroundIconColor: "rgba(255, 122, 0, .1)",
-    },
-    {
-      id: "3",
-      name: "Food & Dinning",
-      iconName: "fastfood",
-      iconColor: "#ff7a00",
-      backgroundIconColor: "rgba(255, 122, 0, .1)",
-    },
-    {
-      id: "4",
-      name: "Food & Dinning",
-      iconName: "fastfood",
-      iconColor: "#ff7a00",
-      backgroundIconColor: "rgba(255, 122, 0, .1)",
-    },
-    {
-      id: "5",
-      name: "Food & Dinning",
-      iconName: "fastfood",
-      iconColor: "#ff7a00",
-      backgroundIconColor: "rgba(255, 122, 0, .1)",
-    },
-    {
-      id: "6",
-      name: "Food & Dinning",
-      iconName: "fastfood",
-      iconColor: "#ff7a00",
-      backgroundIconColor: "rgba(255, 122, 0, .1)",
-    },
-    {
-      id: "7",
-      name: "Food & Dinning",
-      iconName: "fastfood",
-      iconColor: "#ff7a00",
-      backgroundIconColor: "rgba(255, 122, 0, .1)",
-    },
-    {
-      id: "8",
-      name: "Food & Dinning",
-      iconName: "fastfood",
-      iconColor: "#ff7a00",
-      backgroundIconColor: "rgba(255, 122, 0, .1)",
-    },
-    {
-      id: "9",
-      name: "Food & Dinning",
-      iconName: "fastfood",
-      iconColor: "#ff7a00",
-      backgroundIconColor: "rgba(255, 122, 0, .1)",
-    },
-    {
-      id: "10",
-      name: "Food & Dinning",
-      iconName: "fastfood",
-      iconColor: "#ff7a00",
-      backgroundIconColor: "rgba(255, 122, 0, .1)",
-    },
-  ];
-  const recentViews = [
-    {
-      id: "1",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum qua troi luon ne asd",
-      price: "200000",
-    },
-    {
-      id: "2",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-    {
-      id: "3",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-    {
-      id: "4",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-    {
-      id: "5",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-    {
-      id: "6",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      price: "200000",
-    },
-  ];
-  const things = [
-    {
-      id: "1",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum qua troi luon ne asd",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
-    },
-    {
-      id: "2",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
-    },
-    {
-      id: "3",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
-    },
-    {
-      id: "4",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
-    },
-    {
-      id: "5",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
-    },
-    {
-      id: "6",
-      img: "https://picsum.photos/400/300",
-      package: "lorem ipsum",
-      rating: 4.3,
-      price: "200000",
-      location: "Ha Noi",
-    },
-  ];
-
 
   const headerBg = scrollY.interpolate({
     inputRange: [0, 0.9 * HEADER_SCROLL_OFFSET, HEADER_SCROLL_OFFSET],
-    outputRange: ["rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 0)", "rgba(255, 255, 255, 1)"],
+    outputRange: [
+      "rgba(255, 255, 255, 0)",
+      "rgba(255, 255, 255, 0)",
+      "rgba(255, 255, 255, 1)",
+    ],
     extrapolate: "clamp",
   });
   const color = scrollY.interpolate({
     inputRange: [0, 0.9 * HEADER_SCROLL_OFFSET, HEADER_SCROLL_OFFSET],
-    outputRange: ["rgb(255, 255, 255)", "rgb(255, 255, 255)", Theme.COLORS.BLACK],
+    outputRange: [
+      "rgb(255, 255, 255)",
+      "rgb(255, 255, 255)",
+      Theme.COLORS.BLACK,
+    ],
     extrapolate: "clamp",
   });
   const searchBgColor = scrollY.interpolate({
@@ -274,7 +52,11 @@ const LocationDetail = ({ navigation }) => {
   });
   const focusSearchBgColor = scrollY.interpolate({
     inputRange: [0, 0.9 * HEADER_SCROLL_OFFSET, HEADER_SCROLL_OFFSET],
-    outputRange: [ "rgba(40, 40, 40, .5)", "rgba(40, 40, 40, .5)", Theme.COLORS.INPUT, ],
+    outputRange: [
+      "rgba(40, 40, 40, .5)",
+      "rgba(40, 40, 40, .5)",
+      Theme.COLORS.INPUT,
+    ],
     extrapolate: "clamp",
   });
 
@@ -298,11 +80,21 @@ const LocationDetail = ({ navigation }) => {
         )}
       >
         {/* slider */}
-        <Slider images={images} />
-
+        <Slider images={image} />
+        <Text
+          style={{
+            paddingHorizontal: 10,
+            paddingVertical: 10,
+            fontSize: 20,
+            textAlign: "center",
+            fontWeight: "bold",
+          }}
+        >
+          {name}
+        </Text>
         {/* Categories */}
         <View style={globalStyle.gap_sm}></View>
-        <Categories data={categories} />
+        <Categories data={dataHome.categories} />
 
         {/* Recently viewed */}
         <View style={globalStyle.container}>
@@ -317,7 +109,7 @@ const LocationDetail = ({ navigation }) => {
           <View style={globalStyle.gap_sm}></View>
           <Title title="Top things to do" hasMore></Title>
           <View style={globalStyle.gap_sm}></View>
-          <ThingsToDo data={things} />
+          <ThingsToDo data={dataHome.products} />
         </View>
 
         {/* Other destinations */}
@@ -325,7 +117,9 @@ const LocationDetail = ({ navigation }) => {
           <View style={globalStyle.gap_sm}></View>
           <Title title="Other destinations"></Title>
           <View style={globalStyle.gap_sm}></View>
-          <Destinations data={destinations} />
+          <Destinations
+            data={dataHome.destinations.filter((location) => location.id != id)}
+          />
         </View>
 
         <View style={globalStyle.gap_lg}></View>

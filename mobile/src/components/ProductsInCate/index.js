@@ -17,6 +17,7 @@ const ProductsInCate = ({ data }) => {
               price={item.price}
               rate="3"
               numOfReviews="100"
+              id={item.id}
             />
           </SafeAreaView>
         ))}

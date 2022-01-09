@@ -1,4 +1,4 @@
-import React, { useLayoutEffect } from "react";
+import React, { useLayoutEffect, lazy, Suspense } from "react";
 import { View, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { style as globalStyle } from "../../styles/index";
 
 // components
-import Categories from "../../components/Categories";
+const Categories = lazy(() => import("../../components/Categories"));
 import RecentlyViewed from "../../components/RecentlyViewed/home";
 import AwesomeDeals from "../../components/AwesomeDeals";
 import Title from "../../components/Title";
@@ -15,6 +15,7 @@ import Destinations from "../../components/Destinations";
 import HeaderHome from "../../components/Headers/home";
 import { getDataHome } from "../../redux/actions/home";
 import useRetrieve from "../../hooks/useRetrive";
+import CategoriesLoading from "../../components/Loading/Categories";
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -45,7 +46,9 @@ const Home = () => {
       >
         {/* Categories */}
         <View style={globalStyle.gap_sm}></View>
-        <Categories data={dataHome.categories} />
+        <Suspense fallback={<CategoriesLoading />}>
+          <Categories data={dataHome.categories} />
+        </Suspense>
 
         {/* Recently viewed */}
         <View style={globalStyle.container}>
