@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Button, Dimensions, View } from "react-native";
+import { Button } from "react-native";
 import {
   SafeAreaView,
   Text,

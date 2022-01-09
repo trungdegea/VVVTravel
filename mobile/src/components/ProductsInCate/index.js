@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { SafeAreaView, Text, StyleSheet, FlatList, Image } from "react-native";
+import { SafeAreaView, StyleSheet } from "react-native";
 
 // components
 import LargeCard from "../Cards/large";

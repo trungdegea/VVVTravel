@@ -1,5 +1,5 @@
-import React from "react";
-import { Text, SafeAreaView, ScrollView } from "react-native";
+import React, {useLayoutEffect} from "react";
+import { SafeAreaView, ScrollView } from "react-native";
 import SignUpForm from "../../components/Forms/SignUp";
 import BasicHeader from "../../components/Headers/basic";
 import { style } from "../../styles";

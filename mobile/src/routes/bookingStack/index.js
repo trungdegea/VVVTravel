@@ -3,10 +3,6 @@ import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import Booking from "../../screens/booking";
 import Cart from "../../screens/cart";
 import { getFocusedRouteNameFromRoute } from "@react-navigation/native";
-import SignIn from "../../screens/signIn";
-import SignUp from "../../screens/signUp";
-import Checkout from "../../screens/checkout";
-import MyStripeCheckout from "../../screens/StripeCheckout";
 
 const Stack = createNativeStackNavigator();
 const tabHiddenRoutes = ["Cart", "Package"];

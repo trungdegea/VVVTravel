@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView, ScrollView } from "react-native";
 import ResetForm from "../../components/Forms/ResetForm";
 import BasicHeader from "../../components/Headers/basic";
 import { style } from "../../styles";

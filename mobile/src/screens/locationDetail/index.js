@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, ScrollView, Animated, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,9 +15,6 @@ import Destinations from "../../components/Destinations";
 import HeaderLocation from "../../components/Headers/location";
 import Slider from "../../components/Slider";
 import { Theme } from "../../constants";
-import useRetrieve from "../../hooks/useRetrive";
-import { getDataHome } from "../../redux/actions/home";
-import { styles } from "../../components/Categories/style";
 
 const HEADER_SCROLL_OFFSET = 70;
 

@@ -48,7 +48,7 @@ const Tour = ({ image, location, title, price, id }) => {
 const Wishes = () => {
   const dataHome = useSelector((state) => state.home);
   const { dataRecently } = dataHome;
-  const [click, setClick] = useState("saved");
+  const [click, setClick] = useState("recently");
   let content;
   const renderItem = ({ item }) => {
     return (
@@ -83,6 +83,9 @@ const Wishes = () => {
           data={dataRecently}
           renderItem={renderItem}
           keyExtractor={(item, index) => index.toString()}
+          ListFooterComponent={
+            <SafeAreaView style={{ height: 120 }}></SafeAreaView>
+          }
         />
       );
       break;
@@ -99,22 +102,6 @@ const Wishes = () => {
         <View style={styles.option}>
           <TouchableOpacity
             style={
-              click == "saved"
-                ? styles.option_choose_active
-                : styles.option_choose
-            }
-            onPress={handleWishes_saved}
-          >
-            <Text
-              style={
-                click == "saved" ? styles.option_active : styles.option_name
-              }
-            >
-              Saved
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
-            style={
               click == "recently"
                 ? styles.option_choose_active
                 : styles.option_choose
@@ -127,6 +114,22 @@ const Wishes = () => {
               }
             >
               Recently viewed
+            </Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={
+              click == "saved"
+                ? styles.option_choose_active
+                : styles.option_choose
+            }
+            onPress={handleWishes_saved}
+          >
+            <Text
+              style={
+                click == "saved" ? styles.option_active : styles.option_name
+              }
+            >
+              Saved
             </Text>
           </TouchableOpacity>
         </View>

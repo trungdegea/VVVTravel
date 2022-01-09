@@ -1,4 +1,4 @@
-import React, { useLayoutEffect, lazy, Suspense } from "react";
+import React, { useLayoutEffect, lazy, Suspense, useState } from "react";
 import { View, ScrollView } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -21,10 +21,13 @@ const Home = () => {
   const dispatch = useDispatch();
   const dataHome = useSelector((state) => state.home);
   const retrieve = useRetrieve();
+  const [isLoading, setIsLoading] = useState(false);
 
   useLayoutEffect(() => {
     const getData = async () => {
+      setIsLoading(true)
       dispatch(await getDataHome());
+      setIsLoading(false);
     };
     getData();
     retrieve();
@@ -47,7 +50,7 @@ const Home = () => {
         {/* Categories */}
         <View style={globalStyle.gap_sm}></View>
         <Suspense fallback={<CategoriesLoading />}>
-          <Categories data={dataHome.categories} />
+         {isLoading ? <CategoriesLoading/> : <Categories data={dataHome.categories} />}
         </Suspense>
 
         {/* Recently viewed */}

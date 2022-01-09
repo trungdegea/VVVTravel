@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, Text, StyleSheet, Image } from "react-native";
+import { SafeAreaView, Text, StyleSheet } from "react-native";
 import { Ionicons } from "@expo/vector-icons"; 
 
 const SmallCard = ({ title, badge, backgroundColor }) => {

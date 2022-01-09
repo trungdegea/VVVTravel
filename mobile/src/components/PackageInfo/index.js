@@ -1,9 +1,6 @@
 import React from "react";
 import {
-  FlatList,
-  ListViewBase,
   SafeAreaView,
-  StyleSheet,
   Text,
   View,
 } from "react-native";
@@ -12,7 +9,6 @@ import {
   Feather,
   AntDesign,
   FontAwesome5,
-  FontAwesome,
   Ionicons,
   Entypo,
 } from "@expo/vector-icons";

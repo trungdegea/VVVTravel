@@ -1,4 +1,3 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { retrieve } from "../redux/actions/auth";

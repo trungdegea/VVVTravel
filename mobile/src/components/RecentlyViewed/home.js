@@ -1,5 +1,5 @@
 import React from "react";
-import { SafeAreaView, Text, StyleSheet, FlatList, Image } from "react-native";
+import { SafeAreaView, StyleSheet, FlatList } from "react-native";
 import { API_URL } from "@env";
 
 // components

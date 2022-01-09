@@ -3,11 +3,9 @@ import {
   StyleSheet,
   Text,
   SafeAreaView,
-  Animated,
-  Image,
   TouchableOpacity,
 } from "react-native";
-import { Theme, Images } from "../../constants";
+import { Theme } from "../../constants";
 import { Ionicons } from "@expo/vector-icons";
 
 const HeaderBooking = ({navigation}) => {

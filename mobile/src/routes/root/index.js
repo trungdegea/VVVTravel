@@ -1,13 +1,10 @@
 import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { Ionicons } from "@expo/vector-icons";
-import { Text, View } from "react-native";
+import { Text } from "react-native";
 
 // options
 import { tabBarOption } from "./option";
-
-// shared
-import CustomedHeader from "../../shared/header";
 
 // screens
 import Wishes from "../../screens/wishes";

@@ -5,7 +5,7 @@ import { View, Text, TouchableOpacity, Image } from "react-native";
 import { styles } from "./style";
 import { useNavigation } from "@react-navigation/core";
 
-const Category = ({ info, backgroundIconColor, url, children }) => {
+const Category = ({ info, url, children }) => {
   const navigation = useNavigation();
 
   const moveToCate = useCallback(() => {

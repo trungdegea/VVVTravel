@@ -34,7 +34,7 @@ export default function Packagedetail({ route }) {
   const [quantity, setQuantity] = useState(1);
   const [showPopup, setShowPopup] = useState(false);
   const [comments, setComments] = useState([]);
-  const [date, setDate] = useState(new Date().toDateString());
+  const [date, setDate] = useState((new Date()).toISOString().substring(0, 10));
   const navigation = useNavigation();
   const auth = useSelector((state) => state.auth);
 

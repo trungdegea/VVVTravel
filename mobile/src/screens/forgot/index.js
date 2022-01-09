@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView, ScrollView } from "react-native";
 import ForgotForm from "../../components/Forms/ForgotFrom";
 import BasicHeader from "../../components/Headers/basic";
 

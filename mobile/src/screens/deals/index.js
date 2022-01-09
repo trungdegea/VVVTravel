@@ -1,15 +1,16 @@
 import React from "react";
-import { View, Text, ScrollView } from "react-native";
+import { ScrollView, SafeAreaView } from "react-native";
 import HotDealsToday from "../../components/HotDealsToday";
 import Offers from "../../components/Offers";
 import VoucherList from "../../components/VoucherList";
 
 const Deals = () => {
   return (
-    <ScrollView>
+    <ScrollView >
       <VoucherList />
       <HotDealsToday />
       <Offers />
+      <SafeAreaView style={{height: 20}}></SafeAreaView>
     </ScrollView>
   );
 };

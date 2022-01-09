@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { FlatList, SafeAreaView, StyleSheet, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { FlatList, SafeAreaView, StyleSheet } from "react-native";
 
 // utilities
 import { splitToSubArrays } from "../../utilities";

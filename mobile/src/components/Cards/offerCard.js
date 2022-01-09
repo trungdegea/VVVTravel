@@ -34,7 +34,7 @@ const styles = StyleSheet.create({
   cardContainer: {
     borderRadius: 8,
     width: 150,
-    height: 220,
+    height: 240,
     backgroundColor: "white",
     shadowOffset: {
       width: 5,
@@ -75,6 +75,7 @@ const styles = StyleSheet.create({
   pricereal: {
     color: "gray",
     textDecorationLine: "line-through",
+    paddingHorizontal: 7,
   },
 });
 

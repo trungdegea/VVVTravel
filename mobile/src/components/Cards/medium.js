@@ -18,13 +18,11 @@ const Card = ({ id, image, title, price, rating, location }) => {
   const dispatch = useDispatch();
   const pressHandler = async () => {
     navigation.navigate("package", { id });
-    if (auth.isLogged) {
-      const item = await AsyncStorage.getItem("recently");
-      const newArr = [item];
-      newArr.unshift(id);
-      await AsyncStorage.setItem("recently", newArr.toString());
-      dispatch(await getDataHome());
-    }
+    const item = await AsyncStorage.getItem("recently");
+    const newArr = [item];
+    newArr.unshift(id);
+    await AsyncStorage.setItem("recently", newArr.toString());
+    dispatch(await getDataHome());
   };
 
   return (

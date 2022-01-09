@@ -1,5 +1,5 @@
 import React, { useLayoutEffect } from "react";
-import { Text, SafeAreaView, ScrollView } from "react-native";
+import { SafeAreaView, ScrollView } from "react-native";
 import { useSelector } from "react-redux";
 import LoginForm from "../../components/Forms/Login";
 import BasicHeader from "../../components/Headers/basic";

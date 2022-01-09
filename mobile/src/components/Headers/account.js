@@ -3,13 +3,12 @@ import {
   StyleSheet,
   Text,
   SafeAreaView,
-  Animated,
   Image,
   TouchableOpacity,
 } from "react-native";
 import { Theme, Images } from "../../constants";
 import { Entypo } from "@expo/vector-icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
 
 const HeaderAccount = () => {

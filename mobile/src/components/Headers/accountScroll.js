@@ -1,13 +1,12 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
   SafeAreaView,
   Animated,
   TouchableOpacity,
 } from "react-native";
 import { Feather } from "@expo/vector-icons";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 const AnimatedIcon = Animated.createAnimatedComponent(Feather);
 
 const HeaderAccountScroll = ({ navigation, bgColor, color, opacity }) => {
