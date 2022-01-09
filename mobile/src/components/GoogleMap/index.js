@@ -14,8 +14,8 @@ export default function GoogleMap() {
           <MapView
             style={styles.map}
             initialRegion={{
-              latitude: 37.78825,
-              longitude: -122.4324,
+              latitude: 15.87944,
+              longitude: 108.335,
               latitudeDelta: 0.0922,
               longitudeDelta: 0.0421,
             }}

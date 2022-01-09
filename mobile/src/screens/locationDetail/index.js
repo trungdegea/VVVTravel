@@ -1,4 +1,4 @@
-import React, { useEffect, useLayoutEffect, useState } from "react";
+import React, { useState } from "react";
 import { View, ScrollView, Animated, Text } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -7,7 +7,6 @@ import { style as globalStyle } from "../../styles/index";
 
 // components
 import Categories from "../../components/Categories";
-import RecentlyViewed from "../../components/RecentlyViewed/home";
 import AwesomeDeals from "../../components/AwesomeDeals";
 import Title from "../../components/Title";
 import ThingsToDo from "../../components/ThingsToDo";
@@ -15,14 +14,10 @@ import Destinations from "../../components/Destinations";
 import HeaderLocation from "../../components/Headers/location";
 import Slider from "../../components/Slider";
 import { Theme } from "../../constants";
-import useRetrieve from "../../hooks/useRetrive";
-import { getDataHome } from "../../redux/actions/home";
-import { styles } from "../../components/Categories/style";
 
 const HEADER_SCROLL_OFFSET = 70;
 
 const LocationDetail = ({ route }) => {
-  const dispatch = useDispatch();
   const dataHome = useSelector((state) => state.home);
   const { image, name, id } = route.params;
   const [scrollY, setScrollY] = useState(new Animated.Value(0));

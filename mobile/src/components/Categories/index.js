@@ -18,7 +18,7 @@ const Categories = ({ data }) => {
 
   // use effects
   useEffect(() => {
-    setCategorySlider(splitToSubArrays(data));
+    setCategorySlider(splitToSubArrays([...data]));
     return () => {};
   }, [data]);
 
