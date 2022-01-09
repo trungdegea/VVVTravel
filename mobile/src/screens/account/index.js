@@ -20,7 +20,6 @@ const HEADER_SCROLL_OFFSET = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const Account = ({ navigation }) => {
   const [scrollOffsetY, setScrollOffsetY] = useState(new Animated.Value(0));
 
-
   // get value on scrolling
   const opacity = scrollOffsetY.interpolate({
     inputRange: [0, 0.9 * HEADER_SCROLL_OFFSET, HEADER_SCROLL_OFFSET],

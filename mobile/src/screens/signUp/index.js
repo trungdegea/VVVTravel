@@ -6,13 +6,12 @@ import { style } from "../../styles";
 import { useNavigation } from "@react-navigation/core";
 import { useSelector } from "react-redux";
 
-import {styles} from "./style"
+import { styles } from "./style";
 
 const SignUp = () => {
-
   const { isLogged } = useSelector((state) => state.auth);
   const navigation = useNavigation();
-  
+
   useLayoutEffect(() => {
     if (isLogged) {
       navigation.reset({
@@ -43,5 +42,3 @@ const SignUp = () => {
 };
 
 export default SignUp;
-
-

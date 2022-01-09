@@ -7,7 +7,6 @@ import { style as globalStyle } from "../../styles/index";
 
 // components
 import Categories from "../../components/Categories";
-import RecentlyViewed from "../../components/RecentlyViewed/home";
 import AwesomeDeals from "../../components/AwesomeDeals";
 import Title from "../../components/Title";
 import ThingsToDo from "../../components/ThingsToDo";
@@ -19,7 +18,6 @@ import { Theme } from "../../constants";
 const HEADER_SCROLL_OFFSET = 70;
 
 const LocationDetail = ({ route }) => {
-  const dispatch = useDispatch();
   const dataHome = useSelector((state) => state.home);
   const { image, name, id } = route.params;
   const [scrollY, setScrollY] = useState(new Animated.Value(0));
