@@ -10,20 +10,31 @@ import { styles } from "./style";
 import { formatPrice } from "../../utilities";
 
 import { API_URL } from "@env";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/core";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { getDataHome } from "../../redux/actions/home";
 
 const Tour = ({ image, location, title, price, id }) => {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
   const img = image?.length
     ? API_URL + image[0].url
     : "https://via.placeholder.com/400x300.png";
 
-  const gotoDetail = () => {
+  const gotoDetail = async () => {
     navigation.navigate("HomeStack", {
       screen: "package",
       params: { id },
     });
+    const item = await AsyncStorage.getItem("recently");
+    let newArr = [];
+    if (item) {
+      newArr = [item];
+    }
+    newArr.unshift(id);
+    await AsyncStorage.setItem("recently", newArr.toString());
+    dispatch(await getDataHome());
   };
   return (
     <View style={styles.tour}>

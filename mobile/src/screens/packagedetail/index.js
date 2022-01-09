@@ -15,18 +15,19 @@ import http from "../../utilities/http";
 import BookedTogether from "../../components/BookedTogether";
 import DatePicker from "../../components/DatePicker";
 import Expect from "../../components/Expect";
-import GoogleMap from "../../components/GoogleMap";
+// import GoogleMap from "../../components/GoogleMap";
 import HeaderPackage from "../../components/Headers/package";
 import PackageInfo from "../../components/PackageInfo";
 import Review from "../../components/Review";
 import Slider from "../../components/Slider";
 import { getPackageData } from "../../redux/actions/package";
 import { formatPrice } from "../../utilities/index";
-import { useNavigation } from "@react-navigation/core";
+import { useNavigation, useRoute } from "@react-navigation/core";
 import { useSelector } from "react-redux";
 // import { SliderBox } from "react-native-image-slider-box";
 
-export default function Packagedetail({ route }) {
+export default function Packagedetail() {
+  const route = useRoute();
   const { id } = route.params;
   const [product, setProduct] = useState({});
   const [images, setImages] = useState([]);
@@ -87,7 +88,7 @@ export default function Packagedetail({ route }) {
           />
           <Review comments={comments} name={product.name} id={id} />
           <BookedTogether />
-          <GoogleMap />
+          {/* <GoogleMap /> */}
           <Expect decription={product?.description} images={images} />
         </SafeAreaView>
       </ScrollView>

@@ -21,6 +21,7 @@
     },
     "android": {
       "package": "com.vvv.vvvtravel",
+      "versionCode": 1,
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"

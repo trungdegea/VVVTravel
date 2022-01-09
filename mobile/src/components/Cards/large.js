@@ -10,14 +10,25 @@ import {
 } from "react-native";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { Theme } from "../../constants";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import { useDispatch } from "react-redux";
+import { getDataHome } from "../../redux/actions/home";
 
 const { width, height } = Dimensions.get("window");
 
 const LargeCard = ({ image, title, price, rate, numOfReviews, id }) => {
   const navigation = useNavigation();
-
-  const pressHandler = () => {
+  const dispatch = useDispatch();
+  const pressHandler =  async () => {
     navigation.navigate("package", { id });
+    const item = await AsyncStorage.getItem("recently");
+    let newArr = [];
+    if (item) {
+      newArr = [item];
+    }
+    newArr.unshift(id);
+    await AsyncStorage.setItem("recently", newArr.toString());
+    dispatch(await getDataHome());
   };
   return (
     <TouchableOpacity onPress={pressHandler}>

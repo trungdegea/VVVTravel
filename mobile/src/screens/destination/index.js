@@ -61,13 +61,6 @@ const Home = ({ navigation }) => {
         </View>
 
         <View style={globalStyle.gap_sm}></View>
-        <TouchableOpacity
-          onPress={() =>
-            navigation.navigate("package", { msg: "From Screen Home" })
-          }
-        >
-          <Text>Click Me!</Text>
-        </TouchableOpacity>
       </ScrollView>
     </>
   );

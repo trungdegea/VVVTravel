@@ -8,7 +8,7 @@ const OfferCard = ({ image, title, price, voucher, rating, location }) => {
   const navigation = useNavigation();
 
   const pressHandler = () => {
-    navigation.navigate("package", {})
+    // navigation.navigate("package", {})
   }
 
   return (

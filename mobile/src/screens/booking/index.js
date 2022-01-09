@@ -13,7 +13,7 @@ import {
 import HeaderBooking from "../../components/Headers/booking";
 import HeaderBookingScroll from "../../components/Headers/bookingScroll";
 import BlankBooking from "../../components/Blank/booking";
-import CartItem from "../../components/CartItem";
+import {API_URL} from "@env";
 
 const HEADER_MIN_HEIGHT = 80;
 const HEADER_MAX_HEIGHT = 150;
@@ -69,7 +69,9 @@ const Booking = ({ navigation }) => {
               <View style={styles.box_left}>
                 <Image
                   source={{
-                    uri: "https://aphoto.vn/wp-content/uploads/2019/01/anhdep6.jpg",
+                    uri: product?.items[0]?.product?.images.length
+                      ? API_URL + product?.items[0]?.product?.images[0].url
+                      : "https://aphoto.vn/wp-content/uploads/2019/01/anhdep6.jpg",
                   }}
                   style={{ width: 150, height: 100 }}
                 />

@@ -19,7 +19,10 @@ const Card = ({ id, image, title, price, rating, location }) => {
   const pressHandler = async () => {
     navigation.navigate("package", { id });
     const item = await AsyncStorage.getItem("recently");
-    const newArr = [item];
+    let newArr = [];
+    if (item) {
+     newArr = [item];
+    }
     newArr.unshift(id);
     await AsyncStorage.setItem("recently", newArr.toString());
     dispatch(await getDataHome());
